@@ -25,7 +25,13 @@
 }
 
 .contact_top_rating img {
-   margin-bottom: 5px
+   margin-bottom: 5px;
+   /* Review logos are 172 x 68 boxes in the design (the bundled logos are 2.5 : 1). A logo of any other shape is fitted
+      inside that box, so the cards keep the same height. */
+   width: 172px;
+   height: 68px;
+   max-width: 100%;
+   object-fit: contain
 }
 
 .contact_top_rating strong {
