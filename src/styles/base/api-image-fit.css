@@ -107,3 +107,9 @@ img.lazy:not([src]) {
    height: auto;
    object-fit: contain
 }
+
+/* Home: blog slider is a flex row (d-flex); slick's list must fill it, whatever the number of posts */
+.blog-slider.slick-initialized .slick-list {
+   width: 100%;
+   min-width: 0
+}
