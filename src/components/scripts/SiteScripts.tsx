@@ -49,35 +49,16 @@ function setupLazyImageFallback(): () => void {
     const src = img.getAttribute('data-src');
     if (src && img.getAttribute('src') !== src) img.setAttribute('src', src);
   };
-  const pending = () => Array.from(document.querySelectorAll<HTMLImageElement>('img[data-src]'));
+  // Load every picture right away instead of when it nears the viewport: API pictures are remote and can be slow,
+  // so loading them on scroll made each section look like it was loading again. They download in the background.
+  const promoteAll = () => document.querySelectorAll<HTMLImageElement>('img[data-src]').forEach(promote);
+  promoteAll();
 
-  if (typeof IntersectionObserver === 'undefined') {
-    pending().forEach(promote);
-    return () => {};
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        promote(entry.target as HTMLImageElement);
-        observer.unobserve(entry.target);
-      }
-    },
-    { rootMargin: '1500px 0px' },
-  );
-  pending().forEach((img) => observer.observe(img));
-
-  // Carousels (slick) clone slides after load; watch for images added later.
-  const mutations = new MutationObserver(() => {
-    pending().forEach((img) => observer.observe(img));
-  });
+  // Carousels (slick) clone slides after load; pick up images added later.
+  const mutations = new MutationObserver(promoteAll);
   mutations.observe(document.body, { childList: true, subtree: true });
 
-  return () => {
-    mutations.disconnect();
-    observer.disconnect();
-  };
+  return () => mutations.disconnect();
 }
 
 /**
