@@ -28,7 +28,7 @@ const hero: Mapper<'hero'> = ({ hero: api }, local) => {
   ];
   return {
     ...local,
-    image: { src: str(api.image), alt: str(api.image_alt, api.title) },
+    image: { ...local.image, src: str(api.image), alt: str(api.image_alt, api.title) },
     heading: str(api.title),
     text: str(api.subtitle),
     links: local.links.flatMap((item, i) => (buttons[i]?.text ? [{ ...item, text: buttons[i].text as string, href: buttons[i].href ?? '#' }] : [])),
@@ -47,7 +47,7 @@ const about: Mapper<'about'> = ({ about: api, statistics }, local) => {
   const size = local.items[0]?.image;
   return {
     ...local,
-    image: { src: str(api.image) },
+    image: { ...local.image, src: str(api.image) },
     image2: { ...local.image2, src: str(api.side_image), alt: str(api.side_image_alt, api.title) },
     text: str(api.small_title),
     heading: str(api.title),
@@ -86,6 +86,8 @@ const offerings: Mapper<'offerings'> = ({ offerings: api }, local) => {
     items2: [], items3: [], items4: [],
     or: '',
   };
+  // Every tab image uses the box of the first (458 x 399) so all five panels keep the same size.
+  const first = (data as unknown as { image?: { width?: string; height?: string } }).image;
   const panels = [
     { image: 'image', link: 'link', sub: 'text3', texts: 'texts', button: 'link2' },
     { image: 'image2', link: 'link3', sub: 'text4', texts: 'texts2', button: 'link5' },
@@ -97,7 +99,7 @@ const offerings: Mapper<'offerings'> = ({ offerings: api }, local) => {
   panels.forEach((panel, i) => {
     const item = items[i] ?? {};
     const image = out[panel.image] as { src: string; alt: string } | undefined;
-    if (image) out[panel.image] = { ...image, src: str(item.image), alt: str(item.title) };
+    if (image) out[panel.image] = { ...image, width: first?.width, height: first?.height, src: str(item.image), alt: str(item.title) };
     out[panel.link] = { href: str(item.button_link), text: str(item.title) };
     out[panel.sub] = str(item.subtitle);
     out[panel.texts] = pick(item.description) ? (item.description as string).split(/\n{2,}/).map((text) => ({ text: text.trim() })).filter((part) => part.text) : [];
@@ -197,7 +199,7 @@ const testimonials: Mapper<'testimonials'> = ({ testimonials: api }, local) => {
         image: { src: str(item.image), alt: str(item.name), width: size?.image.width ?? '71', height: size?.image.height ?? '71' },
       },
     })),
-    image: { src: str(list[0]?.image), alt: str(list[0]?.name) },
+    image: { ...local.image, src: str(list[0]?.image), alt: str(list[0]?.name) },
     testimonialTextSections: list.map((item, i) => ({
       dataIndex: String(i + 1),
       text: str(item.review),

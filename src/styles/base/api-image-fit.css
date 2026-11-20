@@ -1,0 +1,41 @@
+/*
+ * Admin-uploaded pictures can have any shape. Each rule below gives the picture the same box the bundled (dummy)
+ * picture had and fits the upload inside it, so cards, sliders and tabs keep exactly the same sizes.
+ */
+
+/* Home: blog cards, 370 x 193 */
+.blog-slider .blog-post_feature-link img {
+   display: block;
+   width: 100%;
+   height: auto;
+   aspect-ratio: 370 / 193;
+   object-fit: cover
+}
+
+/* Home: offerings tab pictures, 458 x 399 */
+#servicesTabContent .tab-pane > .row > .col-lg-5 img {
+   width: 100%;
+   max-width: 458px;
+   height: auto;
+   aspect-ratio: 458 / 399;
+   object-fit: contain
+}
+
+/* Home: technology logos, 78 x 78 */
+.technologies_icons li img {
+   width: 78px;
+   height: 78px;
+   max-width: 100%;
+   object-fit: contain
+}
+
+/* Home: portfolio cards, 430 x 560 frame; the picture fills a fixed-height box (see portfolio.css) */
+.portfolio-figure .img-fluid {
+   object-fit: cover
+}
+
+/* Home: testimonial avatars, 71 x 71 circles */
+.testimonials_circle li a img {
+   aspect-ratio: 1 / 1;
+   object-fit: cover
+}

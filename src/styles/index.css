@@ -98,6 +98,8 @@
 
 /* Admin-uploaded icons (<img>) sized like the SVGs they replace */
 @import './base/cms-icons.css';
+/* Admin-uploaded pictures fitted into the boxes of the bundled ones */
+@import './base/api-image-fit.css';
 
 /* Responsive fixes: must come after every sheet above */
 @import './base/responsive.css';

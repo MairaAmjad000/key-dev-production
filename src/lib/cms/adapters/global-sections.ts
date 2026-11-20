@@ -56,11 +56,18 @@ export function adaptGlobalSections(
   if (scheduleCall) {
     const items = connect?.items ?? [];
     const template = scheduleCall.data.blocks[0]?.link;
+    const rowTemplate = scheduleCall.data.items[0]?.link;
+    // Same layout as the bundled design: the first two API items fill the two "Reviewed On" cards (Clutch, GoodFirms);
+    // every further item becomes a row of the list below them (Upwork, PeoplePerHour...: logo + "Rating x").
+    // Only API data is used: with fewer items, fewer cards / no rows are shown.
+    const CARD_SLOTS = scheduleCall.data.blocks.length;
+    const cards = items.slice(0, CARD_SLOTS);
+    const rows = items.slice(CARD_SLOTS);
     const data: SectionDataMap['scheduleCall'] = {
       ...scheduleCall.data,
       text: str(connect?.section_title),
       heading: str(connect?.title),
-      blocks: items.map((item) => ({
+      blocks: cards.map((item) => ({
         link: {
           href: str(item.url, item.link) || '#',
           image: { src: str(item.logo), alt: str(item.logo_alt), width: template?.image.width ?? '172', height: template?.image.height ?? '68' },
@@ -69,8 +76,16 @@ export function adaptGlobalSections(
           text: str(item.review_count),
         },
       })),
-      // The "Hire us on" rating list (Upwork, PeoplePerHour, Freelancer) has no field in the admin panel.
-      items: [],
+      items: rows.map((item) => ({
+        link: {
+          href: str(item.url, item.link) || '#',
+          image: { src: str(item.logo), alt: str(item.logo_alt), width: rowTemplate?.image.width ?? '200', height: rowTemplate?.image.height ?? '75' },
+          topRatingImg: { src: '', alt: '', width: '' },
+          image2: { src: '', alt: '', width: '', height: '' },
+          text: item.rating != null ? `Rating <strong>${Number(item.rating).toFixed(1)}</strong>` : str(item.review_count),
+        },
+      })),
+      // Nothing is shown from the bundled "Hire us on" list any more (its ratings were dummy values).
       link: { ...scheduleCall.data.link, image: { ...scheduleCall.data.link.image, src: '' }, text: '' },
     };
     sections.push({ type: 'scheduleCall', enabled: !!connect && isOn(connect), showOn: connect?.show_on ?? undefined, data });

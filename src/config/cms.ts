@@ -8,7 +8,7 @@ export const cmsConfig = {
   /** Optional bearer token for a private content API. */
   apiToken: process.env.CMS_API_TOKEN ?? '',
   /** Seconds before a fetched response is considered stale (incremental static regeneration). */
-  revalidateSeconds: Number(process.env.CMS_REVALIDATE_SECONDS ?? 60),
+  revalidateSeconds: Number(process.env.CMS_REVALIDATE_SECONDS ?? 10),
   /** Shared secret expected by POST /api/revalidate (called by an admin-panel webhook). */
   revalidateSecret: process.env.CMS_REVALIDATE_SECRET ?? '',
 } as const;

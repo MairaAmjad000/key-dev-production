@@ -20,23 +20,29 @@ export async function fetchFromCms<T>(path: string, tags: string[] = []): Promis
   if (!cmsConfig.apiUrl) return null;
 
   const url = `${cmsConfig.apiUrl}/${path.replace(/^\/+/, '')}`;
-  try {
-    const response = await fetch(url, {
-      headers: {
-        Accept: 'application/json',
-        ...(cmsConfig.apiToken ? { Authorization: `Bearer ${cmsConfig.apiToken}` } : {}),
-      },
-      next: { revalidate: cmsConfig.revalidateSeconds, tags: [CMS_TAG, ...tags] },
-    });
-    if (!response.ok) {
-      if (response.status !== 404) console.error(`[cms] ${url} responded ${response.status}`);
-      return null;
+  // The admin server can be slow: never wait forever, and retry once before giving up.
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Accept: 'application/json',
+          ...(cmsConfig.apiToken ? { Authorization: `Bearer ${cmsConfig.apiToken}` } : {}),
+        },
+        next: { revalidate: cmsConfig.revalidateSeconds, tags: [CMS_TAG, ...tags] },
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!response.ok) {
+        if (response.status === 404) return null;
+        console.error(`[cms] ${url} responded ${response.status}`);
+        if (response.status < 500) return null;
+        continue; // 5xx: retry once
+      }
+      return unwrap<T>(await response.json());
+    } catch (error) {
+      console.error(`[cms] could not reach ${url} (attempt ${attempt})`, error);
     }
-    return unwrap<T>(await response.json());
-  } catch (error) {
-    console.error(`[cms] could not reach ${url}`, error);
-    return null;
   }
+  return null;
 }
 
 /**

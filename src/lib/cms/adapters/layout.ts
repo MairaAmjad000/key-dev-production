@@ -75,7 +75,12 @@ export function adaptHeader(api: Maybe<Settings>, local: HeaderContent): HeaderC
   header.big2 = str(solutions?.title);
   header.link16 = { href: str(solutions?.phone_link), text: str(solutions?.phone) };
   header.link17 = { href: str(solutions?.button_url), text: str(solutions?.button_text) };
-  header.estimateBtn2 = { href: str(api?.header_button?.link), text: str(api?.header_button?.text) };
+  // The admin's `header_button` can come back with null text/link (field left empty). An empty navbar button looks
+  // broken, so this one button falls back to the bundled label and link when the API sends nothing.
+  header.estimateBtn2 = {
+    href: pick(api?.header_button?.link) ?? local.estimateBtn2.href,
+    text: pick(api?.header_button?.text) ?? local.estimateBtn2.text,
+  };
   return header;
 }
 

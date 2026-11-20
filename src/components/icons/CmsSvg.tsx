@@ -21,7 +21,7 @@ async function readSvg(src: string): Promise<string | null> {
     if (!cmsConfig.apiUrl || url.origin !== new URL(cmsConfig.apiUrl).origin) return null;
     const response = await fetch(url, {
       next: { revalidate: cmsConfig.revalidateSeconds, tags: [CMS_TAG] },
-      signal: AbortSignal.timeout(5000),
+      signal: AbortSignal.timeout(3000),
     });
     if (!response.ok) return null;
     const text = await response.text();
