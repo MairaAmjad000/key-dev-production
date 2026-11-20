@@ -1,4 +1,11 @@
-import DOMPurify from 'isomorphic-dompurify';
+type DOMPurifyLike = typeof import('isomorphic-dompurify').default;
+
+/**
+ * Loaded on first use, not at startup: isomorphic-dompurify pulls in jsdom, which can fail to load in serverless
+ * environments such as Vercel. A failure here must only cost one icon (it falls back to a plain <img>), never the page.
+ */
+let purifier: Promise<DOMPurifyLike> | null = null;
+const getPurifier = () => (purifier ??= import('isomorphic-dompurify').then((module) => module.default));
 
 /** Largest SVG (in bytes) that is inlined; anything bigger stays a normal <img>. */
 export const MAX_SVG_BYTES = 150_000;
@@ -9,7 +16,7 @@ export const isSvgUrl = (value: string) => /\.svg(\?.*)?$/i.test(value.trim());
 // Inline `style="fill:..."` would beat the stylesheet and block the hover colours, so those declarations are dropped.
 // Presentation attributes (fill="#000") are kept: the stylesheet overrides them, they only act as the default look.
 let hooked = false;
-function ensureHook() {
+function ensureHook(DOMPurify: DOMPurifyLike) {
   if (hooked) return;
   hooked = true;
   DOMPurify.addHook('afterSanitizeAttributes', (node) => {
@@ -33,9 +40,10 @@ const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\
  *  - ids are prefixed with `uid`, so gradients / clip paths of two icons on one page can never clash.
  * Returns null when the text is not a usable SVG.
  */
-export function sanitizeSvg(raw: string, uid: string): string | null {
+export async function sanitizeSvg(raw: string, uid: string): Promise<string | null> {
   if (!raw || raw.length > MAX_SVG_BYTES) return null;
-  ensureHook();
+  const DOMPurify = await getPurifier();
+  ensureHook(DOMPurify);
   const body = DOMPurify.sanitize(raw, {
     USE_PROFILES: { svg: true, svgFilters: true },
     FORBID_TAGS: ['style', 'script', 'foreignObject', 'image', 'a', 'animate', 'set', 'animateTransform', 'animateMotion'],

@@ -32,8 +32,14 @@ async function readSvg(src: string): Promise<string | null> {
 }
 
 const load = cache(async (src: string) => {
-  const raw = await readSvg(src);
-  return raw ? sanitizeSvg(raw, `i${createHash('md5').update(src).digest('hex').slice(0, 6)}`) : null;
+  try {
+    const raw = await readSvg(src);
+    return raw ? await sanitizeSvg(raw, `i${createHash('md5').update(src).digest('hex').slice(0, 6)}`) : null;
+  } catch (error) {
+    // Never let one icon break the page: the caller falls back to a plain <img>.
+    console.error(`[svg] could not inline ${src}`, error);
+    return null;
+  }
 });
 
 /**
