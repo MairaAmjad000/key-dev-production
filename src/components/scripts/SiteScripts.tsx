@@ -80,10 +80,40 @@ function setupLazyImageFallback(): () => void {
   };
 }
 
+/**
+ * Slick measures its slides once, when it starts. With API content the page is often still settling at that moment
+ * (fonts, images, scrollbar), so slides could end up too narrow. Re-measure after the page has loaded and on resize.
+ */
+function setupSliderRemeasure(): () => void {
+  type SlickJq = ((selector: string) => { filter: (s: string) => { slick: (method: string) => void } }) | undefined;
+  const remeasure = () => {
+    const $ = (window as unknown as { jQuery?: SlickJq }).jQuery;
+    try {
+      $?.('.blog-slider').filter('.slick-initialized').slick('setPosition');
+    } catch {
+      /* slick not ready yet */
+    }
+  };
+  const timers = [300, 1000, 2500].map((ms) => window.setTimeout(remeasure, ms));
+  window.addEventListener('load', remeasure);
+  window.addEventListener('resize', remeasure);
+  void loadAllInOrder().then(remeasure);
+  return () => {
+    timers.forEach((t) => window.clearTimeout(t));
+    window.removeEventListener('load', remeasure);
+    window.removeEventListener('resize', remeasure);
+  };
+}
+
 export function SiteScripts() {
   useEffect(() => {
     void loadAllInOrder();
-    return setupLazyImageFallback();
+    const stopLazy = setupLazyImageFallback();
+    const stopSlider = setupSliderRemeasure();
+    return () => {
+      stopLazy();
+      stopSlider();
+    };
   }, []);
   return null;
 }

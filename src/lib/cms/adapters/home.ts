@@ -18,6 +18,18 @@ type Mapper<K extends SectionType> = (api: ApiHomeSections, local: SectionDataMa
 const digits = (value: string | null | undefined) => (value ?? '').replace(/[^\d.]/g, '');
 /** API string or '' (never a bundled value). */
 const str = (...values: Array<string | null | undefined>) => pick(...values) ?? '';
+/** Admin panel descriptions can contain HTML (e.g. "<p>text</p>"); cards show plain text. */
+const plain = (value: string | null | undefined) =>
+  (value ?? '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#0?39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
 const escape = (value: string | null | undefined) => (value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const hero: Mapper<'hero'> = ({ hero: api }, local) => {
@@ -271,7 +283,7 @@ const blog: Mapper<'blog'> = ({ blogs: api }, local) => {
           image: { src: str(item.image), alt: str(item.image_alt, item.title), width: template?.blogPostFeatureLink.image.width ?? '370', height: template?.blogPostFeatureLink.image.height ?? '193' },
         },
         link: { href, text: str(item.title) },
-        text: str(item.short_description),
+        text: plain(item.short_description),
         datePost: template?.datePost ?? '',
         link2: { href, title: template?.link2.title ?? '' },
       };

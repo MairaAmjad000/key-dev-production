@@ -85,3 +85,25 @@ img.lazy:not([src]) {
      max-width: 100%
   }
 }
+
+/*
+ * Contact / schedule-a-call: rating rows (Upwork, PeoplePerHour...) are a fixed 95px tall box that hides overflow.
+ * An uploaded logo of any size must fit inside it (200 x 75 like the bundled one) instead of pushing the text out.
+ */
+.contact_rating .work_logo img {
+   display: block;
+   width: auto;
+   height: auto;
+   max-width: 100%;
+   max-height: 75px;
+   object-fit: contain
+}
+
+/* Top "Reviewed On" cards: same idea, logo stays within 172 x 68 */
+.contact_top_rating img {
+   max-width: 100%;
+   max-height: 68px;
+   width: auto;
+   height: auto;
+   object-fit: contain
+}
