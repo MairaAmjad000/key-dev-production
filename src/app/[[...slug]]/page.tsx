@@ -4,11 +4,11 @@ import { getPage, getPageSlugs, getSiteData, toMetadata } from '@/lib/cms';
 import { SiteShell } from '@/components/layout/SiteShell';
 
 /**
- * Rebuild each page in the background at most every 10 seconds (keep in sync with CMS_REVALIDATE_SECONDS), and give
- * that rebuild enough time on Vercel. A slow admin API used to make the rebuild fail silently, so Vercel kept the
- * old page forever.
+ * Render on every visit instead of freezing the page at build time. The static copy only changed after a new
+ * deploy (a GitHub commit), because the background refresh did not run on Vercel. API responses are still cached
+ * for CMS_REVALIDATE_SECONDS (see lib/cms/client.ts), so the admin panel is not hit on every single request.
  */
-export const revalidate = 10;
+export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 type PageProps = { params: Promise<{ slug?: string[] }> };
