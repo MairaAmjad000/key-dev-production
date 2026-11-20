@@ -2,6 +2,11 @@ import { Fragment } from 'react';
 import type { AboutContent } from '@/types';
 
 export function About({ data }: { data: AboutContent }) {
+  // The photo keeps the proportions of the picture the layout was designed around (width / height of the content),
+  // whatever shape the uploaded picture has: `object-fit: cover` crops it to that frame instead of resizing the frame.
+  const frameWidth = Number(data.image2.width);
+  const frameHeight = Number(data.image2.height);
+  const frameRatio = frameWidth > 0 && frameHeight > 0 ? `${frameWidth} / ${frameHeight}` : undefined;
   return (
     <section className="about">
       <div className="about-bg-section">
@@ -23,6 +28,7 @@ export function About({ data }: { data: AboutContent }) {
                 alt={data.image2.alt}
                 width={data.image2.width}
                 height={data.image2.height}
+                style={frameRatio ? { aspectRatio: frameRatio } : undefined}
               />}
               {' '}
               <div className="hover" />
@@ -40,9 +46,11 @@ export function About({ data }: { data: AboutContent }) {
               </h2>
             </div>
             {' '}
-            <h3 className="mb-3" style={{ marginBottom: "1px !important" }}>
-              {data.heading2}
-            </h3>
+            {data.heading2 && (
+              <h3 className="mb-3" style={{ marginBottom: "1px !important" }}>
+                {data.heading2}
+              </h3>
+            )}
             {' '}
             {data.texts.map((item, i) => (
               <Fragment key={i}>

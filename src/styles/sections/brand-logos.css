@@ -72,9 +72,11 @@
   }
 }
 
+/* Every logo gets the same 120 x 80 box (the size the tallest bundled logo had), so the strip is always the same
+   height no matter what shape the uploaded images have. `contain` keeps each picture's aspect ratio inside the box. */
 .brand-logo img {
-    height: auto; /* Set a fixed height */
-    max-height: 80px;
-    width: 120px;   /* Width adjusts automatically */
-    object-fit: contain; /* Keeps the aspect ratio and fits within the specified height */
+    width: 120px;
+    height: 80px;
+    max-width: 100%;
+    object-fit: contain;
 }
