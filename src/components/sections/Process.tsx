@@ -3,6 +3,9 @@ import type { ProcessContent } from '@/types';
 import { Icon } from '@/components/icons';
 
 export function Process({ data }: { data: ProcessContent }) {
+  // The second row (step 5 and on) only exists when the API has more steps than the first row holds. Without it the
+  // row would render as an empty card with a connector pointing down to nothing.
+  const hasSecondRow = Boolean(data.subheading) || data.items.length > 0 || data.processItemsList2.length > 0;
   return (
     <section className="padding-6030 bg-white o-hidden">
       <div className="container">
@@ -20,7 +23,7 @@ export function Process({ data }: { data: ProcessContent }) {
           </p>
         </div>
         {' '}
-        <div className="row justify-content-center d-none d-lg-flex">
+        <div className={hasSecondRow ? 'row justify-content-center d-none d-lg-flex' : 'row justify-content-center d-none d-lg-flex process-single-row'}>
           {data.processItemsList.map((item, i) => (
             <Fragment key={i}>
               {i > 0 && ' '}
@@ -54,7 +57,7 @@ export function Process({ data }: { data: ProcessContent }) {
           ))}
         </div>
         {' '}
-        <div className="row justify-content-center flex-lg-row-reverse  d-none d-lg-flex">
+        {hasSecondRow && <div className="row justify-content-center flex-lg-row-reverse  d-none d-lg-flex">
           <div className="col-lg-3 pl-20 wow fadeIn" data-wow-duration="0.2s" data-wow-delay="0.8s">
             <div className="process-box">
               <div className="process-box-icon">
@@ -107,7 +110,7 @@ export function Process({ data }: { data: ProcessContent }) {
               </div>
             </Fragment>
           ))}
-        </div>
+        </div>}
         {' '}
         <div className="process-slider d-lg-none p-relative">
           {data.items2.map((item, i) => (

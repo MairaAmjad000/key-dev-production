@@ -747,3 +747,9 @@
      margin-bottom: 20px
   }
 }
+
+/* One row only (4 steps or fewer): the last card has no connector, since nothing follows it. */
+.process-single-row .process-items:last-child:before,
+.process-single-row .process-items:last-child i {
+   display: none
+}

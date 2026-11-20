@@ -114,10 +114,15 @@ export function adaptFooter(api: Maybe<Settings>, local: FooterContent, footerMe
   const footer: FooterContent = { ...local };
 
   const experience = api?.footer_experience;
-  const years = pick(experience?.years);
+  // The big "10 YEARS" badge is drawn from the API number (no static picture); the text box keeps the bundled design:
+  // first word of the title in the big teal line ("Experience"), the rest below it ("in the Industry").
+  const yearsNumber = (pick(experience?.years) ?? '').replace(/\D/g, '');
+  const [titleFirst = '', ...titleRest] = str(experience?.title).split(/\s+/);
+  footer.years = yearsNumber;
+  footer.image = { ...local.image, src: '' };
   footer.exps = [
-    { className: local.exps[0]?.className ?? 'exp', text: years ? `${years}+ Years` : '' },
-    { className: local.exps[1]?.className ?? 'indus', text: str(experience?.title) },
+    { className: local.exps[0]?.className ?? 'exp', text: titleFirst },
+    { className: local.exps[1]?.className ?? 'indus', text: titleRest.join(' ') },
   ];
   footer.link = { href: str(experience?.button_link), text: str(experience?.button_text) };
 

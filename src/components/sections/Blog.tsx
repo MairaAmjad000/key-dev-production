@@ -31,13 +31,18 @@ export function Blog({ data }: { data: BlogContent }) {
                             title={item.blogPostFeatureLink.title}
                             {...link(item.blogPostFeatureLink.href)}
                           >
-                            <img
-                              className="lazy"
-                              data-src={item.blogPostFeatureLink.image.src}
-                              alt={item.blogPostFeatureLink.image.alt}
-                              width={item.blogPostFeatureLink.image.width}
-                              height={item.blogPostFeatureLink.image.height}
-                            />
+                            {item.blogPostFeatureLink.image.src ? (
+                              <img
+                                className="lazy"
+                                data-src={item.blogPostFeatureLink.image.src}
+                                alt={item.blogPostFeatureLink.image.alt}
+                                width={item.blogPostFeatureLink.image.width}
+                                height={item.blogPostFeatureLink.image.height}
+                              />
+                            ) : (
+                              // The post has no picture in the admin panel: keep the 370 x 193 box so the card is the same size.
+                              <span className="blog-post_noimage" aria-hidden="true" />
+                            )}
                           </a>
                         </div>
                       </div>

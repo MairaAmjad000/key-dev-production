@@ -12,13 +12,17 @@
    object-fit: cover
 }
 
-/* Home: offerings tab pictures, 458 x 399 */
+/* Home: offerings tab pictures, 458 x 399 (the size of the bundled pictures). Any uploaded shape fills that same
+   box: `cover` crops it instead of leaving it small and letterboxed. */
 #servicesTabContent .tab-pane > .row > .col-lg-5 img {
+   display: block;
    width: 100%;
    max-width: 458px;
    height: auto;
    aspect-ratio: 458 / 399;
-   object-fit: contain
+   object-fit: cover;
+   margin: 0 auto;
+   border-radius: 10px
 }
 
 /* Home: technology logos, 78 x 78 */
@@ -38,4 +42,12 @@
 .testimonials_circle li a img {
    aspect-ratio: 1 / 1;
    object-fit: cover
+}
+
+/* Home: a blog post without a picture keeps the 370 x 193 box of the others */
+.blog-slider .blog-post_noimage {
+   display: block;
+   width: 100%;
+   aspect-ratio: 370 / 193;
+   background: #e9ecef
 }

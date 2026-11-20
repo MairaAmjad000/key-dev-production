@@ -346,6 +346,8 @@ export interface CallBackSidebarContent {
 
 
 export interface FooterContent {
+  /** Number of years shown in the big "N YEARS" badge (from the admin panel). When set it replaces `image`. */
+  years?: string;
   image: {
     src: string;
     width: string;

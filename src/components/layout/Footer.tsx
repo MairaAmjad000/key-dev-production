@@ -2,6 +2,43 @@ import { Fragment } from 'react';
 import type { FooterContent } from '@/types';
 import { link } from '@/lib/utils/markup';
 
+/**
+ * The big "10 YEARS" badge, drawn from the number the admin panel sends (it used to be a fixed picture).
+ * Same box as the bundled picture (137 x 205): a tall teal number, with the word YEARS in light cyan under it.
+ * The digits are stretched to the badge width with `textLength`, which gives the narrow, tall look of the original.
+ */
+function ExperienceBadge({ years }: { years: string }) {
+  const length = Math.min(137, 68 * years.length);
+  return (
+    <svg viewBox="0 0 137 205" width="100%" role="img" aria-label={`${years} years`} style={{ display: 'block' }}>
+      <text
+        x={(137 - length) / 2}
+        y="150"
+        fontFamily="Montserrat, Arial, sans-serif"
+        fontWeight="700"
+        fontSize="205"
+        fill="#3d9a7e"
+        textLength={length}
+        lengthAdjust="spacingAndGlyphs"
+      >
+        {years}
+      </text>
+      <text
+        x="6"
+        y="198"
+        fontFamily="Montserrat, Arial, sans-serif"
+        fontWeight="300"
+        fontSize="24"
+        fill="#8ef3fa"
+        textLength="125"
+        lengthAdjust="spacing"
+      >
+        YEARS
+      </text>
+    </svg>
+  );
+}
+
 export function Footer({ data }: { data: FooterContent }) {
   return (
     <div>
@@ -13,13 +50,19 @@ export function Footer({ data }: { data: FooterContent }) {
                 <div className="foot-exp-wrap text-right">
                   <div className="foot-exp-box d-flex">
                     <div className="foot-exp-char">
-                      <img
-                        className="lazy"
-                        data-src={data.image.src}
-                        width={data.image.width}
-                        height={data.image.height}
-                        alt={data.image.alt}
-                      />
+                      {data.years ? (
+                        <ExperienceBadge years={data.years} />
+                      ) : (
+                        data.image.src && (
+                          <img
+                            className="lazy"
+                            data-src={data.image.src}
+                            width={data.image.width}
+                            height={data.image.height}
+                            alt={data.image.alt}
+                          />
+                        )
+                      )}
                     </div>
                     {' '}
                     <div className="foot-exp-text-wrap text-center">
@@ -114,6 +157,9 @@ export function Footer({ data }: { data: FooterContent }) {
                             width={item.image.width}
                             height={item.image.height}
                             alt={item.image.alt}
+                            // Keep the proportions of the bundled badge (e.g. 127 x 135) whatever shape the upload has;
+                            // the CSS fixes the height and `object-fit: cover` crops the picture to that frame.
+                            style={Number(item.image.width) > 0 && Number(item.image.height) > 0 ? { aspectRatio: `${item.image.width} / ${item.image.height}` } : undefined}
                           />
                         </div>
                       </Fragment>
