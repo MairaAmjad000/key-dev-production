@@ -3,6 +3,14 @@ import { notFound } from 'next/navigation';
 import { getPage, getPageSlugs, getSiteData, toMetadata } from '@/lib/cms';
 import { SiteShell } from '@/components/layout/SiteShell';
 
+/**
+ * Rebuild each page in the background at most every 10 seconds (keep in sync with CMS_REVALIDATE_SECONDS), and give
+ * that rebuild enough time on Vercel. A slow admin API used to make the rebuild fail silently, so Vercel kept the
+ * old page forever.
+ */
+export const revalidate = 10;
+export const maxDuration = 60;
+
 type PageProps = { params: Promise<{ slug?: string[] }> };
 
 /** "/" is the page with the slug "home"; "/a/b" is the page with the slug "a/b". */
