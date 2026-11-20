@@ -51,3 +51,8 @@
    aspect-ratio: 370 / 193;
    background: #e9ecef
 }
+
+/* Lazy pictures: a soft placeholder colour while they load, so scrolling never shows a hard white hole. */
+img.lazy:not([src]) {
+   background: #f1f3f5
+}

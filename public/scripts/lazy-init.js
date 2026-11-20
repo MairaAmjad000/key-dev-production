@@ -1,6 +1,6 @@
 
         $(function() {
-            $('.lazy').Lazy();
+            $('.lazy').Lazy({ threshold: 1500 });
         });
 
       /* Reload on back/forward only when the page itself changes (path or query string).

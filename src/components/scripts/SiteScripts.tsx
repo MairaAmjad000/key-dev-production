@@ -64,7 +64,7 @@ function setupLazyImageFallback(): () => void {
         observer.unobserve(entry.target);
       }
     },
-    { rootMargin: '300px 0px' },
+    { rootMargin: '1500px 0px' },
   );
   pending().forEach((img) => observer.observe(img));
 

@@ -18,7 +18,7 @@ function isOnScreen(e) {
 }
 $(".lazybg").length && $(".lazybg").lazy(),
     $(".lazy").length &&
-        $(".lazy").lazy({ effect: "fadeIn", effectTime: 500, threshold: 0 }),
+        $(".lazy").lazy({ threshold: 1500 }),
     $(window).on("scroll", function () {
         $(window).scrollTop() >= 51
             ? $("header").addClass("white-bg")
@@ -110,11 +110,7 @@ $(".lazybg").length && $(".lazybg").lazy(),
                 })),
             $("a[data-toggle='tab']").length &&
                 $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
-                    $(".lazy").lazy({
-                        effect: "fadeIn",
-                        effectTime: 500,
-                        threshold: 0,
-                    });
+                    $(".lazy").lazy({ threshold: 1500 });
                 });
     }),
     $(document).ready(function () {

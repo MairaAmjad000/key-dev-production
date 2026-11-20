@@ -24,6 +24,6 @@ export const SCRIPTS = [
 ] as const;
 
 /** Bump this whenever a file in public/scripts changes. */
-export const SCRIPT_VERSION = '2026-11-19-2';
+export const SCRIPT_VERSION = '2026-11-20-1';
 
 export const withVersion = (src: string) => (src.startsWith('/') ? `${src}?v=${SCRIPT_VERSION}` : src);
