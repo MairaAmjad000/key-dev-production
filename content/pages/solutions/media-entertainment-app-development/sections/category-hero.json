@@ -1,0 +1,32 @@
+{
+  "image": {
+    "src": "/images/media-entertainment/media-entertainment-banner.jpg",
+    "alt": "entertainment app development",
+    "width": "1920",
+    "height": "800"
+  },
+  "sideImage": {
+    "src": "/images/service/media-entertainment-app-development/hero-side.png",
+    "alt": "entertainment app development company"
+  },
+  "sideImageClass": "bannerfixedimagewidth",
+  "headingClass": "",
+  "heading": "Accelerate Your Media and Entertainment App Development",
+  "text": "Entertainment is an experience. Deliver the best user experience for your users with an media and entertainment app that is built for video streaming, audio streaming, gaming and much more.",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Get Your Project Estimate",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Media Entertainment App Development"
+    }
+  ]
+}

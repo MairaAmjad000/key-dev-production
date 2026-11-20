@@ -1,0 +1,23 @@
+{
+  "slug": "solutions/fantasy-sports-app-development",
+  "seo": {
+    "title": "Fantasy Sports App Development Company | KeyDevs",
+    "description": "White-label fantasy sports apps with team building, contests, live scoring, wallets and an admin panel from KeyDevs Technologies."
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "keyFeatureTabs",
+    "solutionOffers",
+    "caseStudy",
+    "similarAppSlider",
+    "whyInvest",
+    "techStackTabs",
+    "faq",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}

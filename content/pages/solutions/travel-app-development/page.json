@@ -1,0 +1,20 @@
+{
+  "slug": "solutions/travel-app-development",
+  "seo": {
+    "title": "Travel & Tourism App Development Company | KeyDevs",
+    "description": "White-label travel booking apps for flights, hotels and tours with payments and an admin panel from KeyDevs Technologies."
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "keyFeatures",
+    "solutionOffers",
+    "whyInvest",
+    "otherSolutions",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}

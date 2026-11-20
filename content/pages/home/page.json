@@ -1,0 +1,19 @@
+{
+  "slug": "home",
+  "seo": {},
+  "sections": [
+    "hero",
+    "brandLogos",
+    "about",
+    "offerings",
+    "industries",
+    "values",
+    "callout",
+    "process",
+    "testimonials",
+    "portfolio",
+    "whatsAppAnchor",
+    "technologies",
+    "blog"
+  ]
+}

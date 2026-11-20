@@ -1,0 +1,32 @@
+{
+  "image": {
+    "src": "/images/service/real-estate-app-development/banner.webp",
+    "alt": "real estate app development",
+    "width": "1920",
+    "height": "800"
+  },
+  "sideImage": {
+    "src": "/images/service/real-estate-app-development/hero-side.webp",
+    "alt": "real estate app developer"
+  },
+  "sideImageClass": "bannerfixedimagewidth",
+  "headingClass": "",
+  "heading": "Constructing the Future of Real Estate App Development",
+  "text": "We still need brick and mortar to build buildings. But, we no longer have to take the analog way to find properties and real estate. A real estate app can simplify the task of real estate trading, purchasing or even managing. KeyDevs Technologies can help you with you building and deploying a real estate mobile app.",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Get an Estimate",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Real Estate App Development"
+    }
+  ]
+}

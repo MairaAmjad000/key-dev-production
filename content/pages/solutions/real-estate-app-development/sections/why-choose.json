@@ -1,0 +1,45 @@
+{
+  "sectionClass": "padding-6030 bg-light advantage-of-real-estate-main",
+  "heightClass": "",
+  "rowClass": "row justify-content-center",
+  "columnClass": "col-lg-4 col-md-6 col-sm-6 col-12 mb-30",
+  "text": "Benefits",
+  "heading": "Why invest in real estate app development",
+  "paragraphs": [
+    {
+      "html": "Know the several reasons why real estate mobile app development is crucial in the coming days of digital boom."
+    }
+  ],
+  "items": [
+    {
+      "icon": "svg-5de603",
+      "title": "More Qualified Leads",
+      "text": "For any business, getting leads is a long battle. For a real estate business, that battle is even tougher. A real estate mobile app an help connect leads with a high intent to purchase to your business."
+    },
+    {
+      "icon": "svg-291cdc",
+      "title": "Increase Bookings",
+      "text": "Increase your property tour books drastically by building a real estate app the app can streamline bookings by identifying the perfect time slots when owners, brokers and buyers are ready to take the tour."
+    },
+    {
+      "icon": "svg-baa7bc",
+      "title": "Brand positioning",
+      "text": "Enhance your brand position as a real estate business by embracing the mobile app wave. Become a brand that is visible and accessible to customers in your region and beyond with a customized mobile app."
+    },
+    {
+      "icon": "svg-489767",
+      "title": "Virtual Tour",
+      "text": "Make it easy for users to come to a decision about a property with virtual tours of properties. The virtual tour can be primed with in depth details about the property, 360-degree view and also floor area measurements to decide interior design."
+    },
+    {
+      "icon": "svg-daeec9",
+      "title": "Competitive advantage",
+      "text": "Gain a competitive advantage over your competitors by reaching customers faster with the mobile app. Save time for sales reps to follow leads. You can know high quality leads from the rest to close deals faster."
+    },
+    {
+      "icon": "svg-6e8554",
+      "title": "Global reach",
+      "text": "Location matters a lot in real estate selling. But, real estate property in any location of the world is worth its weight in gold. Real estate app development can make properties accessible to a global market."
+    }
+  ]
+}

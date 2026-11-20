@@ -1,0 +1,20 @@
+{
+  "slug": "service/iphone-app-development",
+  "seo": {
+    "title": "iPhone App Development Company | KeyDevs Technologies",
+    "description": "Native iOS apps for iPhone and iPad, built in Swift and ready for the App Store. Talk to KeyDevs Technologies, Lahore."
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "appPlatforms",
+    "appWhyChoose",
+    "industryTabs",
+    "portfolio",
+    "testimonials",
+    "technologies",
+    "blog",
+    "featuredIn"
+  ]
+}

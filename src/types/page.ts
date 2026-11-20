@@ -1,0 +1,164 @@
+import type {
+  HeroContent, BrandLogosContent, AboutContent, OfferingsContent, IndustriesContent, ValuesContent,
+  CalloutContent, ProcessContent, TestimonialsContent, PortfolioContent, ContactCtaContent,
+  WhatsAppAnchorContent, TechnologiesContent, BlogContent, ScheduleCallContent, EngagementContent,
+  LocationsContent, CategoryHeroContent, IntroContentContent, ServiceOfferingsContent, FeatureListContent,
+  AdvantageGridContent, FrameworkTabsContent, WhyChooseContent, FaqContent, FeaturedInContent,
+  OfferCardsContent, ImageCardsContent, CompareBenefitsContent, SprintProcessContent, TechStackTabsContent,
+  WhyChooseImageContent, FeatureTabsContent, IdealBusinessContent, SolutionCtaContent, OtherSolutionsContent, KeyFeatureTabsContent, CaseStudyContent, ChatbotAdvantagesContent, ChatbotPlatformsContent, SocialTypesContent, MessagingFeaturesContent, MessagingPanelsContent, KeyFeaturesContent, SolutionOffersContent, FitnessAudienceContent, SimilarAppContent, SimilarAppSliderContent, WorkflowProcessContent,
+  WhyInvestContent, PortfolioShowcaseContent, BlogListContent,
+  ContactFormContent, ContactInfoContent, ContactMapContent,
+  StatsCountersContent, LeadershipContent, MissionVisionContent, CoreValuesContent, HistoryTimelineContent,
+  ProcessStepsContent, ClutchReviewsContent, ClientReviewsContent,
+  TechnologyGroupsContent, EstimateWizardContent, BlogPostContent, PolicyContentContent,
+  IndustryTabsContent, AppPlatformsContent, AppWhyChooseContent,
+  AnchorNavContent, SectionAnchorContent, IntroSliderContent, OfferGridContent, IconCardsContent,
+  GameWhyUsContent, GameExpertiseContent,
+  OfferBoxesContent, ModuleBoxesContent, TechIconsContent, UiuxServicesContent, UiuxMobileDesignContent,
+  UiuxWebDesignContent, UiuxProcessContent, UiuxToolsContent,
+} from './sections';
+import type {
+  HeaderContent, MobileMenuContent, GetQuoteButtonContent, CallBackSidebarContent, FooterContent,
+  QuotePopupContent, CookieAlertContent, HireStickyBarContent, SiteMenus,
+} from './layout';
+import type { FormsContent, SeoMeta, SiteSettings } from './settings';
+
+/** Maps a section `type` (as stored in the admin panel) to the shape of its `data`. */
+export interface SectionDataMap {
+  hero: HeroContent;
+  brandLogos: BrandLogosContent;
+  about: AboutContent;
+  offerings: OfferingsContent;
+  industries: IndustriesContent;
+  industryTabs: IndustryTabsContent;
+  appPlatforms: AppPlatformsContent;
+  appWhyChoose: AppWhyChooseContent;
+  values: ValuesContent;
+  callout: CalloutContent;
+  process: ProcessContent;
+  testimonials: TestimonialsContent;
+  portfolio: PortfolioContent;
+  contactCta: ContactCtaContent;
+  whatsAppAnchor: WhatsAppAnchorContent;
+  technologies: TechnologiesContent;
+  blog: BlogContent;
+  scheduleCall: ScheduleCallContent;
+  engagement: EngagementContent;
+  locations: LocationsContent;
+  categoryHero: CategoryHeroContent;
+  introContent: IntroContentContent;
+  serviceOfferings: ServiceOfferingsContent;
+  featureList: FeatureListContent;
+  advantageGrid: AdvantageGridContent;
+  frameworkTabs: FrameworkTabsContent;
+  whyChoose: WhyChooseContent;
+  faq: FaqContent;
+  featuredIn: FeaturedInContent;
+  offerCards: OfferCardsContent;
+  imageCards: ImageCardsContent;
+  compareBenefits: CompareBenefitsContent;
+  sprintProcess: SprintProcessContent;
+  techStackTabs: TechStackTabsContent;
+  whyChooseImage: WhyChooseImageContent;
+  featureTabs: FeatureTabsContent;
+  idealBusiness: IdealBusinessContent;
+  solutionCta: SolutionCtaContent;
+  otherSolutions: OtherSolutionsContent;
+  similarApp: SimilarAppContent;
+  similarAppSlider: SimilarAppSliderContent;
+  keyFeatureTabs: KeyFeatureTabsContent;
+  caseStudy: CaseStudyContent;
+  chatbotAdvantages: ChatbotAdvantagesContent;
+  chatbotPlatforms: ChatbotPlatformsContent;
+  socialTypes: SocialTypesContent;
+  messagingFeatures: MessagingFeaturesContent;
+  messagingPanels: MessagingPanelsContent;
+  keyFeatures: KeyFeaturesContent;
+  solutionOffers: SolutionOffersContent;
+  fitnessAudience: FitnessAudienceContent;
+  workflowProcess: WorkflowProcessContent;
+  whyInvest: WhyInvestContent;
+  portfolioShowcase: PortfolioShowcaseContent;
+  blogList: BlogListContent;
+  contactForm: ContactFormContent;
+  contactInfo: ContactInfoContent;
+  contactMap: ContactMapContent;
+  statsCounters: StatsCountersContent;
+  leadership: LeadershipContent;
+  missionVision: MissionVisionContent;
+  coreValues: CoreValuesContent;
+  historyTimeline: HistoryTimelineContent;
+  processSteps: ProcessStepsContent;
+  clutchReviews: ClutchReviewsContent;
+  clientReviews: ClientReviewsContent;
+  technologyGroups: TechnologyGroupsContent;
+  estimateWizard: EstimateWizardContent;
+  blogPost: BlogPostContent;
+  policyContent: PolicyContentContent;
+  anchorNav: AnchorNavContent;
+  sectionAnchor: SectionAnchorContent;
+  introSlider: IntroSliderContent;
+  offerGrid: OfferGridContent;
+  iconCards: IconCardsContent;
+  gameWhyUs: GameWhyUsContent;
+  gameExpertise: GameExpertiseContent;
+  offerBoxes: OfferBoxesContent;
+  moduleBoxes: ModuleBoxesContent;
+  techIcons: TechIconsContent;
+  uiuxServices: UiuxServicesContent;
+  uiuxMobileDesign: UiuxMobileDesignContent;
+  uiuxWebDesign: UiuxWebDesignContent;
+  uiuxProcess: UiuxProcessContent;
+  uiuxTools: UiuxToolsContent;
+}
+
+export type SectionType = keyof SectionDataMap;
+
+/** One block of a page: the admin panel stores pages as an ordered list of these. */
+export type SectionBlock = { [K in SectionType]: { type: K; data: SectionDataMap[K] } }[SectionType];
+
+export interface PageData {
+  slug: string;
+  seo?: { title?: string; description?: string } & SeoMeta;
+  sections: SectionBlock[];
+  /** Global sections this page does NOT show (e.g. the contact page hides all four). */
+  hideGlobalSections?: GlobalSectionType[];
+  /** Bare page: no footer, quote popup, cookie bar or sticky bar, and no <main> wrapper (e.g. the estimate wizard). */
+  bareLayout?: boolean;
+}
+
+/** Sections shared by every page, shown at the end above the footer, always in this order. */
+export const GLOBAL_SECTION_ORDER = ['contactCta', 'scheduleCall', 'engagement', 'locations'] as const;
+export type GlobalSectionType = (typeof GLOBAL_SECTION_ORDER)[number];
+
+/** One global section: its content is written once and `enabled` switches it on or off site-wide. */
+export type GlobalSectionBlock = {
+  [K in GlobalSectionType]: {
+    type: K;
+    enabled: boolean;
+    /** Page keys this block is limited to (e.g. "home", "service"); omitted = every page. */
+    showOn?: string[];
+    data: SectionDataMap[K];
+  };
+}[GlobalSectionType];
+
+export interface GlobalSectionsContent {
+  sections: GlobalSectionBlock[];
+}
+
+/** Everything that is shared by all pages. */
+export interface SiteData {
+  settings: SiteSettings;
+  forms: FormsContent;
+  header: HeaderContent;
+  mobileMenu: MobileMenuContent;
+  getQuoteButton: GetQuoteButtonContent;
+  callBackSidebar: CallBackSidebarContent;
+  footer: FooterContent;
+  quotePopup: QuotePopupContent;
+  cookieAlert: CookieAlertContent;
+  hireStickyBar: HireStickyBarContent;
+  globalSections: GlobalSectionsContent;
+  /** Menus from the admin panel. When absent, the header, mobile menu and footer render their bundled content. */
+  menus?: SiteMenus;
+}

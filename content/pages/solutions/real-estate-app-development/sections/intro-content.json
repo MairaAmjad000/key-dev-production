@@ -1,0 +1,24 @@
+{
+  "heading": "Why you should place your bet on real estate app development solutions",
+  "paragraphs": [
+    {
+      "html": "The millennial generation has a different way of doing things. They think is is pretty old school to shortlist brokers and visit each property until a good one is spotted. They do not have the patience nor the time to explore real estate opportunities. What they need is a real estate mobile app that will help them filter the right kind of property and shortlist it for buying or renting. Who else than a top-rated real estate app development company like KeyDevs Technologies to do it for you?"
+    },
+    {
+      "html": "KeyDevs Technologies is a mobile app development company that has been helping businesses become digital corporations with the power of mobility. We craft mobile apps for diverse industries, including real estate that can help you reach customer faster, serve them better and also retain them for lifetime. Our app development expertise is designed taking into consideration the needs of builders, brokers, home buyers and also allied business providers."
+    },
+    {
+      "html": "Want to see how your real estate business can reach new heights with a real estate mobile app? Talk to our experts."
+    }
+  ],
+  "link": {
+    "href": "/contact",
+    "text": "Talk to Our Expert Now",
+    "className": "btn btn-custome waves-effect waves-light"
+  },
+  "image": {
+    "src": "/images/service/real-estate-app-development/intro.webp",
+    "alt": ""
+  },
+  "imageClass": "rounded10 box-shadow"
+}

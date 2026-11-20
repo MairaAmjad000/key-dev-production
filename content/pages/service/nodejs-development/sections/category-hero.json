@@ -1,0 +1,35 @@
+{
+  "image": {
+    "src": "/images/service/nodejs-development/banner.webp",
+    "alt": "nodejs development company",
+    "width": "1920",
+    "height": "800"
+  },
+  "heading": "NodeJS DEVELOPMENT",
+  "text": "This ‘JavaScript everywhere’ environment unifies web application development in a single programming language. NodeJS application development enables server side scripting and client side scripting to be carried out in a single language to create dynamic webpages seamlessly. At KeyDevs Technologies, our dedicated teams have proven expertise NodeJS Development Services, a versatile open source, cross platform run time environment, that offers unmatched results.",
+  "links": [
+    {
+      "href": "/portfolio",
+      "text": "View Our Work",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    },
+    {
+      "href": "/app-development-cost-calculator",
+      "text": "Calculate Your Web Development Cost",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Web Development",
+      "href": "/service-category/web-development"
+    },
+    {
+      "text": "Node Js Development"
+    }
+  ]
+}

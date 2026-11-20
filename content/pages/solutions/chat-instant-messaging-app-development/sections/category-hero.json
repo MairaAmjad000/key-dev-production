@@ -1,0 +1,37 @@
+{
+  "image": {
+    "src": "/images/instant-messaging/instant-messaging-banner.jpg",
+    "alt": "if you are looking for an instant messaging app development solutions, get in touch with us to request a free quote for instant messaging solutions.",
+    "width": "1920",
+    "height": "800"
+  },
+  "sideImage": {
+    "src": "/images/service/chat-instant-messaging-app-development/hero-side.png",
+    "alt": "KeyDevs Technologies specialises in chat app development. We provide chat app like WhatsApp, Snapchat, WeChat, Telegram, Facebook Messenger. Tell us about your project today!"
+  },
+  "sideImageClass": "bannerfixedimagewidth",
+  "headingClass": "text-uppercase",
+  "heading": "Instant Messaging App Development",
+  "text": "2.5 Billion users from all around the world use instant messaging apps on a daily basis. From exchanging pleasantries to collaborating on the go, an instant messaging app can make a lot happen. Want to build an instant messaging app that does not more than messaging? You have landed on the right page.",
+  "links": [
+    {
+      "href": "/javascript:;",
+      "text": "Let's Chat",
+      "className": "btn waves-effect waves-light btn-custome mb-3 open_drift_chat"
+    },
+    {
+      "href": "/contact",
+      "text": "Get an Estimate",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Instant Messaging App Development"
+    }
+  ]
+}

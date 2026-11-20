@@ -1,0 +1,51 @@
+{
+  "variant": "grid",
+  "spacer": true,
+  "callout": {
+    "text": "Do you have a <span id=\"seo-services-callouts-type\"></span> We have a TEAM to get you there.",
+    "link": {
+      "href": "/contact",
+      "text": "Get In Touch"
+    }
+  },
+  "text": "Objective",
+  "heading": "KeyDevs Technologies Featured in",
+  "logos": [
+    {
+      "image": {
+        "src": "/images/service/seo-services/entrepreneur.png",
+        "alt": "Entrepreneur"
+      }
+    },
+    {
+      "image": {
+        "src": "/images/service/seo-services/yahoo-finance.png",
+        "alt": "Yahoo Finance"
+      }
+    },
+    {
+      "image": {
+        "src": "/images/service/seo-services/business-insider.png",
+        "alt": "Business Insider"
+      }
+    },
+    {
+      "image": {
+        "src": "/images/service/seo-services/business-2-community.png",
+        "alt": "Business 2 Community"
+      }
+    },
+    {
+      "image": {
+        "src": "/images/service/seo-services/dzone.png",
+        "alt": "DZone"
+      }
+    },
+    {
+      "image": {
+        "src": "/images/service/seo-services/hackernoon.png",
+        "alt": "HackerNoon"
+      }
+    }
+  ]
+}

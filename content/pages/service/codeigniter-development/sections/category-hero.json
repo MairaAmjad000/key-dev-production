@@ -1,0 +1,35 @@
+{
+  "image": {
+    "src": "/images/service/codeigniter-development/banner.webp",
+    "alt": "codeigniter development company",
+    "width": "1920",
+    "height": "800"
+  },
+  "heading": "CODEIGNITER DEVELOPMENT COMPANY",
+  "text": "CodeIgniter is like the Swiss army knife of all web development frameworks. It is small in size but has an entire toolkit that will equip a web developer to weave magic. What happens when a Swiss army knife is handed to a veteran? Magic happens. Each of KeyDevs Technologies’s web developers are veterans of developing web pages with CodeIgniter. Come, talk to our experts to find out how we can weave magic for you.",
+  "links": [
+    {
+      "href": "/portfolio",
+      "text": "View Our Work",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    },
+    {
+      "href": "/app-development-cost-calculator",
+      "text": "Calculate Your Web Development Cost",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Web Development",
+      "href": "/service-category/web-development"
+    },
+    {
+      "text": "PHP Codeigniter Development"
+    }
+  ]
+}

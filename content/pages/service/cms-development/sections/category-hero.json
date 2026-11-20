@@ -1,0 +1,24 @@
+{
+  "image": {
+    "src": "/images/cms/cms-banner.jpg",
+    "alt": "cms web design"
+  },
+  "heading": "Custom CMS Development",
+  "text": "Equip your organisation with the fast-growing Content Management System development. Expand the content’s scope of work right from creating, editing, collaborating, archiving and even publishing content on a single platform. Custom CMS development enables multiple related departments to function cohesively based on each departmental requirement.",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Let’s Discuss Your Requirement",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "CMS"
+    }
+  ]
+}

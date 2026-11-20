@@ -1,0 +1,74 @@
+{
+  "image": {
+    "src": "/images/category/web-development/banner-web-development.webp",
+    "alt": "Dating App Development by KeyDevs Technologies",
+    "width": "1920",
+    "height": "800"
+  },
+  "heading": "Dating App Development Company",
+  "text": "Build a dating app people trust and enjoy using. KeyDevs Technologies builds apps with profiles, smart matching, chat and strong safety and privacy controls.",
+  "links": [
+    {
+      "href": "/portfolio",
+      "className": "btn waves-effect waves-light btn-custome mb-3",
+      "text": "View Our Work"
+    },
+    {
+      "href": "/app-development-cost-calculator",
+      "className": "btn waves-effect waves-light btn-custome mb-3",
+      "text": "Calculate Dating App Development Cost"
+    }
+  ],
+  "form": {
+    "id": "dating-app-development-banner_form",
+    "fields": [
+      {
+        "type": "text",
+        "name": "name",
+        "placeholder": "Name",
+        "required": true,
+        "label": "Name"
+      },
+      {
+        "type": "email",
+        "name": "email",
+        "placeholder": "Email",
+        "required": true,
+        "label": "Email"
+      },
+      {
+        "type": "text",
+        "name": "phone",
+        "placeholder": "Phone Number",
+        "required": true,
+        "minLength": 10,
+        "maxLength": 11,
+        "variant": "phone"
+      },
+      {
+        "type": "textarea",
+        "name": "message",
+        "placeholder": "Project Descriptions",
+        "required": false,
+        "label": "Message",
+        "rows": 4
+      }
+    ],
+    "submitText": "Get Started Now!",
+    "errorId": "dating-app-development-error_message_banner_form",
+    "successId": "dating-app-development-success_message_banner_form"
+  },
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Mobile App Development",
+      "href": "/service-category/mobile-app-development"
+    },
+    {
+      "text": "Dating App Development"
+    }
+  ]
+}

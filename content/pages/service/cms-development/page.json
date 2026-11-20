@@ -1,0 +1,20 @@
+{
+  "slug": "service/cms-development",
+  "seo": {
+    "title": "CMS Development Company | KeyDevs Technologies",
+    "description": "Content management systems that make publishing simple, secure and scalable. Talk to KeyDevs Technologies, Lahore."
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "offerBoxes",
+    "moduleBoxes",
+    "whyInvest",
+    "techIcons",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}

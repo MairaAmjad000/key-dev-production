@@ -1,0 +1,32 @@
+{
+  "image": {
+    "src": "/images/service/health-fitness-app-development/banner.webp",
+    "alt": "fitness app development",
+    "width": "1920",
+    "height": "800"
+  },
+  "sideImage": {
+    "src": "/images/service/health-fitness-app-development/hero-side.webp",
+    "alt": "fitness app development company"
+  },
+  "sideImageClass": "bannerfixedimagewidth",
+  "headingClass": "text-uppercase f-40",
+  "heading": "Health & Fitness App Development Company",
+  "text": "Health is the best form of wealth. The digital generation of users want mobile apps to keep track of it. What better than a well-shaped health and fitness app to do the task? Count on KeyDevs Technologies to build a health & fitness app, like a health-conscious individual will count on their fitness coach to see great results.",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Get Your Project Estimate",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Fitness App Development"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "service/php-web-development",
+  "seo": {
+    "title": "PHP Web Development Company | KeyDevs Technologies",
+    "description": "From Facebook to Wikipedia, the world’s most visited websites are built using PHP. Shouldn’t your website also be built using the same capable and…"
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "iconCards",
+    "featureList",
+    "whyChoose",
+    "portfolio",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}

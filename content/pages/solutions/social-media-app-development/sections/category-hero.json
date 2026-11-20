@@ -1,0 +1,32 @@
+{
+  "image": {
+    "src": "/images/social-media/social-media-banner.jpg",
+    "alt": "social media app development",
+    "width": "1920",
+    "height": "800"
+  },
+  "sideImage": {
+    "src": "/images/service/social-media-app-development/hero-side.png",
+    "alt": "social networking app development"
+  },
+  "sideImageClass": "bannerfixedimagewidth landscape",
+  "headingClass": "",
+  "heading": "Grow globally with our social media app development",
+  "text": "Social media turns the world into a global village. With our social networking app development services, you too can build a global village of your own. Be it a social networking app or an online dating app — we have what it takes to build all kinds of social media apps.",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Get an Estimate",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Social Media App Development"
+    }
+  ]
+}

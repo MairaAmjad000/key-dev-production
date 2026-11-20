@@ -1,0 +1,477 @@
+{
+  "cdNavTrigger": {
+    "ariaLabel": "Menu",
+    "href": "javascript:;"
+  },
+  "link": {
+    "href": "/",
+    "html": "<i class=\"fas fa-home\"></i> Home"
+  },
+  "link2": {
+    "href": "javascript:",
+    "html": "<i class=\"far fa-building\"></i>Company"
+  },
+  "goBacks": [
+    {
+      "className": "go-back",
+      "link": {
+        "href": "javascript:",
+        "text": "Menu"
+      }
+    },
+    {
+      "link": {
+        "href": "/who-we-are",
+        "className": "",
+        "text": "Who We are"
+      }
+    },
+    {
+      "link": {
+        "href": "/how-we-work",
+        "className": "",
+        "text": "How we Work"
+      }
+    },
+    {
+      "link": {
+        "href": "/client-review",
+        "className": "",
+        "text": "Client Review"
+      }
+    },
+    {
+      "link": {
+        "href": "/technologies",
+        "className": "",
+        "text": "Technologies"
+      }
+    }
+  ],
+  "link3": {
+    "href": "javascript:",
+    "html": "<i class=\"fas fa-cogs\"></i>Our Service"
+  },
+  "link4": {
+    "href": "javascript:",
+    "text": "Menu"
+  },
+  "link5": {
+    "href": "javascript:",
+    "text": "Mobile App Development"
+  },
+  "goBacks2": [
+    {
+      "className": "go-back",
+      "link": {
+        "href": "javascript:",
+        "text": "Mobile App Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service-category/mobile-app-development",
+        "className": "",
+        "text": "Mobile App Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/iphone-app-development",
+        "className": "",
+        "text": "iPhone App Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/android-app-development",
+        "className": "",
+        "text": "Android App Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/flutter-app-development",
+        "className": "",
+        "text": "Flutter App Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/cross-platform-app-development",
+        "className": "",
+        "text": "Cross Platform App Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/ios-game-development",
+        "className": "",
+        "text": "iOS Game Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/android-game-development",
+        "className": "",
+        "text": "Android Game Development"
+      }
+    }
+  ],
+  "link6": {
+    "href": "javascript:",
+    "text": "Web Development"
+  },
+  "goBacks3": [
+    {
+      "className": "go-back",
+      "link": {
+        "href": "javascript:",
+        "text": "Web Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service-category/web-development",
+        "className": "",
+        "text": "Web Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/php-web-development",
+        "className": "",
+        "text": "PHP Web Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/wordpress-development",
+        "className": "",
+        "text": "WordPress Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/codeigniter-development",
+        "className": "",
+        "text": "Codeigniter Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/laravel-development",
+        "className": "",
+        "text": "Laravel Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/angularjs-development",
+        "className": "",
+        "text": "AngularJS Development"
+      }
+    }
+  ],
+  "link7": {
+    "href": "/service/nodejs-development",
+    "text": "NodeJS Development"
+  },
+  "link8": {
+    "href": "javascript:",
+    "text": "Digital Marketing"
+  },
+  "goBacks4": [
+    {
+      "className": "go-back",
+      "link": {
+        "href": "javascript:",
+        "text": "Digital Marketing"
+      }
+    },
+    {
+      "link": {
+        "href": "/service-category/digital-marketing",
+        "className": "",
+        "text": "Digital Marketing"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/seo-services",
+        "className": "",
+        "text": "Search Engine Optimization"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/social-media-marketing",
+        "className": "",
+        "text": "Social Media Marketing"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/facebook-ads",
+        "className": "",
+        "text": "Facebook Ads"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/google-ads",
+        "className": "",
+        "text": "Google Ads"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/ecommerce-ads",
+        "className": "",
+        "text": "E-commerce Ads"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/youtube-promotion",
+        "className": "",
+        "text": "YouTube Promotion"
+      }
+    }
+  ],
+  "link9": {
+    "href": "javascript:",
+    "text": "Enterprise Solutions"
+  },
+  "goBacks5": [
+    {
+      "className": "go-back",
+      "link": {
+        "href": "javascript:",
+        "text": "Enterprise Solutions"
+      }
+    },
+    {
+      "link": {
+        "href": "javascript:",
+        "text": "Enterprise Solutions"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/mvp-development",
+        "className": "",
+        "text": "Startup MVP Development"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/erp-development",
+        "className": "",
+        "text": "ERP Solutions"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/crm-development",
+        "className": "",
+        "text": "CRM Solutions"
+      }
+    },
+    {
+      "link": {
+        "href": "/service/cms-development",
+        "className": "",
+        "text": "CMS Solutions"
+      }
+    },
+    {
+      "link": {
+        "href": "/service-category/ecommerce-development",
+        "className": "",
+        "text": "Ecommerce Solutions"
+      }
+    }
+  ],
+  "link10": {
+    "href": "/service-category/ui-ux-design",
+    "text": "UI-UX Design"
+  },
+  "link11": {
+    "href": "javascript:",
+    "text": "Solution"
+  },
+  "link12": {
+    "href": "javascript:",
+    "text": "Menu"
+  },
+  "hasChildrens": [
+    {
+      "link": {
+        "href": "javascript:",
+        "text": "On-demand Solutions"
+      },
+      "goBacks": [
+        {
+          "className": "go-back",
+          "link": {
+            "href": "javascript:;",
+            "text": "On-demand Solutions"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/taxi-app-development",
+            "className": "",
+            "text": "Taxi Booking"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/food-delivery-app-development",
+            "className": "",
+            "text": "Food Delivery"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/car-wash-app-development",
+            "className": "",
+            "text": "Car Wash"
+          }
+        }
+      ]
+    },
+    {
+      "link": {
+        "href": "javascript:",
+        "text": "Industry Solutions"
+      },
+      "goBacks": [
+        {
+          "className": "go-back",
+          "link": {
+            "href": "javascript:;",
+            "text": "Industry Solutions"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/real-estate-app-development",
+            "className": "",
+            "text": "Real Estate"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/finance-app-development",
+            "className": "",
+            "text": "Banking & Finance"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/travel-app-development",
+            "className": "",
+            "text": "Travel & Tourism"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/health-fitness-app-development",
+            "className": "",
+            "text": "Health & Fitness"
+          }
+        }
+      ]
+    },
+    {
+      "link": {
+        "href": "javascript:",
+        "text": "Social Solutions"
+      },
+      "goBacks": [
+        {
+          "className": "go-back",
+          "link": {
+            "href": "javascript:;",
+            "text": "Social Solutions"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/social-media-app-development",
+            "className": "",
+            "text": "Social Media"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/dating-app-development",
+            "className": "",
+            "text": "Dating"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/chat-instant-messaging-app-development",
+            "className": "",
+            "text": "Instant Messaging"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/media-entertainment-app-development",
+            "className": "",
+            "text": "Media & Entertainment"
+          }
+        }
+      ]
+    },
+    {
+      "link": {
+        "href": "javascript:",
+        "text": "Other Solutions"
+      },
+      "goBacks": [
+        {
+          "className": "go-back",
+          "link": {
+            "href": "javascript:;",
+            "text": "Other Solutions"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/fantasy-sports-app-development",
+            "className": "",
+            "text": "Fantasy Sports"
+          }
+        },
+        {
+          "link": {
+            "href": "/solutions/chatbot-development",
+            "className": "",
+            "text": "Chatbot"
+          }
+        }
+      ]
+    }
+  ],
+  "link13": {
+    "href": "/portfolio",
+    "html": "<i class=\"fas fa-briefcase\"></i>Portfolio"
+  },
+  "link14": {
+    "href": "/blog",
+    "html": "<i class=\"far fa-newspaper\"></i>Blog"
+  },
+  "link15": {
+    "href": "/contact",
+    "html": "<i class=\"fas fa-phone-volume\"></i>Contact"
+  },
+  "estimateBtn": {
+    "href": "/app-development-cost-calculator",
+    "text": "Estimate Your Project"
+  }
+}

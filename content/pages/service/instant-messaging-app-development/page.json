@@ -1,0 +1,25 @@
+{
+  "slug": "service/instant-messaging-app-development",
+  "seo": {
+    "title": "Instant Messaging App Development Company | KeyDevs Technologies",
+    "description": "Real-time chat apps with voice, video, groups and media sharing. Talk to KeyDevs Technologies, Lahore."
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "messagingFeatures",
+    "offerCards",
+    "imageCards",
+    "compareBenefits",
+    "sprintProcess",
+    "techStackTabs",
+    "whyChooseImage",
+    "portfolio",
+    "testimonials",
+    "technologies",
+    "faq",
+    "featuredIn",
+    "blog"
+  ]
+}

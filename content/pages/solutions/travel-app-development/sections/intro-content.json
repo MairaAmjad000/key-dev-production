@@ -1,0 +1,24 @@
+{
+  "heading": "Modernize travel experience with a mobile app",
+  "paragraphs": [
+    {
+      "html": "We travel for the experience — to experience the thrill of visiting a new place, culture and food. Until the last decade, travel magazines and tour operators helped with going to places. But, it was a cumbersome process. Enjoying a good trip was like winning a jackpot. Travel mobile apps have rewritten the laws of the game. They make travel planning, booking and even navigating during the travel a hassle-free affair."
+    },
+    {
+      "html": "KeyDevs Technologies is a travel app development company that caters to its client needs to build high-tech mobile apps within the shortest time possible. We build mobile apps for booking flights, planning tours, exploring new destinations and also explore destinations virtually with 3D visuals."
+    },
+    {
+      "html": "What are you waiting for? Grow with the explosive growth of the travel and tourism industry. Let your business take flight with our travel app development services."
+    }
+  ],
+  "link": {
+    "href": "/contact",
+    "text": "Talk to Our Expert Now",
+    "className": "btn btn-custome waves-effect waves-light"
+  },
+  "image": {
+    "src": "/images/service/travel-app-development/intro.webp",
+    "alt": ""
+  },
+  "imageClass": "rounded10 box-shadow"
+}

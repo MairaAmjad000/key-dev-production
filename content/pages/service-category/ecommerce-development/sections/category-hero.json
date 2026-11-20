@@ -1,0 +1,72 @@
+{
+  "image": {
+    "src": "/images/service/ecommerce-development/banner.webp",
+    "alt": "ecommerce website development services"
+  },
+  "heading": "eCommerce Website Development Company",
+  "text": "If building a website is a long-drawn battle, building an eCommerce website is a war of its own. As a top eCommerce development company in the Pakistan, we will be the perfect ally who can help you march forward on the right foot to conquer the market.<br/><br/>From helping you identify the right platform to base your store to building a custom eCommerce solution from scratch — you can bank on us to attain your eCommerce ambitions.",
+  "links": [
+    {
+      "href": "/portfolio",
+      "text": "View Our Work",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    },
+    {
+      "href": "/app-development-cost-calculator",
+      "text": "Calculate Your Web Development Cost",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Web Development",
+      "href": "/web-development"
+    },
+    {
+      "text": "E-commerce Development"
+    }
+  ],
+  "form": {
+    "id": "ecommerce-web-development-banner_form",
+    "fields": [
+      {
+        "type": "text",
+        "name": "name",
+        "placeholder": "Name",
+        "required": true,
+        "label": "Name"
+      },
+      {
+        "type": "email",
+        "name": "email",
+        "placeholder": "Email",
+        "required": true,
+        "label": "Email"
+      },
+      {
+        "type": "text",
+        "name": "phone",
+        "placeholder": "Phone Number",
+        "required": true,
+        "minLength": 10,
+        "maxLength": 11,
+        "variant": "phone"
+      },
+      {
+        "type": "textarea",
+        "name": "message",
+        "placeholder": "Project Descriptions",
+        "required": false,
+        "label": "Message",
+        "rows": 4
+      }
+    ],
+    "submitText": "Get Started Now!",
+    "errorId": "ecommerce-web-development-error_message_banner_form",
+    "successId": "ecommerce-web-development-success_message_banner_form"
+  }
+}

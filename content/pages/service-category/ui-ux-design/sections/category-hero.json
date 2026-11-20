@@ -1,0 +1,30 @@
+{
+  "image": {
+    "src": "/images/service/ui-ux-design/banner.webp",
+    "alt": "Drive Conversions through UX/UI Design Solutions"
+  },
+  "heading": "UI/UX Design Agency",
+  "text": "As a leading UI UX design company, we offer exceptional UI/UX design and development services to enhance your brand identity and customer experience. Our visually stunning and engaging designs are aimed at eliciting a conversion-driven response.",
+  "links": [
+    {
+      "href": "/portfolio",
+      "text": "View Our Work",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    },
+    {
+      "href": "/contact",
+      "text": "Inquire Now",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Ui Ux Design"
+    }
+  ],
+  "headingClass": "text-uppercase"
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "solutions/chat-instant-messaging-app-development",
+  "seo": {
+    "title": "Chat & Instant Messaging App Development Company | KeyDevs",
+    "description": "White-label chat and instant messaging apps with group chat, media sharing, voice and video calls and an admin panel from KeyDevs Technologies."
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "messagingFeatures",
+    "messagingPanels",
+    "similarApp",
+    "whyInvest",
+    "techStackTabs",
+    "solutionCta",
+    "otherSolutions",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "service/wordpress-development",
+  "seo": {
+    "title": "WordPress Development Company | KeyDevs Technologies",
+    "description": "WordPress is the Internet’s backbone. More than 25% of the websites on the internet are built using WordPress. It can be a cornerstone CMS for your business…"
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "iconCards",
+    "featureList",
+    "whyChoose",
+    "portfolio",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}

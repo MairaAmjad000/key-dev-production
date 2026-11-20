@@ -1,0 +1,32 @@
+{
+  "image": {
+    "src": "/images/service/car-wash-app-development/banner.webp",
+    "alt": "car wash app development",
+    "width": "1920",
+    "height": "800"
+  },
+  "sideImage": {
+    "src": "/images/service/car-wash-app-development/hero-side.webp",
+    "alt": "on demand car wash app development"
+  },
+  "sideImageClass": "bannerfixedimagewidth landscape",
+  "headingClass": "text-uppercase f-40",
+  "heading": "On Demand Car Wash App Development",
+  "text": "Build a UBER for car wash services. KeyDevs Technologies is an on demand car wash app development company that can help build a mobile app that will make lives easier for car owners and washing service providers. The app can be integrated with location-based car wash services, digital wallet payments, reviews & ratings and much more.",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Request a Quote",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Car Wash App Development"
+    }
+  ]
+}

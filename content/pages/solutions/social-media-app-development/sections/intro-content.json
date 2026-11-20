@@ -1,0 +1,24 @@
+{
+  "heading": "Bring the world together with our social media app development solutions",
+  "paragraphs": [
+    {
+      "html": "A decade ago, meeting and greeting strangers happened on streets. Thanks to social media apps, they happen everywhere. Strangers from two corners of the world turn into friends with the power of social media. Social media is also an economic powerhouse that has a population of many countries put together."
+    },
+    {
+      "html": "Does the world have room for another social media network? Why not? Facebook, Twitter, LinkedIn and several others might have the first-mover advantage. Still a unique theme that brings together people can still make a difference. After all, the global internet users count is increasing steadily as is mobile apps. A new social media app will still have takers."
+    },
+    {
+      "html": "Want to build a social media app that can bring together people and can also be monetized? KeyDevs Technologies can help."
+    }
+  ],
+  "link": {
+    "href": "/contact",
+    "text": "Talk to Our Expert Now",
+    "className": "btn btn-custome waves-effect waves-light"
+  },
+  "image": {
+    "src": "/images/social-media/social-media-main.jpg",
+    "alt": ""
+  },
+  "imageClass": "rounded10 box-shadow"
+}

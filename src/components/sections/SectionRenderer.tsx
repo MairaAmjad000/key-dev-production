@@ -1,0 +1,191 @@
+import { Fragment } from 'react';
+import type { FormsContent, SectionBlock } from '@/types';
+import { Hero } from './Hero';
+import { BrandLogos } from './BrandLogos';
+import { About } from './About';
+import { Offerings } from './Offerings';
+import { Industries } from './Industries';
+import { IndustryTabs } from './IndustryTabs';
+import { AppPlatforms } from './AppPlatforms';
+import { AppWhyChoose } from './AppWhyChoose';
+import { Values } from './Values';
+import { Callout } from './Callout';
+import { Process } from './Process';
+import { Testimonials } from './Testimonials';
+import { Portfolio } from './Portfolio';
+import { ContactCta } from './ContactCta';
+import { WhatsAppAnchor } from './WhatsAppAnchor';
+import { Technologies } from './Technologies';
+import { Blog } from './Blog';
+import { ScheduleCall } from './ScheduleCall';
+import { Engagement } from './Engagement';
+import { Locations } from './Locations';
+import { CategoryHero } from './CategoryHero';
+import { IntroContent } from './IntroContent';
+import { ServiceOfferings } from './ServiceOfferings';
+import { FeatureList } from './FeatureList';
+import { AdvantageGrid } from './AdvantageGrid';
+import { FrameworkTabs } from './FrameworkTabs';
+import { WhyChoose } from './WhyChoose';
+import { Faq } from './Faq';
+import { FeaturedIn } from './FeaturedIn';
+import { OfferCards } from './OfferCards';
+import { ImageCards } from './ImageCards';
+import { CompareBenefits } from './CompareBenefits';
+import { SprintProcess } from './SprintProcess';
+import { TechStackTabs } from './TechStackTabs';
+import { WhyChooseImage } from './WhyChooseImage';
+import { FeatureTabs } from './FeatureTabs';
+import { IdealBusiness } from './IdealBusiness';
+import { SolutionCta } from './SolutionCta';
+import { OtherSolutions } from './OtherSolutions';
+import { SimilarApp } from './SimilarApp';
+import { SimilarAppSlider } from './SimilarAppSlider';
+import { KeyFeatureTabs } from './KeyFeatureTabs';
+import { CaseStudy } from './CaseStudy';
+import { ChatbotAdvantages } from './ChatbotAdvantages';
+import { ChatbotPlatforms } from './ChatbotPlatforms';
+import { SocialTypes } from './SocialTypes';
+import { MessagingFeatures } from './MessagingFeatures';
+import { MessagingPanels } from './MessagingPanels';
+import { KeyFeatures } from './KeyFeatures';
+import { SolutionOffers } from './SolutionOffers';
+import { FitnessAudience } from './FitnessAudience';
+import { WorkflowProcess } from './WorkflowProcess';
+import { WhyInvest } from './WhyInvest';
+import { PortfolioShowcase } from './PortfolioShowcase';
+import { BlogList } from './BlogList';
+import { ContactForm } from './ContactForm';
+import { ContactInfo } from './ContactInfo';
+import { ContactMap } from './ContactMap';
+import { StatsCounters } from './StatsCounters';
+import { Leadership } from './Leadership';
+import { MissionVision } from './MissionVision';
+import { CoreValues } from './CoreValues';
+import { HistoryTimeline } from './HistoryTimeline';
+import { ProcessSteps } from './ProcessSteps';
+import { ClutchReviews } from './ClutchReviews';
+import { ClientReviews } from './ClientReviews';
+import { TechnologyGroups } from './TechnologyGroups';
+import { EstimateWizard } from './EstimateWizard';
+import { BlogPost } from './BlogPost';
+import { PolicyContent } from './PolicyContent';
+import { AnchorNav } from './AnchorNav';
+import { SectionAnchor } from './SectionAnchor';
+import { IntroSlider } from './IntroSlider';
+import { OfferGrid } from './OfferGrid';
+import { IconCards } from './IconCards';
+import { GameWhyUs } from './GameWhyUs';
+import { GameExpertise } from './GameExpertise';
+import { OfferBoxes } from './OfferBoxes';
+import { ModuleBoxes } from './ModuleBoxes';
+import { TechIcons } from './TechIcons';
+import { UiuxServices } from './UiuxServices';
+import { UiuxMobileDesign, UiuxWebDesign } from './UiuxAppDesign';
+import { UiuxProcess } from './UiuxProcess';
+import { UiuxTools } from './UiuxTools';
+
+function renderSection(block: SectionBlock, forms: FormsContent) {
+  switch (block.type) {
+    case 'hero': return <Hero data={block.data} />;
+    case 'brandLogos': return <BrandLogos data={block.data} />;
+    case 'about': return <About data={block.data} />;
+    case 'offerings': return <Offerings data={block.data} />;
+    case 'industries': return <Industries data={block.data} />;
+    case 'industryTabs': return <IndustryTabs data={block.data} />;
+    case 'appPlatforms': return <AppPlatforms data={block.data} />;
+    case 'appWhyChoose': return <AppWhyChoose data={block.data} />;
+    case 'values': return <Values data={block.data} />;
+    case 'callout': return <Callout data={block.data} />;
+    case 'process': return <Process data={block.data} />;
+    case 'testimonials': return <Testimonials data={block.data} />;
+    case 'portfolio': return <Portfolio data={block.data} />;
+    case 'contactCta': return <ContactCta data={block.data} />;
+    case 'whatsAppAnchor': return <WhatsAppAnchor data={block.data} />;
+    case 'technologies': return <Technologies data={block.data} />;
+    case 'blog': return <Blog data={block.data} />;
+    case 'scheduleCall': return <ScheduleCall data={block.data} forms={forms} />;
+    case 'engagement': return <Engagement data={block.data} />;
+    case 'locations': return <Locations data={block.data} />;
+    case 'categoryHero': return <CategoryHero data={block.data} />;
+    case 'introContent': return <IntroContent data={block.data} />;
+    case 'serviceOfferings': return <ServiceOfferings data={block.data} />;
+    case 'featureList': return <FeatureList data={block.data} />;
+    case 'advantageGrid': return <AdvantageGrid data={block.data} />;
+    case 'frameworkTabs': return <FrameworkTabs data={block.data} />;
+    case 'whyChoose': return <WhyChoose data={block.data} />;
+    case 'faq': return <Faq data={block.data} />;
+    case 'featuredIn': return <FeaturedIn data={block.data} />;
+    case 'offerCards': return <OfferCards data={block.data} />;
+    case 'imageCards': return <ImageCards data={block.data} />;
+    case 'compareBenefits': return <CompareBenefits data={block.data} />;
+    case 'sprintProcess': return <SprintProcess data={block.data} />;
+    case 'techStackTabs': return <TechStackTabs data={block.data} />;
+    case 'whyChooseImage': return <WhyChooseImage data={block.data} />;
+    case 'featureTabs': return <FeatureTabs data={block.data} />;
+    case 'idealBusiness': return <IdealBusiness data={block.data} />;
+    case 'solutionCta': return <SolutionCta data={block.data} />;
+    case 'otherSolutions': return <OtherSolutions data={block.data} />;
+    case 'similarApp': return <SimilarApp data={block.data} />;
+    case 'similarAppSlider': return <SimilarAppSlider data={block.data} />;
+    case 'keyFeatureTabs': return <KeyFeatureTabs data={block.data} />;
+    case 'caseStudy': return <CaseStudy data={block.data} />;
+    case 'chatbotAdvantages': return <ChatbotAdvantages data={block.data} />;
+    case 'chatbotPlatforms': return <ChatbotPlatforms data={block.data} />;
+    case 'socialTypes': return <SocialTypes data={block.data} />;
+    case 'messagingFeatures': return <MessagingFeatures data={block.data} />;
+    case 'messagingPanels': return <MessagingPanels data={block.data} />;
+    case 'keyFeatures': return <KeyFeatures data={block.data} />;
+    case 'solutionOffers': return <SolutionOffers data={block.data} />;
+    case 'fitnessAudience': return <FitnessAudience data={block.data} />;
+    case 'workflowProcess': return <WorkflowProcess data={block.data} />;
+    case 'whyInvest': return <WhyInvest data={block.data} />;
+    case 'portfolioShowcase': return <PortfolioShowcase data={block.data} />;
+    case 'blogList': return <BlogList data={block.data} />;
+    case 'contactForm': return <ContactForm data={block.data} forms={forms} />;
+    case 'contactInfo': return <ContactInfo data={block.data} />;
+    case 'contactMap': return <ContactMap data={block.data} />;
+    case 'statsCounters': return <StatsCounters data={block.data} />;
+    case 'leadership': return <Leadership data={block.data} />;
+    case 'missionVision': return <MissionVision data={block.data} />;
+    case 'coreValues': return <CoreValues data={block.data} />;
+    case 'historyTimeline': return <HistoryTimeline data={block.data} />;
+    case 'processSteps': return <ProcessSteps data={block.data} />;
+    case 'clutchReviews': return <ClutchReviews data={block.data} />;
+    case 'clientReviews': return <ClientReviews data={block.data} />;
+    case 'technologyGroups': return <TechnologyGroups data={block.data} />;
+    case 'estimateWizard': return <EstimateWizard data={block.data} forms={forms} />;
+    case 'blogPost': return <BlogPost data={block.data} />;
+    case 'policyContent': return <PolicyContent data={block.data} />;
+    case 'anchorNav': return <AnchorNav data={block.data} />;
+    case 'sectionAnchor': return <SectionAnchor data={block.data} />;
+    case 'introSlider': return <IntroSlider data={block.data} />;
+    case 'offerGrid': return <OfferGrid data={block.data} />;
+    case 'iconCards': return <IconCards data={block.data} />;
+    case 'gameWhyUs': return <GameWhyUs data={block.data} />;
+    case 'gameExpertise': return <GameExpertise data={block.data} />;
+    case 'offerBoxes': return <OfferBoxes data={block.data} />;
+    case 'moduleBoxes': return <ModuleBoxes data={block.data} />;
+    case 'techIcons': return <TechIcons data={block.data} />;
+    case 'uiuxServices': return <UiuxServices data={block.data} />;
+    case 'uiuxMobileDesign': return <UiuxMobileDesign data={block.data} />;
+    case 'uiuxWebDesign': return <UiuxWebDesign data={block.data} />;
+    case 'uiuxProcess': return <UiuxProcess data={block.data} />;
+    case 'uiuxTools': return <UiuxTools data={block.data} />;
+    default: return null;
+  }
+}
+
+/** Renders the page's sections in the order the admin panel returns them. */
+export function SectionRenderer({ sections, forms }: { sections: SectionBlock[]; forms: FormsContent }) {
+  return (
+    <>
+      {sections.map((block, i) => (
+        <Fragment key={`${block.type}-${i}`}>
+          {i > 0 && ' '}
+          {renderSection(block, forms)}
+        </Fragment>
+      ))}
+    </>
+  );
+}

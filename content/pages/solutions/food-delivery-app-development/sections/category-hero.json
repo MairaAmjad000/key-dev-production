@@ -1,0 +1,32 @@
+{
+  "image": {
+    "src": "/images/service/food-delivery-app-development/banner.webp",
+    "alt": "food delivery app development",
+    "width": "1920",
+    "height": "800"
+  },
+  "sideImage": {
+    "src": "/images/service/food-delivery-app-development/hero-side.webp",
+    "alt": "restaurants app development company with end to end food delivery app development solution for small to large restaurant chains in Pakistan and across the globe"
+  },
+  "sideImageClass": "bannerfixedimagewidth landscape",
+  "headingClass": "text-uppercase f-40",
+  "heading": "Food Delivery App Development Solution",
+  "text": "It's time to get your own food delivery app and provide your customers with amazing food choices. KeyDevs Technologies being a top food delivery app development company is geared up to help you with on demand food delivery app development which will result in an app that can connect hungry customers to business-ready restaurants.",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Get Your Quote Today",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Food App Development"
+    }
+  ]
+}

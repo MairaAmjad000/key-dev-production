@@ -1,0 +1,44 @@
+{
+  "sectionClass": "padding-60 web-why-choose-us-inner car-wash-advantage-main bg-light",
+  "heightClass": "m-height-130",
+  "rowClass": "row align-items-center",
+  "text": "Why should you invest?",
+  "heading": "Advantage of our On-Demand Food Delivery App Development Solution",
+  "paragraphs": [
+    {
+      "html": "If you have eyes on the food delivery mobile app business, you need a quick way to build such an app and launch it in the shortest time possible. We are your path to that destination. Our on-demand food delivery app development expertise combined with a solid grip on startup business models will help you build and launch the food delivery app in quick time."
+    }
+  ],
+  "items": [
+    {
+      "icon": "svg-597df0",
+      "title": "100% customizable",
+      "text": "We offer custom food delivery app development solutions. Customize the app with your own brand presets like color, fonts, themes and much more."
+    },
+    {
+      "icon": "svg-6c692d",
+      "title": "White Label Solution",
+      "text": "A white label solution that can showcase the app as your own without any watermarks or logo restrictions."
+    },
+    {
+      "icon": "svg-64c9c1",
+      "title": "High-end Security",
+      "text": "Being the top food delivery app development company, we follow Encryption based security system that prevents unauthorized access of all forms."
+    },
+    {
+      "icon": "svg-6e2780",
+      "title": "Ready to Market",
+      "text": "The food delivery app development solution has completed testing stage and can be readily deployed post customization."
+    },
+    {
+      "icon": "svg-9b8cb8",
+      "title": "Multi-lingual",
+      "text": "Speak the language of your customers, wherever they are from and whatever language they speak."
+    },
+    {
+      "icon": "svg-bd7020",
+      "title": "Third-party integrations",
+      "text": "Integrate mobile apps or delivery models of restaurant chains or individual restaurateurs with the app."
+    }
+  ]
+}

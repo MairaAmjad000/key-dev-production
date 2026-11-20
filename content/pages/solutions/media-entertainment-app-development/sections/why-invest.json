@@ -1,0 +1,44 @@
+{
+  "sectionClass": "padding-6030 bg-light why-you-invest-main",
+  "containerClass": "container mt-md-5",
+  "columnClass": "col-lg-4 col-md-6 col-sm-6 col-12 mb-30",
+  "heightClass": "m-height-130",
+  "text": "Why Choose Us",
+  "heading": "Our unique traits as a Entertainment App Development Company",
+  "text2": "Get to know our specialities that makes us the best choice for Entertainment App Development Solutions.",
+  "items": [
+    {
+      "icon": "svg-9b8cb8",
+      "title": "Multi-language Support",
+      "text": "Your media and entertainment apps must appeal to a global audience. They must have multi-language support so that uses can switch to a language of their preference to use the app conveniently."
+    },
+    {
+      "icon": "svg-010b36",
+      "title": "NDA",
+      "text": "Your app requirements, business model, USPs — and everything else will remain discreet. We can sign a Non-disclosure agreement to put the terms in writing."
+    },
+    {
+      "icon": "svg-32aedc",
+      "title": "App-store Friendly",
+      "text": "App store optimization is a powerful tool that can help your media or gaming app rank higher in app stores. Our ASO expertise will ensure that your app will get maximum momentum and downloads from the day of launch."
+    },
+    {
+      "icon": "svg-81e76d",
+      "title": "App Monetization",
+      "text": "Turning a mobile app into a source of revenue is not a task that is easily done. Our app monetization techniques will help you create the right monetization channels that will help you monetize the app aptly."
+    },
+    {
+      "icon": "svg-02e3a8",
+      "title": "Experienced Developers",
+      "text": "Your media and gaming app is in safe hands. We have experienced developers who know how to turn abstract gaming concepts into highly-compelling game concepts that will engage users."
+    }
+  ],
+  "ctaBox": {
+    "title": "Our Clients Love Us",
+    "link": {
+      "href": "/client-review",
+      "text": "Read Our Reviews"
+    },
+    "columnClass": "col-lg-4 col-md-6 col-sm-6 col-12 mb-30 d-flex align-items-center"
+  }
+}

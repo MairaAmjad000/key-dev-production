@@ -1,0 +1,20 @@
+{
+  "slug": "service/angularjs-development",
+  "seo": {
+    "title": "AngularJS Development Company | KeyDevs Technologies",
+    "description": "As a benchmarked front end framework, AngularJS offers complete functionalities required by expert developers. Single page applications and cross platform…"
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "iconCards",
+    "advantageGrid",
+    "whyChoose",
+    "portfolio",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}

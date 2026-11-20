@@ -1,0 +1,28 @@
+{
+  "sectionClass": "padding-6030 bg-white other-demand-app-main",
+  "text": "We are Versatile",
+  "heading": "Our Expertise in Other On-demand Solution",
+  "items": [
+    {
+      "icon": "svg-05c6af",
+      "title": "Taxi",
+      "href": "/solutions/taxi-app-development",
+      "columnClass": "col-lg-3 col-3d-4 col-sm-6 col-12 mb-30"
+    },
+    {
+      "icon": "svg-a55fad",
+      "title": "Food App",
+      "href": "/solutions/food-delivery-app-development"
+    },
+    {
+      "icon": "svg-8e233f",
+      "title": "Chat App",
+      "href": "/solutions/chat-instant-messaging-app-development"
+    },
+    {
+      "icon": "svg-619a78",
+      "title": "Social Media",
+      "href": "/solutions/social-media-app-development"
+    }
+  ]
+}

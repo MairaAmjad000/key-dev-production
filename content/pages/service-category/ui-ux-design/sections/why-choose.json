@@ -1,0 +1,30 @@
+{
+  "sectionClass": "padding-60 web-why-choose-us-inner bg-white",
+  "heightClass": "m-height-170",
+  "rowClass": "row justify-content-center",
+  "text": "Why Choose Us",
+  "heading": "Driving Results that Creates an Impact Through UX/UI Design",
+  "paragraphs": [],
+  "items": [
+    {
+      "icon": "svg-8fc822",
+      "title": "Turn vision into reality",
+      "text": "Let your ideas breathe on our designing canvas as we carve a thoughtful design out of your vision. Blending technology and expertise in offering UX UI design services."
+    },
+    {
+      "icon": "svg-ffb515",
+      "title": "Holistic UI/UX Solutions",
+      "text": "We go beyond simply designing the prototype and elaborative UI. Being a UI UX agency, we emphasise providing comprehensive business solutions through intuitive app design."
+    },
+    {
+      "icon": "svg-e82b0f",
+      "title": "UX/UI Services at Par",
+      "text": "Our UX/UI development service standards are at par with the industry to empower your business with latest technology. Our experienced state team ensures offering scalable UI for a dynamic UX."
+    },
+    {
+      "icon": "svg-a3379c",
+      "title": "Timeliness",
+      "text": "Integrating time in delivery can determine business success. Our commitment to timely delivering UI UX services safeguards your business from competition to get you to launch ready in a jiffy."
+    }
+  ]
+}

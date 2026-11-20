@@ -1,0 +1,74 @@
+{
+  "image": {
+    "src": "/images/category/web-development/banner-web-development.webp",
+    "alt": "Augmented Reality App Development by KeyDevs Technologies",
+    "width": "1920",
+    "height": "800"
+  },
+  "heading": "Augmented Reality App Development Company",
+  "text": "Bring products and places to life with augmented reality. KeyDevs Technologies builds AR apps that let users see, try and explore in the real world through their phone camera.",
+  "links": [
+    {
+      "href": "/portfolio",
+      "className": "btn waves-effect waves-light btn-custome mb-3",
+      "text": "View Our Work"
+    },
+    {
+      "href": "/app-development-cost-calculator",
+      "className": "btn waves-effect waves-light btn-custome mb-3",
+      "text": "Calculate Augmented Reality App Development Cost"
+    }
+  ],
+  "form": {
+    "id": "ar-app-development-banner_form",
+    "fields": [
+      {
+        "type": "text",
+        "name": "name",
+        "placeholder": "Name",
+        "required": true,
+        "label": "Name"
+      },
+      {
+        "type": "email",
+        "name": "email",
+        "placeholder": "Email",
+        "required": true,
+        "label": "Email"
+      },
+      {
+        "type": "text",
+        "name": "phone",
+        "placeholder": "Phone Number",
+        "required": true,
+        "minLength": 10,
+        "maxLength": 11,
+        "variant": "phone"
+      },
+      {
+        "type": "textarea",
+        "name": "message",
+        "placeholder": "Project Descriptions",
+        "required": false,
+        "label": "Message",
+        "rows": 4
+      }
+    ],
+    "submitText": "Get Started Now!",
+    "errorId": "ar-app-development-error_message_banner_form",
+    "successId": "ar-app-development-success_message_banner_form"
+  },
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Mobile App Development",
+      "href": "/service-category/mobile-app-development"
+    },
+    {
+      "text": "Augmented Reality App Development"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "sectionClass": "padding-6030 bg-light why-you-invest-main",
+  "containerClass": "container mt-md-5",
+  "columnClass": "col-lg-4 col-md-6 col-sm-6 col-12 mb-30",
+  "heightClass": "m-height-130",
+  "text": "Why Choose Us",
+  "heading": "Our unique traits as a Social Media App Development Company",
+  "text2": "Know the many factors that make us awesome and perfect for social media app development.",
+  "items": [
+    {
+      "icon": "svg-8f9e9f",
+      "title": "Custom Design",
+      "text": "Specifically design app interfaces and workflows that will deliver unique experiences to your customers. Brand presets, theme-based interfaces and personalization components can also be integrated into the design."
+    },
+    {
+      "icon": "svg-c63268",
+      "title": "Custom Development",
+      "text": "End-to-end custom development that puts your priorities ahead of everything else."
+    },
+    {
+      "icon": "svg-2fe165",
+      "title": "Scalable and Robust",
+      "text": "A robust backend and a scalable database will ensure that your app will keep up with the pace of your business growth."
+    },
+    {
+      "icon": "svg-136065",
+      "title": "Affordable Solution",
+      "text": "We build world-class social media apps that look and feel great but do not cost as much as they look like. We will be happy to give a personalized quote."
+    },
+    {
+      "icon": "svg-02e3a8",
+      "title": "Experienced Developers",
+      "text": "Our developers are well-versed in several language frameworks and platforms that will give your social media app the much needed scalability, versatility and flexibility."
+    }
+  ],
+  "ctaBox": {
+    "title": "Our Clients Love Us",
+    "link": {
+      "href": "/client-review",
+      "text": "Read Our Reviews"
+    },
+    "columnClass": "col-lg-4 col-md-6 col-sm-6 col-12 mb-30 d-flex align-items-center"
+  }
+}

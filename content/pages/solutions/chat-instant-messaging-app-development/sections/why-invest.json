@@ -1,0 +1,41 @@
+{
+  "sectionClass": "padding-6030 bg-light why-you-invest-main",
+  "containerClass": "container mt-50 mt-b-0",
+  "columnClass": "col-lg-4 col-md-6 col-sm-6 col-12 mb-30",
+  "heightClass": "",
+  "text": "What makes it cool?",
+  "heading": "The advantage of our instant messaging app solution",
+  "text2": "KeyDevs Technologies strives to deliver value to clients. Our instant messaging app development solution is docked with benefits that will make your time and money spent worthwhile.",
+  "items": [
+    {
+      "icon": "svg-044587",
+      "title": "Encrypted Messages",
+      "text": "Your chats should be for your eyes and your recipient's eyes only and no one else. We fortify the instant messaging apps we build with high-end encryption that keeps your chat and media safe from all possible data security threats."
+    },
+    {
+      "icon": "svg-4ee6b0",
+      "title": "Cloud Synchronization",
+      "text": "Chats are meant to go wherever you go. They should not be siloed making information scattered and less accessible. We can help you access your chats anywhere, anytime with cloud synchronization."
+    },
+    {
+      "icon": "svg-5f6703",
+      "title": "100% Customizable",
+      "text": "Chat app for your organization? Social media app for your online store? A personal chat app for one to on talks. Customize our instant messaging app solution to meet any specific messaging needs."
+    },
+    {
+      "icon": "svg-ecba8c",
+      "title": "Full Access to Source Code",
+      "text": "Your app, your rules. Make it work anyway with access to the source code. We give access to the source code so that you can decide which features and which ones to modify to suit your requirements."
+    },
+    {
+      "icon": "svg-8c4948",
+      "title": "Lightweight Application",
+      "text": "Don’t cough too much storage for a single app. Our app requires minimal system requirements that will be lighter on your storage as well as RAM memory. You can work it on any system without any trouble."
+    },
+    {
+      "icon": "svg-c773e9",
+      "title": "Multilingual",
+      "text": "Let the app speak the language of your users with multi-lingual compatibility. You can set the language preferences in the admin panel or let users choose their own preferred language while configuring the app."
+    }
+  ]
+}

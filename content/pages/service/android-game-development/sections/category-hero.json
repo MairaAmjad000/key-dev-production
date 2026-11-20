@@ -1,0 +1,36 @@
+{
+  "image": {
+    "src": "/images/service/android-game-development/banner-android-game-development.webp",
+    "alt": "",
+    "width": "1920",
+    "height": "800"
+  },
+  "heading": "ANDROID MOBILE GAME DEVELOPMENT",
+  "headingClass": "text-uppercase",
+  "text": "KeyDevs Technologies offers highly versatile android game development services for a range of game genres and Android devices to provide sheer entertainment to game lovers, as well as serving the vison of our Client’s who aim high.",
+  "links": [
+    {
+      "href": "/portfolio",
+      "className": "btn waves-effect waves-light btn-custome mb-3",
+      "text": "View Our Work"
+    },
+    {
+      "href": "/app-development-cost-calculator",
+      "className": "btn waves-effect waves-light btn-custome mb-3",
+      "text": "Calculate Your Game Development Cost"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Game Development",
+      "href": "/service-category/game-development"
+    },
+    {
+      "text": "Android Game Development"
+    }
+  ]
+}

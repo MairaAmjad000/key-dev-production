@@ -1,0 +1,215 @@
+/**
+* GENERATED registry of the solution pages (content/pages/solutions/<slug>).
+* One entry per page: its manifest (page.json) and the data of each section. Keep in step with the content/ folder.
+*/
+import type { SectionDataMap } from '@/types';
+import carWashAppDevelopmentPage from '../../../content/pages/solutions/car-wash-app-development/page.json';
+import carWashAppDevelopment_blog from '../../../content/pages/solutions/car-wash-app-development/sections/blog.json';
+import carWashAppDevelopment_brandLogos from '../../../content/pages/solutions/car-wash-app-development/sections/brand-logos.json';
+import carWashAppDevelopment_categoryHero from '../../../content/pages/solutions/car-wash-app-development/sections/category-hero.json';
+import carWashAppDevelopment_featureTabs from '../../../content/pages/solutions/car-wash-app-development/sections/feature-tabs.json';
+import carWashAppDevelopment_featuredIn from '../../../content/pages/solutions/car-wash-app-development/sections/featured-in.json';
+import carWashAppDevelopment_introContent from '../../../content/pages/solutions/car-wash-app-development/sections/intro-content.json';
+import carWashAppDevelopment_otherSolutions from '../../../content/pages/solutions/car-wash-app-development/sections/other-solutions.json';
+import carWashAppDevelopment_techStackTabs from '../../../content/pages/solutions/car-wash-app-development/sections/tech-stack-tabs.json';
+import carWashAppDevelopment_technologies from '../../../content/pages/solutions/car-wash-app-development/sections/technologies.json';
+import carWashAppDevelopment_testimonials from '../../../content/pages/solutions/car-wash-app-development/sections/testimonials.json';
+import carWashAppDevelopment_whyChoose from '../../../content/pages/solutions/car-wash-app-development/sections/why-choose.json';
+import carWashAppDevelopment_workflowProcess from '../../../content/pages/solutions/car-wash-app-development/sections/workflow-process.json';
+import chatInstantMessagingAppDevelopmentPage from '../../../content/pages/solutions/chat-instant-messaging-app-development/page.json';
+import chatInstantMessagingAppDevelopment_blog from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/blog.json';
+import chatInstantMessagingAppDevelopment_brandLogos from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/brand-logos.json';
+import chatInstantMessagingAppDevelopment_categoryHero from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/category-hero.json';
+import chatInstantMessagingAppDevelopment_featuredIn from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/featured-in.json';
+import chatInstantMessagingAppDevelopment_introContent from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/intro-content.json';
+import chatInstantMessagingAppDevelopment_messagingFeatures from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/messaging-features.json';
+import chatInstantMessagingAppDevelopment_messagingPanels from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/messaging-panels.json';
+import chatInstantMessagingAppDevelopment_otherSolutions from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/other-solutions.json';
+import chatInstantMessagingAppDevelopment_similarApp from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/similar-app.json';
+import chatInstantMessagingAppDevelopment_solutionCta from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/solution-cta.json';
+import chatInstantMessagingAppDevelopment_techStackTabs from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/tech-stack-tabs.json';
+import chatInstantMessagingAppDevelopment_technologies from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/technologies.json';
+import chatInstantMessagingAppDevelopment_testimonials from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/testimonials.json';
+import chatInstantMessagingAppDevelopment_whyInvest from '../../../content/pages/solutions/chat-instant-messaging-app-development/sections/why-invest.json';
+import chatbotDevelopmentPage from '../../../content/pages/solutions/chatbot-development/page.json';
+import chatbotDevelopment_appWhyChoose from '../../../content/pages/solutions/chatbot-development/sections/app-why-choose.json';
+import chatbotDevelopment_blog from '../../../content/pages/solutions/chatbot-development/sections/blog.json';
+import chatbotDevelopment_brandLogos from '../../../content/pages/solutions/chatbot-development/sections/brand-logos.json';
+import chatbotDevelopment_categoryHero from '../../../content/pages/solutions/chatbot-development/sections/category-hero.json';
+import chatbotDevelopment_chatbotAdvantages from '../../../content/pages/solutions/chatbot-development/sections/chatbot-advantages.json';
+import chatbotDevelopment_chatbotPlatforms from '../../../content/pages/solutions/chatbot-development/sections/chatbot-platforms.json';
+import chatbotDevelopment_featuredIn from '../../../content/pages/solutions/chatbot-development/sections/featured-in.json';
+import chatbotDevelopment_industryTabs from '../../../content/pages/solutions/chatbot-development/sections/industry-tabs.json';
+import chatbotDevelopment_introContent from '../../../content/pages/solutions/chatbot-development/sections/intro-content.json';
+import chatbotDevelopment_portfolio from '../../../content/pages/solutions/chatbot-development/sections/portfolio.json';
+import chatbotDevelopment_technologies from '../../../content/pages/solutions/chatbot-development/sections/technologies.json';
+import chatbotDevelopment_testimonials from '../../../content/pages/solutions/chatbot-development/sections/testimonials.json';
+import datingAppDevelopmentPage from '../../../content/pages/solutions/dating-app-development/page.json';
+import datingAppDevelopment_blog from '../../../content/pages/solutions/dating-app-development/sections/blog.json';
+import datingAppDevelopment_brandLogos from '../../../content/pages/solutions/dating-app-development/sections/brand-logos.json';
+import datingAppDevelopment_categoryHero from '../../../content/pages/solutions/dating-app-development/sections/category-hero.json';
+import datingAppDevelopment_faq from '../../../content/pages/solutions/dating-app-development/sections/faq.json';
+import datingAppDevelopment_featureTabs from '../../../content/pages/solutions/dating-app-development/sections/feature-tabs.json';
+import datingAppDevelopment_featuredIn from '../../../content/pages/solutions/dating-app-development/sections/featured-in.json';
+import datingAppDevelopment_idealBusiness from '../../../content/pages/solutions/dating-app-development/sections/ideal-business.json';
+import datingAppDevelopment_introContent from '../../../content/pages/solutions/dating-app-development/sections/intro-content.json';
+import datingAppDevelopment_otherSolutions from '../../../content/pages/solutions/dating-app-development/sections/other-solutions.json';
+import datingAppDevelopment_solutionCta from '../../../content/pages/solutions/dating-app-development/sections/solution-cta.json';
+import datingAppDevelopment_technologies from '../../../content/pages/solutions/dating-app-development/sections/technologies.json';
+import datingAppDevelopment_testimonials from '../../../content/pages/solutions/dating-app-development/sections/testimonials.json';
+import datingAppDevelopment_whyChoose from '../../../content/pages/solutions/dating-app-development/sections/why-choose.json';
+import datingAppDevelopment_whyInvest from '../../../content/pages/solutions/dating-app-development/sections/why-invest.json';
+import fantasySportsAppDevelopmentPage from '../../../content/pages/solutions/fantasy-sports-app-development/page.json';
+import fantasySportsAppDevelopment_blog from '../../../content/pages/solutions/fantasy-sports-app-development/sections/blog.json';
+import fantasySportsAppDevelopment_brandLogos from '../../../content/pages/solutions/fantasy-sports-app-development/sections/brand-logos.json';
+import fantasySportsAppDevelopment_caseStudy from '../../../content/pages/solutions/fantasy-sports-app-development/sections/case-study.json';
+import fantasySportsAppDevelopment_categoryHero from '../../../content/pages/solutions/fantasy-sports-app-development/sections/category-hero.json';
+import fantasySportsAppDevelopment_faq from '../../../content/pages/solutions/fantasy-sports-app-development/sections/faq.json';
+import fantasySportsAppDevelopment_featuredIn from '../../../content/pages/solutions/fantasy-sports-app-development/sections/featured-in.json';
+import fantasySportsAppDevelopment_introContent from '../../../content/pages/solutions/fantasy-sports-app-development/sections/intro-content.json';
+import fantasySportsAppDevelopment_keyFeatureTabs from '../../../content/pages/solutions/fantasy-sports-app-development/sections/key-feature-tabs.json';
+import fantasySportsAppDevelopment_similarAppSlider from '../../../content/pages/solutions/fantasy-sports-app-development/sections/similar-app-slider.json';
+import fantasySportsAppDevelopment_solutionOffers from '../../../content/pages/solutions/fantasy-sports-app-development/sections/solution-offers.json';
+import fantasySportsAppDevelopment_techStackTabs from '../../../content/pages/solutions/fantasy-sports-app-development/sections/tech-stack-tabs.json';
+import fantasySportsAppDevelopment_technologies from '../../../content/pages/solutions/fantasy-sports-app-development/sections/technologies.json';
+import fantasySportsAppDevelopment_testimonials from '../../../content/pages/solutions/fantasy-sports-app-development/sections/testimonials.json';
+import fantasySportsAppDevelopment_whyInvest from '../../../content/pages/solutions/fantasy-sports-app-development/sections/why-invest.json';
+import financeAppDevelopmentPage from '../../../content/pages/solutions/finance-app-development/page.json';
+import financeAppDevelopment_blog from '../../../content/pages/solutions/finance-app-development/sections/blog.json';
+import financeAppDevelopment_brandLogos from '../../../content/pages/solutions/finance-app-development/sections/brand-logos.json';
+import financeAppDevelopment_categoryHero from '../../../content/pages/solutions/finance-app-development/sections/category-hero.json';
+import financeAppDevelopment_featuredIn from '../../../content/pages/solutions/finance-app-development/sections/featured-in.json';
+import financeAppDevelopment_introContent from '../../../content/pages/solutions/finance-app-development/sections/intro-content.json';
+import financeAppDevelopment_keyFeatures from '../../../content/pages/solutions/finance-app-development/sections/key-features.json';
+import financeAppDevelopment_otherSolutions from '../../../content/pages/solutions/finance-app-development/sections/other-solutions.json';
+import financeAppDevelopment_solutionOffers from '../../../content/pages/solutions/finance-app-development/sections/solution-offers.json';
+import financeAppDevelopment_technologies from '../../../content/pages/solutions/finance-app-development/sections/technologies.json';
+import financeAppDevelopment_testimonials from '../../../content/pages/solutions/finance-app-development/sections/testimonials.json';
+import financeAppDevelopment_whyInvest from '../../../content/pages/solutions/finance-app-development/sections/why-invest.json';
+import foodDeliveryAppDevelopmentPage from '../../../content/pages/solutions/food-delivery-app-development/page.json';
+import foodDeliveryAppDevelopment_blog from '../../../content/pages/solutions/food-delivery-app-development/sections/blog.json';
+import foodDeliveryAppDevelopment_brandLogos from '../../../content/pages/solutions/food-delivery-app-development/sections/brand-logos.json';
+import foodDeliveryAppDevelopment_categoryHero from '../../../content/pages/solutions/food-delivery-app-development/sections/category-hero.json';
+import foodDeliveryAppDevelopment_featureTabs from '../../../content/pages/solutions/food-delivery-app-development/sections/feature-tabs.json';
+import foodDeliveryAppDevelopment_featuredIn from '../../../content/pages/solutions/food-delivery-app-development/sections/featured-in.json';
+import foodDeliveryAppDevelopment_introContent from '../../../content/pages/solutions/food-delivery-app-development/sections/intro-content.json';
+import foodDeliveryAppDevelopment_otherSolutions from '../../../content/pages/solutions/food-delivery-app-development/sections/other-solutions.json';
+import foodDeliveryAppDevelopment_technologies from '../../../content/pages/solutions/food-delivery-app-development/sections/technologies.json';
+import foodDeliveryAppDevelopment_testimonials from '../../../content/pages/solutions/food-delivery-app-development/sections/testimonials.json';
+import foodDeliveryAppDevelopment_whyChoose from '../../../content/pages/solutions/food-delivery-app-development/sections/why-choose.json';
+import healthFitnessAppDevelopmentPage from '../../../content/pages/solutions/health-fitness-app-development/page.json';
+import healthFitnessAppDevelopment_blog from '../../../content/pages/solutions/health-fitness-app-development/sections/blog.json';
+import healthFitnessAppDevelopment_brandLogos from '../../../content/pages/solutions/health-fitness-app-development/sections/brand-logos.json';
+import healthFitnessAppDevelopment_categoryHero from '../../../content/pages/solutions/health-fitness-app-development/sections/category-hero.json';
+import healthFitnessAppDevelopment_featureTabs from '../../../content/pages/solutions/health-fitness-app-development/sections/feature-tabs.json';
+import healthFitnessAppDevelopment_featuredIn from '../../../content/pages/solutions/health-fitness-app-development/sections/featured-in.json';
+import healthFitnessAppDevelopment_fitnessAudience from '../../../content/pages/solutions/health-fitness-app-development/sections/fitness-audience.json';
+import healthFitnessAppDevelopment_introContent from '../../../content/pages/solutions/health-fitness-app-development/sections/intro-content.json';
+import healthFitnessAppDevelopment_keyFeatures from '../../../content/pages/solutions/health-fitness-app-development/sections/key-features.json';
+import healthFitnessAppDevelopment_otherSolutions from '../../../content/pages/solutions/health-fitness-app-development/sections/other-solutions.json';
+import healthFitnessAppDevelopment_similarApp from '../../../content/pages/solutions/health-fitness-app-development/sections/similar-app.json';
+import healthFitnessAppDevelopment_solutionCta from '../../../content/pages/solutions/health-fitness-app-development/sections/solution-cta.json';
+import healthFitnessAppDevelopment_techStackTabs from '../../../content/pages/solutions/health-fitness-app-development/sections/tech-stack-tabs.json';
+import healthFitnessAppDevelopment_technologies from '../../../content/pages/solutions/health-fitness-app-development/sections/technologies.json';
+import healthFitnessAppDevelopment_testimonials from '../../../content/pages/solutions/health-fitness-app-development/sections/testimonials.json';
+import healthFitnessAppDevelopment_whyInvest from '../../../content/pages/solutions/health-fitness-app-development/sections/why-invest.json';
+import mediaEntertainmentAppDevelopmentPage from '../../../content/pages/solutions/media-entertainment-app-development/page.json';
+import mediaEntertainmentAppDevelopment_blog from '../../../content/pages/solutions/media-entertainment-app-development/sections/blog.json';
+import mediaEntertainmentAppDevelopment_brandLogos from '../../../content/pages/solutions/media-entertainment-app-development/sections/brand-logos.json';
+import mediaEntertainmentAppDevelopment_categoryHero from '../../../content/pages/solutions/media-entertainment-app-development/sections/category-hero.json';
+import mediaEntertainmentAppDevelopment_featuredIn from '../../../content/pages/solutions/media-entertainment-app-development/sections/featured-in.json';
+import mediaEntertainmentAppDevelopment_introContent from '../../../content/pages/solutions/media-entertainment-app-development/sections/intro-content.json';
+import mediaEntertainmentAppDevelopment_keyFeatures from '../../../content/pages/solutions/media-entertainment-app-development/sections/key-features.json';
+import mediaEntertainmentAppDevelopment_otherSolutions from '../../../content/pages/solutions/media-entertainment-app-development/sections/other-solutions.json';
+import mediaEntertainmentAppDevelopment_solutionOffers from '../../../content/pages/solutions/media-entertainment-app-development/sections/solution-offers.json';
+import mediaEntertainmentAppDevelopment_technologies from '../../../content/pages/solutions/media-entertainment-app-development/sections/technologies.json';
+import mediaEntertainmentAppDevelopment_testimonials from '../../../content/pages/solutions/media-entertainment-app-development/sections/testimonials.json';
+import mediaEntertainmentAppDevelopment_whyInvest from '../../../content/pages/solutions/media-entertainment-app-development/sections/why-invest.json';
+import mediaEntertainmentAppDevelopment_similarAppSlider from '../../../content/pages/solutions/media-entertainment-app-development/sections/similar-app-slider.json';
+import realEstateAppDevelopmentPage from '../../../content/pages/solutions/real-estate-app-development/page.json';
+import realEstateAppDevelopment_blog from '../../../content/pages/solutions/real-estate-app-development/sections/blog.json';
+import realEstateAppDevelopment_brandLogos from '../../../content/pages/solutions/real-estate-app-development/sections/brand-logos.json';
+import realEstateAppDevelopment_categoryHero from '../../../content/pages/solutions/real-estate-app-development/sections/category-hero.json';
+import realEstateAppDevelopment_featuredIn from '../../../content/pages/solutions/real-estate-app-development/sections/featured-in.json';
+import realEstateAppDevelopment_introContent from '../../../content/pages/solutions/real-estate-app-development/sections/intro-content.json';
+import realEstateAppDevelopment_keyFeatures from '../../../content/pages/solutions/real-estate-app-development/sections/key-features.json';
+import realEstateAppDevelopment_moduleBoxes from '../../../content/pages/solutions/real-estate-app-development/sections/module-boxes.json';
+import realEstateAppDevelopment_otherSolutions from '../../../content/pages/solutions/real-estate-app-development/sections/other-solutions.json';
+import realEstateAppDevelopment_solutionOffers from '../../../content/pages/solutions/real-estate-app-development/sections/solution-offers.json';
+import realEstateAppDevelopment_technologies from '../../../content/pages/solutions/real-estate-app-development/sections/technologies.json';
+import realEstateAppDevelopment_testimonials from '../../../content/pages/solutions/real-estate-app-development/sections/testimonials.json';
+import realEstateAppDevelopment_whyChoose from '../../../content/pages/solutions/real-estate-app-development/sections/why-choose.json';
+import realEstateAppDevelopment_whyInvest from '../../../content/pages/solutions/real-estate-app-development/sections/why-invest.json';
+import seoServicesPage from '../../../content/pages/solutions/seo-services/page.json';
+import seoServices_blog from '../../../content/pages/solutions/seo-services/sections/blog.json';
+import seoServices_brandLogos from '../../../content/pages/solutions/seo-services/sections/brand-logos.json';
+import seoServices_categoryHero from '../../../content/pages/solutions/seo-services/sections/category-hero.json';
+import seoServices_faq from '../../../content/pages/solutions/seo-services/sections/faq.json';
+import seoServices_featureTabs from '../../../content/pages/solutions/seo-services/sections/feature-tabs.json';
+import seoServices_featuredIn from '../../../content/pages/solutions/seo-services/sections/featured-in.json';
+import seoServices_idealBusiness from '../../../content/pages/solutions/seo-services/sections/ideal-business.json';
+import seoServices_introContent from '../../../content/pages/solutions/seo-services/sections/intro-content.json';
+import seoServices_otherSolutions from '../../../content/pages/solutions/seo-services/sections/other-solutions.json';
+import seoServices_solutionCta from '../../../content/pages/solutions/seo-services/sections/solution-cta.json';
+import seoServices_technologies from '../../../content/pages/solutions/seo-services/sections/technologies.json';
+import seoServices_testimonials from '../../../content/pages/solutions/seo-services/sections/testimonials.json';
+import seoServices_whyChoose from '../../../content/pages/solutions/seo-services/sections/why-choose.json';
+import seoServices_whyInvest from '../../../content/pages/solutions/seo-services/sections/why-invest.json';
+import socialMediaAppDevelopmentPage from '../../../content/pages/solutions/social-media-app-development/page.json';
+import socialMediaAppDevelopment_blog from '../../../content/pages/solutions/social-media-app-development/sections/blog.json';
+import socialMediaAppDevelopment_brandLogos from '../../../content/pages/solutions/social-media-app-development/sections/brand-logos.json';
+import socialMediaAppDevelopment_categoryHero from '../../../content/pages/solutions/social-media-app-development/sections/category-hero.json';
+import socialMediaAppDevelopment_featuredIn from '../../../content/pages/solutions/social-media-app-development/sections/featured-in.json';
+import socialMediaAppDevelopment_introContent from '../../../content/pages/solutions/social-media-app-development/sections/intro-content.json';
+import socialMediaAppDevelopment_keyFeatures from '../../../content/pages/solutions/social-media-app-development/sections/key-features.json';
+import socialMediaAppDevelopment_otherSolutions from '../../../content/pages/solutions/social-media-app-development/sections/other-solutions.json';
+import socialMediaAppDevelopment_socialTypes from '../../../content/pages/solutions/social-media-app-development/sections/social-types.json';
+import socialMediaAppDevelopment_technologies from '../../../content/pages/solutions/social-media-app-development/sections/technologies.json';
+import socialMediaAppDevelopment_testimonials from '../../../content/pages/solutions/social-media-app-development/sections/testimonials.json';
+import socialMediaAppDevelopment_whyInvest from '../../../content/pages/solutions/social-media-app-development/sections/why-invest.json';
+import socialMediaAppDevelopment_similarAppSlider from '../../../content/pages/solutions/social-media-app-development/sections/similar-app-slider.json';
+import taxiAppDevelopmentPage from '../../../content/pages/solutions/taxi-app-development/page.json';
+import taxiAppDevelopment_blog from '../../../content/pages/solutions/taxi-app-development/sections/blog.json';
+import taxiAppDevelopment_brandLogos from '../../../content/pages/solutions/taxi-app-development/sections/brand-logos.json';
+import taxiAppDevelopment_categoryHero from '../../../content/pages/solutions/taxi-app-development/sections/category-hero.json';
+import taxiAppDevelopment_faq from '../../../content/pages/solutions/taxi-app-development/sections/faq.json';
+import taxiAppDevelopment_featureTabs from '../../../content/pages/solutions/taxi-app-development/sections/feature-tabs.json';
+import taxiAppDevelopment_featuredIn from '../../../content/pages/solutions/taxi-app-development/sections/featured-in.json';
+import taxiAppDevelopment_idealBusiness from '../../../content/pages/solutions/taxi-app-development/sections/ideal-business.json';
+import taxiAppDevelopment_introContent from '../../../content/pages/solutions/taxi-app-development/sections/intro-content.json';
+import taxiAppDevelopment_otherSolutions from '../../../content/pages/solutions/taxi-app-development/sections/other-solutions.json';
+import taxiAppDevelopment_similarApp from '../../../content/pages/solutions/taxi-app-development/sections/similar-app.json';
+import taxiAppDevelopment_solutionCta from '../../../content/pages/solutions/taxi-app-development/sections/solution-cta.json';
+import taxiAppDevelopment_techStackTabs from '../../../content/pages/solutions/taxi-app-development/sections/tech-stack-tabs.json';
+import taxiAppDevelopment_technologies from '../../../content/pages/solutions/taxi-app-development/sections/technologies.json';
+import taxiAppDevelopment_testimonials from '../../../content/pages/solutions/taxi-app-development/sections/testimonials.json';
+import taxiAppDevelopment_whyChoose from '../../../content/pages/solutions/taxi-app-development/sections/why-choose.json';
+import travelAppDevelopmentPage from '../../../content/pages/solutions/travel-app-development/page.json';
+import travelAppDevelopment_blog from '../../../content/pages/solutions/travel-app-development/sections/blog.json';
+import travelAppDevelopment_brandLogos from '../../../content/pages/solutions/travel-app-development/sections/brand-logos.json';
+import travelAppDevelopment_categoryHero from '../../../content/pages/solutions/travel-app-development/sections/category-hero.json';
+import travelAppDevelopment_featuredIn from '../../../content/pages/solutions/travel-app-development/sections/featured-in.json';
+import travelAppDevelopment_introContent from '../../../content/pages/solutions/travel-app-development/sections/intro-content.json';
+import travelAppDevelopment_keyFeatures from '../../../content/pages/solutions/travel-app-development/sections/key-features.json';
+import travelAppDevelopment_otherSolutions from '../../../content/pages/solutions/travel-app-development/sections/other-solutions.json';
+import travelAppDevelopment_solutionOffers from '../../../content/pages/solutions/travel-app-development/sections/solution-offers.json';
+import travelAppDevelopment_technologies from '../../../content/pages/solutions/travel-app-development/sections/technologies.json';
+import travelAppDevelopment_testimonials from '../../../content/pages/solutions/travel-app-development/sections/testimonials.json';
+import travelAppDevelopment_whyInvest from '../../../content/pages/solutions/travel-app-development/sections/why-invest.json';
+
+export const solutionPageSources: Array<{ manifest: { slug: string; seo?: { title?: string; description?: string }; sections: string[] }; data: Partial<SectionDataMap> }> = [
+  { manifest: datingAppDevelopmentPage, data: { blog: datingAppDevelopment_blog, brandLogos: datingAppDevelopment_brandLogos, categoryHero: datingAppDevelopment_categoryHero, faq: datingAppDevelopment_faq, featureTabs: datingAppDevelopment_featureTabs, featuredIn: datingAppDevelopment_featuredIn, idealBusiness: datingAppDevelopment_idealBusiness, introContent: datingAppDevelopment_introContent, otherSolutions: datingAppDevelopment_otherSolutions, solutionCta: datingAppDevelopment_solutionCta, technologies: datingAppDevelopment_technologies, testimonials: datingAppDevelopment_testimonials, whyChoose: datingAppDevelopment_whyChoose, whyInvest: datingAppDevelopment_whyInvest } as Partial<SectionDataMap> },
+  { manifest: seoServicesPage, data: { blog: seoServices_blog, brandLogos: seoServices_brandLogos, categoryHero: seoServices_categoryHero, faq: seoServices_faq, featureTabs: seoServices_featureTabs, featuredIn: seoServices_featuredIn, idealBusiness: seoServices_idealBusiness, introContent: seoServices_introContent, otherSolutions: seoServices_otherSolutions, solutionCta: seoServices_solutionCta, technologies: seoServices_technologies, testimonials: seoServices_testimonials, whyChoose: seoServices_whyChoose, whyInvest: seoServices_whyInvest } as Partial<SectionDataMap> },
+  { manifest: taxiAppDevelopmentPage, data: { blog: taxiAppDevelopment_blog, brandLogos: taxiAppDevelopment_brandLogos, categoryHero: taxiAppDevelopment_categoryHero, faq: taxiAppDevelopment_faq, featureTabs: taxiAppDevelopment_featureTabs, featuredIn: taxiAppDevelopment_featuredIn, idealBusiness: taxiAppDevelopment_idealBusiness, introContent: taxiAppDevelopment_introContent, otherSolutions: taxiAppDevelopment_otherSolutions, similarApp: taxiAppDevelopment_similarApp, solutionCta: taxiAppDevelopment_solutionCta, techStackTabs: taxiAppDevelopment_techStackTabs, technologies: taxiAppDevelopment_technologies, testimonials: taxiAppDevelopment_testimonials, whyChoose: taxiAppDevelopment_whyChoose } as Partial<SectionDataMap> },
+  { manifest: foodDeliveryAppDevelopmentPage, data: { blog: foodDeliveryAppDevelopment_blog, brandLogos: foodDeliveryAppDevelopment_brandLogos, categoryHero: foodDeliveryAppDevelopment_categoryHero, featureTabs: foodDeliveryAppDevelopment_featureTabs, featuredIn: foodDeliveryAppDevelopment_featuredIn, introContent: foodDeliveryAppDevelopment_introContent, otherSolutions: foodDeliveryAppDevelopment_otherSolutions, technologies: foodDeliveryAppDevelopment_technologies, testimonials: foodDeliveryAppDevelopment_testimonials, whyChoose: foodDeliveryAppDevelopment_whyChoose } as Partial<SectionDataMap> },
+  { manifest: carWashAppDevelopmentPage, data: { blog: carWashAppDevelopment_blog, brandLogos: carWashAppDevelopment_brandLogos, categoryHero: carWashAppDevelopment_categoryHero, featureTabs: carWashAppDevelopment_featureTabs, featuredIn: carWashAppDevelopment_featuredIn, introContent: carWashAppDevelopment_introContent, otherSolutions: carWashAppDevelopment_otherSolutions, techStackTabs: carWashAppDevelopment_techStackTabs, technologies: carWashAppDevelopment_technologies, testimonials: carWashAppDevelopment_testimonials, whyChoose: carWashAppDevelopment_whyChoose, workflowProcess: carWashAppDevelopment_workflowProcess } as Partial<SectionDataMap> },
+  { manifest: realEstateAppDevelopmentPage, data: { blog: realEstateAppDevelopment_blog, brandLogos: realEstateAppDevelopment_brandLogos, categoryHero: realEstateAppDevelopment_categoryHero, featuredIn: realEstateAppDevelopment_featuredIn, introContent: realEstateAppDevelopment_introContent, keyFeatures: realEstateAppDevelopment_keyFeatures, moduleBoxes: realEstateAppDevelopment_moduleBoxes, otherSolutions: realEstateAppDevelopment_otherSolutions, solutionOffers: realEstateAppDevelopment_solutionOffers, technologies: realEstateAppDevelopment_technologies, testimonials: realEstateAppDevelopment_testimonials, whyChoose: realEstateAppDevelopment_whyChoose, whyInvest: realEstateAppDevelopment_whyInvest } as Partial<SectionDataMap> },
+  { manifest: financeAppDevelopmentPage, data: { blog: financeAppDevelopment_blog, brandLogos: financeAppDevelopment_brandLogos, categoryHero: financeAppDevelopment_categoryHero, featuredIn: financeAppDevelopment_featuredIn, introContent: financeAppDevelopment_introContent, keyFeatures: financeAppDevelopment_keyFeatures, otherSolutions: financeAppDevelopment_otherSolutions, solutionOffers: financeAppDevelopment_solutionOffers, technologies: financeAppDevelopment_technologies, testimonials: financeAppDevelopment_testimonials, whyInvest: financeAppDevelopment_whyInvest } as Partial<SectionDataMap> },
+  { manifest: travelAppDevelopmentPage, data: { blog: travelAppDevelopment_blog, brandLogos: travelAppDevelopment_brandLogos, categoryHero: travelAppDevelopment_categoryHero, featuredIn: travelAppDevelopment_featuredIn, introContent: travelAppDevelopment_introContent, keyFeatures: travelAppDevelopment_keyFeatures, otherSolutions: travelAppDevelopment_otherSolutions, solutionOffers: travelAppDevelopment_solutionOffers, technologies: travelAppDevelopment_technologies, testimonials: travelAppDevelopment_testimonials, whyInvest: travelAppDevelopment_whyInvest } as Partial<SectionDataMap> },
+  { manifest: healthFitnessAppDevelopmentPage, data: { blog: healthFitnessAppDevelopment_blog, brandLogos: healthFitnessAppDevelopment_brandLogos, categoryHero: healthFitnessAppDevelopment_categoryHero, featureTabs: healthFitnessAppDevelopment_featureTabs, featuredIn: healthFitnessAppDevelopment_featuredIn, fitnessAudience: healthFitnessAppDevelopment_fitnessAudience, introContent: healthFitnessAppDevelopment_introContent, keyFeatures: healthFitnessAppDevelopment_keyFeatures, otherSolutions: healthFitnessAppDevelopment_otherSolutions, similarApp: healthFitnessAppDevelopment_similarApp, solutionCta: healthFitnessAppDevelopment_solutionCta, techStackTabs: healthFitnessAppDevelopment_techStackTabs, technologies: healthFitnessAppDevelopment_technologies, testimonials: healthFitnessAppDevelopment_testimonials, whyInvest: healthFitnessAppDevelopment_whyInvest } as Partial<SectionDataMap> },
+  { manifest: socialMediaAppDevelopmentPage, data: { similarAppSlider: socialMediaAppDevelopment_similarAppSlider, blog: socialMediaAppDevelopment_blog, brandLogos: socialMediaAppDevelopment_brandLogos, categoryHero: socialMediaAppDevelopment_categoryHero, featuredIn: socialMediaAppDevelopment_featuredIn, introContent: socialMediaAppDevelopment_introContent, keyFeatures: socialMediaAppDevelopment_keyFeatures, otherSolutions: socialMediaAppDevelopment_otherSolutions, socialTypes: socialMediaAppDevelopment_socialTypes, technologies: socialMediaAppDevelopment_technologies, testimonials: socialMediaAppDevelopment_testimonials, whyInvest: socialMediaAppDevelopment_whyInvest } as Partial<SectionDataMap> },
+  { manifest: chatInstantMessagingAppDevelopmentPage, data: { blog: chatInstantMessagingAppDevelopment_blog, brandLogos: chatInstantMessagingAppDevelopment_brandLogos, categoryHero: chatInstantMessagingAppDevelopment_categoryHero, featuredIn: chatInstantMessagingAppDevelopment_featuredIn, introContent: chatInstantMessagingAppDevelopment_introContent, messagingFeatures: chatInstantMessagingAppDevelopment_messagingFeatures, messagingPanels: chatInstantMessagingAppDevelopment_messagingPanels, otherSolutions: chatInstantMessagingAppDevelopment_otherSolutions, similarApp: chatInstantMessagingAppDevelopment_similarApp, solutionCta: chatInstantMessagingAppDevelopment_solutionCta, techStackTabs: chatInstantMessagingAppDevelopment_techStackTabs, technologies: chatInstantMessagingAppDevelopment_technologies, testimonials: chatInstantMessagingAppDevelopment_testimonials, whyInvest: chatInstantMessagingAppDevelopment_whyInvest } as Partial<SectionDataMap> },
+  { manifest: mediaEntertainmentAppDevelopmentPage, data: { similarAppSlider: mediaEntertainmentAppDevelopment_similarAppSlider, blog: mediaEntertainmentAppDevelopment_blog, brandLogos: mediaEntertainmentAppDevelopment_brandLogos, categoryHero: mediaEntertainmentAppDevelopment_categoryHero, featuredIn: mediaEntertainmentAppDevelopment_featuredIn, introContent: mediaEntertainmentAppDevelopment_introContent, keyFeatures: mediaEntertainmentAppDevelopment_keyFeatures, otherSolutions: mediaEntertainmentAppDevelopment_otherSolutions, solutionOffers: mediaEntertainmentAppDevelopment_solutionOffers, technologies: mediaEntertainmentAppDevelopment_technologies, testimonials: mediaEntertainmentAppDevelopment_testimonials, whyInvest: mediaEntertainmentAppDevelopment_whyInvest } as Partial<SectionDataMap> },
+  { manifest: fantasySportsAppDevelopmentPage, data: { blog: fantasySportsAppDevelopment_blog, brandLogos: fantasySportsAppDevelopment_brandLogos, caseStudy: fantasySportsAppDevelopment_caseStudy, categoryHero: fantasySportsAppDevelopment_categoryHero, faq: fantasySportsAppDevelopment_faq, featuredIn: fantasySportsAppDevelopment_featuredIn, introContent: fantasySportsAppDevelopment_introContent, keyFeatureTabs: fantasySportsAppDevelopment_keyFeatureTabs, similarAppSlider: fantasySportsAppDevelopment_similarAppSlider, solutionOffers: fantasySportsAppDevelopment_solutionOffers, techStackTabs: fantasySportsAppDevelopment_techStackTabs, technologies: fantasySportsAppDevelopment_technologies, testimonials: fantasySportsAppDevelopment_testimonials, whyInvest: fantasySportsAppDevelopment_whyInvest } as Partial<SectionDataMap> },
+  { manifest: chatbotDevelopmentPage, data: { appWhyChoose: chatbotDevelopment_appWhyChoose, blog: chatbotDevelopment_blog, brandLogos: chatbotDevelopment_brandLogos, categoryHero: chatbotDevelopment_categoryHero, chatbotAdvantages: chatbotDevelopment_chatbotAdvantages, chatbotPlatforms: chatbotDevelopment_chatbotPlatforms, featuredIn: chatbotDevelopment_featuredIn, industryTabs: chatbotDevelopment_industryTabs, introContent: chatbotDevelopment_introContent, portfolio: chatbotDevelopment_portfolio, technologies: chatbotDevelopment_technologies, testimonials: chatbotDevelopment_testimonials } as Partial<SectionDataMap> },
+];

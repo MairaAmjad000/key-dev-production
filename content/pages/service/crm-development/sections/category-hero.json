@@ -1,0 +1,24 @@
+{
+  "image": {
+    "src": "/images/service/crm-development/banner.webp",
+    "alt": "Custom crm development"
+  },
+  "heading": "CUSTOM CRM SOFTWARE DEVELOPMENT",
+  "text": "Our custom CRM software development focuses on boosting your sales while efficiently managing valuable sales relationships with clients.<br/><br/>Opt for bespoke CRM software services help managing plethora of customers at one go with through requirements analysis, buying behaviour identification and other metrics providing valuable inputs for upselling on a timely basis.",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Let’s Discuss Your Requirement",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "CRM"
+    }
+  ]
+}

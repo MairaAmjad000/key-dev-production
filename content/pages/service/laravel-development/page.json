@@ -1,0 +1,19 @@
+{
+  "slug": "service/laravel-development",
+  "seo": {
+    "title": "Laravel Development Company | KeyDevs Technologies",
+    "description": "Laravel is a web development framework that helps reduce the distance between an idea and turning into a MVP (Minimum Viable Product). As a Laravel…"
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "iconCards",
+    "whyChoose",
+    "portfolio",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}

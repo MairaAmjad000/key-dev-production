@@ -1,0 +1,19 @@
+{
+  "slug": "service/codeigniter-development",
+  "seo": {
+    "title": "CodeIgniter Development Company | KeyDevs Technologies",
+    "description": "CodeIgniter is like the Swiss army knife of all web development frameworks. It is small in size but has an entire toolkit that will equip a web developer to…"
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "iconCards",
+    "whyChoose",
+    "portfolio",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}

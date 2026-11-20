@@ -1,0 +1,28 @@
+{
+  "heading": "Full-Stack WordPress Development Agency",
+  "paragraphs": [
+    {
+      "html": "WordPress offers an endless range of highly functional and user-friendly websites. As a full-service WordPress development company, we help our clients build all kind of websites on WordPress - from personal blogs to professional portfolios or even multi-vendor marketplaces with paywall integrations."
+    },
+    {
+      "html": "In addition to building WordPress websites from scratch, KeyDevs Technologies also offers to develop WordPress plugins that will extend the usability and utility of your website. For every problem that your business faces, there could be a WordPress plugin that could offer a permanent fix."
+    },
+    {
+      "html": "Don’t be worried of the time taken. Our exclusive team of WordPress developers will see to it that your project gets completed in the shortest time span possible with utmost perfection. Launching bug-free applications is a culture that we take seriously."
+    },
+    {
+      "html": "Tell us your idea and will show how WordPress can make it happen. Our WordPress expertise will ensure that you are able to reach the market in quick time with a well-designed, well-built and fully-functional WordPress website."
+    }
+  ],
+  "link": {
+    "href": "/contact",
+    "text": "Get in Touch with Us",
+    "className": "btn btn-custome waves-effect waves-light"
+  },
+  "image": {
+    "src": "/images/service/wordpress-development/intro.webp",
+    "alt": "Web Development Company"
+  },
+  "imageClass": "rounded10",
+  "sectionClass": "service-main-content service-web-inner padding-60 bg-white"
+}

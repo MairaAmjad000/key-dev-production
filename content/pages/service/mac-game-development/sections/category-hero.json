@@ -1,0 +1,74 @@
+{
+  "image": {
+    "src": "/images/category/web-development/banner-web-development.webp",
+    "alt": "Mac Game Development by KeyDevs Technologies",
+    "width": "1920",
+    "height": "800"
+  },
+  "heading": "Mac Game Development Company",
+  "text": "Reach Mac players with a game built for macOS. KeyDevs Technologies develops and ports games that run well on Apple Silicon and Intel Macs.",
+  "links": [
+    {
+      "href": "/portfolio",
+      "className": "btn waves-effect waves-light btn-custome mb-3",
+      "text": "View Our Work"
+    },
+    {
+      "href": "/app-development-cost-calculator",
+      "className": "btn waves-effect waves-light btn-custome mb-3",
+      "text": "Calculate Mac Game Development Cost"
+    }
+  ],
+  "form": {
+    "id": "mac-game-development-banner_form",
+    "fields": [
+      {
+        "type": "text",
+        "name": "name",
+        "placeholder": "Name",
+        "required": true,
+        "label": "Name"
+      },
+      {
+        "type": "email",
+        "name": "email",
+        "placeholder": "Email",
+        "required": true,
+        "label": "Email"
+      },
+      {
+        "type": "text",
+        "name": "phone",
+        "placeholder": "Phone Number",
+        "required": true,
+        "minLength": 10,
+        "maxLength": 11,
+        "variant": "phone"
+      },
+      {
+        "type": "textarea",
+        "name": "message",
+        "placeholder": "Project Descriptions",
+        "required": false,
+        "label": "Message",
+        "rows": 4
+      }
+    ],
+    "submitText": "Get Started Now!",
+    "errorId": "mac-game-development-error_message_banner_form",
+    "successId": "mac-game-development-success_message_banner_form"
+  },
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Game Development",
+      "href": "/service-category/game-development"
+    },
+    {
+      "text": "Mac Game Development"
+    }
+  ]
+}

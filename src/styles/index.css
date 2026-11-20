@@ -1,0 +1,103 @@
+/* Load order matters: it is the cascade order of the original stylesheet. */
+
+/* Fonts, links and the mega menu (these load before Bootstrap, as they always did) */
+@import './base/links.css';
+@import './base/fonts.css';
+@import './layout/mega-menu.css';
+
+/* Third-party library styles */
+@import './vendor/bootstrap-embedded.css';
+@import './vendor/slick.css';
+@import './vendor/magnific-popup.css';
+@import './vendor/intl-tel-input.css';
+
+/* Base: resets, helpers and rules shared by several sections */
+@import './base/preloader.css';
+@import './base/global.css';
+@import './base/utilities.css';
+@import './base/buttons.css';
+@import './base/shared.css';
+
+/* Game service sections: base rules must precede the responsive rules in layout/mobile-menu.css and layout/footer.css. */
+@import './sections/game-service.css';
+@import './sections/solution-extras.css';
+@import './sections/industry-extras.css';
+@import './sections/social-extras.css';
+@import './sections/other-extras.css';
+@import './sections/similar-app-slider.css';
+
+/* Layout chrome */
+@import './layout/header.css';
+@import './layout/mobile-menu.css';
+@import './layout/call-back-sidebar.css';
+
+/* Page sections, in page order */
+/* Inner-page banner base rules must come before the responsive (@media) rules in hero.css and the sections
+   below, exactly as in the original stylesheet, or its fixed font sizes would override the breakpoints. */
+@import './sections/category-hero.css';
+/* Solution page sections: base rules must precede the responsive rules in hero.css / process.css. */
+@import './sections/anchor-nav.css';
+@import './sections/offer-grid.css';
+@import './sections/intro-slider.css';
+@import './sections/hero-side-image.css';
+@import './sections/feature-tabs.css';
+@import './sections/ideal-business.css';
+@import './sections/solution-cta.css';
+@import './sections/other-solutions.css';
+@import './sections/why-invest.css';
+@import './sections/faq-list.css';
+@import './sections/portfolio-showcase.css';
+@import './sections/blog-list.css';
+@import './sections/blog-post.css';
+@import './sections/policy-content.css';
+@import './sections/contact-page.css';
+@import './sections/about-page.css';
+@import './sections/process-steps.css';
+@import './sections/client-review.css';
+@import './sections/technology-groups.css';
+@import './sections/estimate-page.css';
+@import './sections/hero.css';
+@import './sections/brand-logos.css';
+@import './sections/about.css';
+@import './sections/offerings.css';
+@import './sections/industries.css';
+@import './sections/values.css';
+@import './sections/callout.css';
+@import './sections/process.css';
+@import './sections/testimonials.css';
+@import './sections/portfolio.css';
+@import './sections/contact-cta.css';
+@import './sections/technologies.css';
+@import './sections/blog.css';
+@import './sections/schedule-call.css';
+@import './sections/engagement.css';
+@import './sections/locations.css';
+@import './sections/intro-content.css';
+@import './sections/service-offerings.css';
+@import './sections/feature-list.css';
+@import './sections/advantage-grid.css';
+@import './sections/framework-tabs.css';
+@import './sections/why-choose.css';
+@import './sections/faq.css';
+@import './sections/offer-cards.css';
+@import './sections/image-cards.css';
+@import './sections/compare-benefits.css';
+@import './sections/sprint-process.css';
+@import './sections/tech-stack-tabs.css';
+@import './sections/why-choose-image.css';
+@import './sections/uiux-design.css';
+/* Base rules of the tab slider / platform icons must precede the responsive rules in footer.css and scroll-top.css. */
+@import './sections/app-service-tabs.css';
+
+/* Footer and site-wide widgets */
+@import './layout/footer.css';
+@import './layout/scroll-top.css';
+@import './layout/quote-popup.css';
+@import './layout/cookie-alert.css';
+@import './layout/hire-sticky-bar.css';
+
+/* Responsive fixes: must come after every sheet above */
+@import './base/responsive.css';
+
+/* Font Awesome (self-hosted fonts); must stay last */
+@import './vendor/fontawesome-embedded.css';

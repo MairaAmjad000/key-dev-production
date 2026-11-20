@@ -1,0 +1,21 @@
+{
+  "slug": "service-category/ecommerce-development",
+  "seo": {
+    "title": "eCommerce Development Company | Online Store Development | KeyDevs",
+    "description": "KeyDevs Technologies builds fast, secure and scalable eCommerce websites and apps — WooCommerce, Shopify, Magento and custom stores with payment, inventory and delivery integrations."
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "iconCards",
+    "featureList",
+    "techIcons",
+    "whyChoose",
+    "portfolio",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}

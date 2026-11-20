@@ -1,0 +1,39 @@
+{
+  "image": {
+    "src": "/images/service/fantasy-sports-app-development/banner.webp",
+    "alt": "fantasy sports app development",
+    "width": "1920",
+    "height": "800"
+  },
+  "headingClass": "text-uppercase f-40",
+  "heading": "Enter the world of Fantasy Sports App Development",
+  "text": "The real world of sports is high on action and adrenaline. It takes serious strategic acumen to assemble a team and lead them to victory. With a fantasy sports mobile app, your users can also partake in the same high-on-adrenaline experience of playing a fantasy sport with fantasy teams. If you have a fantasy sports app idea, KeyDevs Technologies can turn that into reality.",
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Fantasy Sports App Development"
+    }
+  ],
+  "sectionClass": "scrollmobilebanner",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Get a Quote Now",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "sideImage": {
+    "src": "/images/service/fantasy-sports-app-development/hero-side.webp",
+    "alt": "fantasy cricket app development"
+  },
+  "sideImageClass": "bannerfixedimagewidth landscape",
+  "sideImageInner": {
+    "src": "/images/service/fantasy-sports-app-development/hero-scroll.webp",
+    "alt": "sports app development"
+  },
+  "textWrapperClass": "pr-20",
+  "textColumnClass": "col-xl-8 col-lg-7 col-md-12 col-sm-12 col-12"
+}

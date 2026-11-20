@@ -1,0 +1,20 @@
+{
+  "slug": "service/android-game-development",
+  "seo": {
+    "title": "Android Game Development | KeyDevs Technologies",
+    "description": "Android game development services by KeyDevs Technologies."
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "gameWhyUs",
+    "gameExpertise",
+    "callout",
+    "portfolio",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}

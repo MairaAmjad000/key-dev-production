@@ -1,0 +1,44 @@
+{
+  "sectionClass": "padding-6030 bg-white why-you-invest-main",
+  "containerClass": "container",
+  "columnClass": "col-lg-4 col-md-6 col-sm-6 col-12 mb-30",
+  "heightClass": "m-height-130",
+  "text": "Why KeyDevs Technologies?",
+  "heading": "6 reasons why you should rely on us for Fantasy Sports App Development",
+  "text2": "KeyDevs Technologies is a Fantasy Sports App Development Company that is driven by the passion to create fantasy gaming solutions that will take users to a new plane of experience.",
+  "items": [
+    {
+      "icon": "svg-b5bdcd",
+      "title": "Experienced players",
+      "text": "KeyDevs Technologies is one among the handful of fantasy sports app development companies in the industry."
+    },
+    {
+      "icon": "svg-f4d578",
+      "title": "Data Security",
+      "text": "Every byte if your app data will be secured with high-end encryption and data protection measures."
+    },
+    {
+      "icon": "svg-11abe3",
+      "title": "Post Launch Support",
+      "text": "We believe in long-term relationships and hence care for providing post launch support to our clients."
+    },
+    {
+      "icon": "svg-2f2dff",
+      "title": "NDA",
+      "text": "Your app requirements, business model, USPs — and everything else will remain discreet. We can sign a Non-disclosure agreement to put the terms in writing."
+    },
+    {
+      "icon": "svg-4eab91",
+      "title": "Market reputation",
+      "text": "All popular review websites, communities and forums have rated KeyDevs Technologies with 5-star reviews making us one of the best app development companies."
+    }
+  ],
+  "ctaBox": {
+    "title": "Our Clients Love Us",
+    "link": {
+      "href": "/client-review",
+      "text": "Read Our Reviews"
+    },
+    "columnClass": "col-lg-4 col-md-6 col-sm-6 col-12 mb-30 d-flex align-items-center"
+  }
+}

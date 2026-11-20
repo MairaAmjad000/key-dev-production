@@ -1,0 +1,35 @@
+{
+  "image": {
+    "src": "/images/service/php-web-development/banner.webp",
+    "alt": "KeyDevs Technologies is proficient php development company based in Lahore, Paksitan.",
+    "width": "1920",
+    "height": "800"
+  },
+  "heading": "PHP WEB DEVELOPMENT",
+  "text": "From Facebook to Wikipedia, the world’s most visited websites are built using PHP. Shouldn’t your website also be built using the same capable and universally compatible web development framework?<br/><br/>KeyDevs Technologies’s PHP development services can help you build any kind of website with a sophisticated backend and a user-friendly front end.",
+  "links": [
+    {
+      "href": "/portfolio",
+      "text": "View Our Work",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    },
+    {
+      "href": "/app-development-cost-calculator",
+      "text": "Calculate Your Web Development Cost",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Web Development",
+      "href": "/service-category/web-development"
+    },
+    {
+      "text": "PHP Web Development"
+    }
+  ]
+}

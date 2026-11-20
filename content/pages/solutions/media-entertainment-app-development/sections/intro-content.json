@@ -1,0 +1,24 @@
+{
+  "heading": "Design otherworldly experiences with our Entertainment Mobile App Development expertise",
+  "paragraphs": [
+    {
+      "html": "Listening to music. Watching a movie. Tuning into a podcast. Reading a book. Playing a game. Almost every imaginable form of entertainment has moved to the digital medium. Mobile apps have become the one source for all entertainment. KeyDevs Technologies builds mobile apps for entertainment that will turn your users into loyal customers who get used to it like a habit."
+    },
+    {
+      "html": "And, how do we do that? During our decade-long experience in mobile app development, we have found out that entertainment is one of a kind of an industry. It is highly segmented and requires personalization. As an entertainment app owner, you would want to build apps that can personalization at a mass scale. That is quite a challenge."
+    },
+    {
+      "html": "With KeyDevs Technologies by your side, you can overcome those challenges in Media and Entertainment App Development and build entertainment apps that can keep users hooked for hours long."
+    }
+  ],
+  "link": {
+    "href": "/contact",
+    "text": "Talk to Our Expert Now",
+    "className": "btn btn-custome waves-effect waves-light"
+  },
+  "image": {
+    "src": "/images/media-entertainment/media-entertainment-main.jpg",
+    "alt": ""
+  },
+  "imageClass": "rounded10 box-shadow"
+}

@@ -1,0 +1,32 @@
+{
+  "image": {
+    "src": "/images/service/finance-app-development/banner.webp",
+    "alt": "financial app development",
+    "width": "1920",
+    "height": "800"
+  },
+  "sideImage": {
+    "src": "/images/service/finance-app-development/hero-side.webp",
+    "alt": "finance app development"
+  },
+  "sideImageClass": "bannerfixedimagewidth landscape",
+  "headingClass": "",
+  "heading": "Perfectly Balance Finance App Development",
+  "text": "Come 2020, fewer customers will be visiting bank branches in person. FinTech has arrived, making customers to conduct financial transactions anytime, anywhere and from any device. Fintech takes the form of mobile apps that enables financial institutions, banks, insurance companies and even customers to transact in a better fashion. KeyDevs Technologies is a finance app development company that knows both sides of the stakeholders like the back of its hand.",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Request Your Quote Today",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Finance App Development"
+    }
+  ]
+}

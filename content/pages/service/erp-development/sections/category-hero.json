@@ -1,0 +1,24 @@
+{
+  "image": {
+    "src": "/images/service/erp-development/banner.webp",
+    "alt": "erp software development company"
+  },
+  "heading": "Custom ERP Software Development Company",
+  "text": "Bring in strategic coherence to your business by opting for ERP application development for resource planning and functional management. Streamline exceedingly tiring processes across multiple verticals – procurement, manufacturing, sales, services, and plenty. Rope in a custom ERP development company to overcome business challenges with ERP development for towering your sales and ensuring the best service to customers.",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Let’s Discuss Your Requirement",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "ERP"
+    }
+  ]
+}

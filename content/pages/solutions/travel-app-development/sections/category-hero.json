@@ -1,0 +1,33 @@
+{
+  "image": {
+    "src": "/images/service/travel-app-development/banner.webp",
+    "alt": "",
+    "width": "1920",
+    "height": "800"
+  },
+  "sideImage": {
+    "src": "/images/service/travel-app-development/hero-side.webp",
+    "alt": "travel app development"
+  },
+  "sideImageClass": "bannerfixedimagewidth",
+  "headingClass": "",
+  "heading": "Let your business take flight with our travel app development",
+  "text": "The modern-day traveler wants to plan a travel door-to-destination and back. A travel mobile app can make that possible.",
+  "links": [
+    {
+      "href": "/contact",
+      "text": "Request a Quote",
+      "className": "btn waves-effect waves-light btn-custome mb-3"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Travel App Development"
+    }
+  ],
+  "textColumnClass": "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"
+}

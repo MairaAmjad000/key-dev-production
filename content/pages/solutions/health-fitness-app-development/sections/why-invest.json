@@ -1,0 +1,41 @@
+{
+  "sectionClass": "padding-6030 bg-light why-you-invest-main-2",
+  "containerClass": "container",
+  "columnClass": "col-lg-4 col-md-6 col-sm-6 col-12 mb-30",
+  "heightClass": "",
+  "text": "Our unique traits",
+  "heading": "Why choose us?",
+  "text2": "Choosing a mobile app development company is not an easy decision. Know what makes us good and why you should choose us for your health and fitness app development.",
+  "items": [
+    {
+      "icon": "svg-68cb17",
+      "title": "Industry expertise",
+      "text": "Our inches-wide, miles deep industry expertise will help you create mobile apps that are bespoke to the industry requirements, practices and user expectations."
+    },
+    {
+      "icon": "svg-2aa1bd",
+      "title": "Long-standing experience",
+      "text": "KeyDevs Technologies has been building mobile apps for almost close to a decade. Our long-standing experience contributes to perfect commissioning of apps in the first go."
+    },
+    {
+      "icon": "svg-75a81d",
+      "title": "Time-bound deliverables",
+      "text": "We take pride in being one of those companies which can deliver completed projects as per agreed timelines. We have dedicated project managers who get things done proactively."
+    },
+    {
+      "icon": "svg-c5be3d",
+      "title": "Hallmark quality",
+      "text": "Zero bugs. Perfect functioning as detailed in the scope of work. Glitch-free performance even during peak traffic. Expect nothing but hallmark quality from us."
+    },
+    {
+      "icon": "svg-4eab91",
+      "title": "Market reputation",
+      "text": "All popular review websites, communities and forums have rated KeyDevs Technologies with 5-star reviews making us one of the best app development companies."
+    },
+    {
+      "icon": "svg-71306d",
+      "title": "All-time support",
+      "text": "Call us, mail us, DM us on social handles — no matter how you reach us, we will be prepared to solve your queries in the shortest time span."
+    }
+  ]
+}

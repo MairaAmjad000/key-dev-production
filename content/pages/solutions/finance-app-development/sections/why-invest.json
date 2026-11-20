@@ -1,0 +1,41 @@
+{
+  "sectionClass": "padding-6030 bg-light why-you-invest-main invest-erp-main",
+  "containerClass": "container mt-md-5",
+  "columnClass": "col-lg-4 col-md-6 col-sm-6 col-12 mb-30",
+  "heightClass": "m-height-130",
+  "text": "Fintech App Development Solutions",
+  "heading": "Our unique traits as a Finance App Development Company",
+  "text2": "Find out in quick bursts the many ways of how we add value to our clients in finance app development.",
+  "items": [
+    {
+      "icon": "svg-2a0e69",
+      "title": "Cost-effective Solutions",
+      "text": "Building a finance app should not cost you dearly. We ensure that you are able to build the right app with the right featureset within your available budget."
+    },
+    {
+      "icon": "svg-40d7c6",
+      "title": "Fast MVP Delivery",
+      "text": "Build small, scale fast is one of the mottos we live by at KeyDevs Technologies. Our MVP development process has helped identify the right ways of doing things that are easy to scale."
+    },
+    {
+      "icon": "svg-2daad5",
+      "title": "Safe and Secure",
+      "text": "KeyDevs Technologies follows all security measures as laid down by GDPR to keep user data secure. We also have adopted encryption to ensure safety from cyber security threats."
+    },
+    {
+      "icon": "svg-9129b9",
+      "title": "Custom APIs Integration",
+      "text": "Integrate the finance apps we build into your already existing ERP, custom software or other back-end systems with our custom API integration services."
+    },
+    {
+      "icon": "svg-9b8cb8",
+      "title": "Multi-language Support",
+      "text": "Money is spelt money in all languages. Whether language your users speak and in whichever language they want to conduct financial transactions, our multilingual apps will help."
+    },
+    {
+      "icon": "svg-11abe3",
+      "title": "Post Launch Support",
+      "text": "From the first hello until the app is launched and forever beyond, we will be available for any troubleshooting and technical support requirements."
+    }
+  ]
+}

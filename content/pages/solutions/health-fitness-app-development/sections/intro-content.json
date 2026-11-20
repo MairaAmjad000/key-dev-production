@@ -1,0 +1,27 @@
+{
+  "heading": "Build a health & fitness mobile app that can make anyone healthy",
+  "paragraphs": [
+    {
+      "html": "The endless digital entertainment that mobile apps serve used with has long since been blamed to be the cause of physical inactivity. We believe that the same mobile apps to hold the power to help users adopt a healthy lifestyle."
+    },
+    {
+      "html": "KeyDevs Technologies brings together the power of technology and age-old physical training to help users lead a healthy lifestyle. We build health and fitness mobile apps that empower users to set up an exercise regime, follow the regime like a habit and also measure the results from time-to-time."
+    },
+    {
+      "html": "If a mobile app that runs ahead of the time is what you are looking for, KeyDevs Technologies can help you build mobile apps that can work fine with wearable devices, fitness trackers and even on usual smartphones."
+    },
+    {
+      "html": "All we need you to do is to give a broad picture of what you are looking for. We will bring in rest of the IT capabilities you need to build a complete health & fitness app."
+    }
+  ],
+  "link": {
+    "href": "/contact",
+    "text": "Talk to Our Expert Now",
+    "className": "btn btn-custome waves-effect waves-light"
+  },
+  "image": {
+    "src": "/images/service/health-fitness-app-development/intro.webp",
+    "alt": ""
+  },
+  "imageClass": "rounded10 box-shadow"
+}

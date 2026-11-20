@@ -1,0 +1,20 @@
+{
+  "slug": "service/nodejs-development",
+  "seo": {
+    "title": "NodeJS Development Company | KeyDevs Technologies",
+    "description": "This ‘JavaScript everywhere’ environment unifies web application development in a single programming language. NodeJS application development enables server…"
+  },
+  "sections": [
+    "categoryHero",
+    "brandLogos",
+    "introContent",
+    "coreValues",
+    "advantageGrid",
+    "whyChoose",
+    "portfolio",
+    "testimonials",
+    "featuredIn",
+    "technologies",
+    "blog"
+  ]
+}
