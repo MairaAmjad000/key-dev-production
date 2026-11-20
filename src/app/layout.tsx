@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const metadata = toMetadata(site.seo, site.seo.siteName);
   return {
     ...metadata,
-    icons: { icon: [{ url: site.seo.favicon, type: 'image/png', sizes: '32x32' }] },
+    ...(site.seo.favicon ? { icons: { icon: [{ url: site.seo.favicon, type: 'image/png', sizes: '32x32' }] } } : {}),
     openGraph: { ...metadata.openGraph, siteName: site.seo.siteName, type: 'website' },
   };
 }

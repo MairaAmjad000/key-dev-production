@@ -3,126 +3,126 @@
  * content/globals/global-sections.json: contactCta, scheduleCall, engagement, locations.
  *
  * Which API block feeds which bundled block:
- *   schedule_meeting  → contactCta     (headline, text, button, picture)
+ *   schedule_meeting  → contactCta     (headline, text, buttons, picture; phone / WhatsApp from GET /layout contact)
  *   connect           → scheduleCall   (headline + the "Reviewed on" rating boxes)
  *   engagement_models → engagement
  *   locations         → locations
  * A block the API leaves out, or switches off, is disabled. `show_on` limits it to those pages.
+ *
+ * No content is borrowed from the bundled files: they only provide markup, CSS classes, fixed labels and the
+ * width / height attributes of images, so uploaded pictures keep the size of the placeholders they replace.
  */
 import type { GlobalSectionBlock, GlobalSectionsContent, SectionDataMap } from '@/types';
-import type { ApiGlobalSections } from './api-types';
-import { cycle, isOn, pick } from './common';
+import type { ApiGlobalSections, ApiLayout } from './api-types';
+import { isOn, pick } from './common';
 
 type Block<K extends GlobalSectionBlock['type']> = Extract<GlobalSectionBlock, { type: K }>;
+const str = (...values: Array<string | null | undefined>) => pick(...values) ?? '';
 
 function find<K extends GlobalSectionBlock['type']>(local: GlobalSectionsContent, type: K): Block<K> | undefined {
   return local.sections.find((section): section is Block<K> => section.type === type);
 }
 
-export function adaptGlobalSections(api: ApiGlobalSections | null | undefined, local: GlobalSectionsContent): GlobalSectionsContent {
-  if (!api) return local;
+export function adaptGlobalSections(
+  api: ApiGlobalSections | null | undefined,
+  local: GlobalSectionsContent,
+  contact?: NonNullable<ApiLayout['settings']>['contact'],
+): GlobalSectionsContent {
   const sections: GlobalSectionBlock[] = [];
 
-  const meeting = api.schedule_meeting;
+  const meeting = api?.schedule_meeting;
   const contactCta = find(local, 'contactCta');
   if (contactCta) {
+    const base = contactCta.data;
+    const phone = pick(contact?.phone);
+    const whatsapp = pick(contact?.whatsapp, phone)?.replace(/[^\d]/g, '');
+    const call = { href: whatsapp ? `https://wa.me/${whatsapp}` : '#', title: phone ?? '' };
     const data: SectionDataMap['contactCta'] = {
-      ...contactCta.data,
-      image: { src: pick(meeting?.image) ?? contactCta.data.image.src, alt: pick(meeting?.alt) ?? '' },
-      subheading: pick(meeting?.title) ?? contactCta.data.subheading,
-      text: pick(meeting?.description) ?? contactCta.data.text,
-      headRequetBtn: { ...contactCta.data.headRequetBtn, text: pick(meeting?.button_1_text) ?? contactCta.data.headRequetBtn.text },
+      ...base,
+      image: { src: str(meeting?.image), alt: str(meeting?.alt) },
+      subheading: str(meeting?.title),
+      text: str(meeting?.description),
+      headRequetBtn: { ...base.headRequetBtn, text: str(meeting?.button_1_text) },
+      orangeText: pick(meeting?.button_2_text) ? base.orangeText : '',
+      item: str(meeting?.button_2_text),
+      link: { ...base.link, ...call },
+      link2: call, link3: call, link4: call, link5: call, link6: call, link7: call, link8: call,
     };
     sections.push({ type: 'contactCta', enabled: !!meeting && isOn(meeting), showOn: meeting?.show_on ?? undefined, data });
   }
 
-  const connect = api.connect;
+  const connect = api?.connect;
   const scheduleCall = find(local, 'scheduleCall');
   if (scheduleCall) {
     const items = connect?.items ?? [];
+    const template = scheduleCall.data.blocks[0]?.link;
     const data: SectionDataMap['scheduleCall'] = {
       ...scheduleCall.data,
-      text: pick(connect?.section_title) ?? scheduleCall.data.text,
-      heading: pick(connect?.title) ?? scheduleCall.data.heading,
-      blocks:
-        items.length > 0
-          ? items.map((item, i) => {
-              const template = cycle(scheduleCall.data.blocks, i)?.link;
-              return {
-                link: {
-                  href: template?.href ?? '#',
-                  image: { src: pick(item.logo) ?? template?.image.src ?? '', alt: '', width: template?.image.width ?? '172', height: template?.image.height ?? '68' },
-                  orangeText: template?.orangeText ?? '',
-                  strong: item.rating != null ? Number(item.rating).toFixed(1) : template?.strong ?? '',
-                  text: pick(item.review_count) ?? template?.text ?? '',
-                },
-              };
-            })
-          : scheduleCall.data.blocks,
+      text: str(connect?.section_title),
+      heading: str(connect?.title),
+      blocks: items.map((item) => ({
+        link: {
+          href: str(item.url, item.link) || '#',
+          image: { src: str(item.logo), alt: str(item.logo_alt), width: template?.image.width ?? '172', height: template?.image.height ?? '68' },
+          orangeText: template?.orangeText ?? '',
+          strong: item.rating != null ? Number(item.rating).toFixed(1) : '',
+          text: str(item.review_count),
+        },
+      })),
+      // The "Hire us on" rating list (Upwork, PeoplePerHour, Freelancer) has no field in the admin panel.
+      items: [],
+      link: { ...scheduleCall.data.link, image: { ...scheduleCall.data.link.image, src: '' }, text: '' },
     };
     sections.push({ type: 'scheduleCall', enabled: !!connect && isOn(connect), showOn: connect?.show_on ?? undefined, data });
   }
 
-  const engagementApi = api.engagement_models;
+  const engagementApi = api?.engagement_models;
   const engagement = find(local, 'engagement');
   if (engagement) {
     const items = engagementApi?.items ?? [];
+    const template = engagement.data.blocks[0]?.image;
     const data: SectionDataMap['engagement'] = {
       ...engagement.data,
-      text: pick(engagementApi?.section_title) ?? engagement.data.text,
-      heading: pick(engagementApi?.title) ?? engagement.data.heading,
-      text2: pick(engagementApi?.description) ?? engagement.data.text2,
-      blocks:
-        items.length > 0
-          ? items.map((item, i) => {
-              const template = cycle(engagement.data.blocks, i);
-              return {
-                image: { src: pick(item.icon) ?? template?.image.src ?? '', alt: '', width: template?.image.width ?? '133', height: template?.image.height ?? '166' },
-                text: pick(item.title) ?? template?.text ?? '',
-              };
-            })
-          : engagement.data.blocks,
-      headRequetBtn: { ...engagement.data.headRequetBtn, text: pick(engagementApi?.button_text) ?? engagement.data.headRequetBtn.text },
-      boxShadow: { ...engagement.data.boxShadow, src: pick(engagementApi?.image) ?? engagement.data.boxShadow.src, alt: pick(engagementApi?.alt) ?? '' },
+      text: str(engagementApi?.section_title),
+      heading: str(engagementApi?.title),
+      text2: str(engagementApi?.description),
+      blocks: items.map((item) => ({
+        image: { src: str(item.icon), alt: str(item.title), width: template?.width ?? '133', height: template?.height ?? '166' },
+        text: str(item.title),
+      })),
+      headRequetBtn: { ...engagement.data.headRequetBtn, text: str(engagementApi?.button_text) },
+      boxShadow: { ...engagement.data.boxShadow, src: str(engagementApi?.image), alt: str(engagementApi?.alt) },
     };
     sections.push({ type: 'engagement', enabled: !!engagementApi && isOn(engagementApi), showOn: engagementApi?.show_on ?? undefined, data });
   }
 
-  const locationsApi = api.locations;
+  const locationsApi = api?.locations;
   const locations = find(local, 'locations');
   if (locations) {
     const list = locationsApi?.locations ?? [];
-    const contactItems = (offices: typeof list[number], template: { items: Array<{ icon: string }> }) => [
-      ...(pick(offices.contact_no) ? [{ icon: template.items[0]?.icon ?? '', link: { href: `tel:${(offices.contact_no as string).replace(/[^\d+]/g, '')}`, text: offices.contact_no as string } }] : []),
-      ...(pick(offices.email) ? [{ icon: template.items[1]?.icon ?? '', link: { href: `mailto:${offices.email as string}`, text: offices.email as string } }] : []),
+    const contactItems = (office: (typeof list)[number], template: { items: Array<{ icon: string }> }) => [
+      ...(pick(office.contact_no) ? [{ icon: template.items[0]?.icon ?? '', link: { href: `tel:${(office.contact_no as string).replace(/[^\d+]/g, '')}`, text: office.contact_no as string } }] : []),
+      ...(pick(office.email) ? [{ icon: template.items[1]?.icon ?? '', link: { href: `mailto:${office.email as string}`, text: office.email as string } }] : []),
     ];
     const [first, ...rest] = list;
+    const small = locations.data.blocks[0];
     const data: SectionDataMap['locations'] = {
       ...locations.data,
-      text: pick(locationsApi?.section_title) ?? locations.data.text,
-      heading: pick(locationsApi?.title) ?? locations.data.heading,
-      ...(first
-        ? {
-            boxShadow: { ...locations.data.boxShadow, src: pick(first.image) ?? locations.data.boxShadow.src, alt: '' },
-            subheading: pick(first.country) ?? locations.data.subheading,
-            text2: pick(first.address) ?? locations.data.text2,
-            items: contactItems(first, locations.data),
-          }
-        : {}),
-      blocks: first
-        ? rest.map((office, i) => {
-            const template = cycle(locations.data.blocks, i);
-            return {
-              className: template?.className ?? 'col-lg-4 col-md-4 col-12',
-              boxShadow: { src: pick(office.image) ?? template?.boxShadow.src ?? '', alt: '', width: template?.boxShadow.width ?? '360', height: template?.boxShadow.height ?? '227' },
-              subheading: pick(office.country) ?? template?.subheading ?? '',
-              text: pick(office.address) ?? template?.text ?? '',
-              items: contactItems(office, template ?? locations.data),
-            };
-          })
-        : locations.data.blocks,
+      text: str(locationsApi?.section_title),
+      heading: str(locationsApi?.title),
+      boxShadow: { ...locations.data.boxShadow, src: str(first?.image), alt: str(first?.country) },
+      subheading: str(first?.country),
+      text2: str(first?.address),
+      items: first ? contactItems(first, locations.data) : [],
+      blocks: rest.map((office) => ({
+        className: small?.className ?? 'col-lg-4 col-md-4 col-12',
+        boxShadow: { src: str(office.image), alt: str(office.country), width: small?.boxShadow.width ?? '360', height: small?.boxShadow.height ?? '227' },
+        subheading: str(office.country),
+        text: str(office.address),
+        items: contactItems(office, small ?? locations.data),
+      })),
     };
-    sections.push({ type: 'locations', enabled: !!locationsApi && isOn(locationsApi), showOn: locationsApi?.show_on ?? undefined, data });
+    sections.push({ type: 'locations', enabled: !!locationsApi && isOn(locationsApi) && !!first, showOn: locationsApi?.show_on ?? undefined, data });
   }
 
   return { sections };

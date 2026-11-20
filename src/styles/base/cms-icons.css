@@ -1,0 +1,103 @@
+/*
+ * Icons uploaded in the admin panel arrive as images (<img class="cms-icon">) where the bundled design used inline SVG.
+ * Every rule below copies the box of the matching `<slot> svg` rule, so an uploaded icon occupies exactly the same
+ * width / height / padding as the SVG it replaces and nothing around it moves. `object-fit: contain` keeps any aspect ratio inside that box.
+ */
+img.cms-icon {
+   display: inline-block;
+   max-width: none;
+   object-fit: contain;
+   vertical-align: middle
+}
+
+/* Home: industries */
+.solutions-box-icon img.cms-icon {
+   width: 45px;
+   height: 45px
+}
+
+/* Home: values */
+.why-choose-box img.cms-icon {
+   width: 70px;
+   height: 70px;
+   background: #fff;
+   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, .1);
+   border-radius: 7px;
+   padding: 10px;
+   transition: all .3s ease
+}
+
+.why-choose-box:hover img.cms-icon {
+   background: #008080
+}
+
+/* Home: process */
+.process-box-icon img.cms-icon {
+   width: 50px;
+   height: auto;
+   aspect-ratio: 1 / 1
+}
+
+/* Home: offerings tabs and links */
+#servicesTab li img.cms-icon {
+   width: 50px;
+   height: auto;
+   aspect-ratio: 1 / 1;
+   margin-bottom: 10px
+}
+
+/* Other slots that already size their SVG */
+.mvp-why-choose-dev-icon img.cms-icon {
+   width: 48px;
+   height: 48px
+}
+
+.contact-info-icon img.cms-icon {
+   width: 40px;
+   height: 40px
+}
+
+.uiux-app-design-icon img.cms-icon {
+   width: 45px;
+   height: 45px
+}
+
+.portfolio-listing-icon img.cms-icon {
+   width: 25px;
+   height: 25px
+}
+
+.call-icon-bg img.cms-icon {
+   width: 100%;
+   height: auto
+}
+
+.mainmenuicon img.cms-icon {
+   width: 60px;
+   height: 60px
+}
+
+.submenuicon img.cms-icon {
+   width: 30px;
+   height: 30px
+}
+
+@media (max-width: 1440px) {
+   .submenuicon img.cms-icon { width: 27px; height: 27px }
+   .mainmenuicon img.cms-icon { width: 43px; height: 43px }
+}
+
+@media (max-width: 1199px) {
+   .mainmenuicon img.cms-icon { width: 40px; height: 40px }
+   .submenuicon img.cms-icon { width: 25px; height: 25px }
+}
+
+.footer_box ul li i img.cms-icon {
+   width: 100%;
+   height: auto
+}
+
+@media (max-width: 767px) {
+   #servicesTab li img.cms-icon { width: 25px; margin: 0 }
+   .detail-feature-tab #servicesTab li img.cms-icon { width: 40px; display: none }
+}

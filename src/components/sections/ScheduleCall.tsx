@@ -68,7 +68,7 @@ export function ScheduleCall({ data, forms }: { data: ScheduleCallContent; forms
                 ))}
               </div>
               {' '}
-              <ul className="contact_rating">
+              {(data.items.length > 0 || data.link.image.src) && <ul className="contact_rating">
                 {data.items.map((item, i) => (
                   <Fragment key={i}>
                     {i > 0 && ' '}
@@ -106,7 +106,7 @@ export function ScheduleCall({ data, forms }: { data: ScheduleCallContent; forms
                   </Fragment>
                 ))}
                 {' '}
-                <li>
+                {data.link.image.src && <li>
                   <a rel="noopener" target="_blank" {...link(data.link.href)}>
                     {' '}
                     <div className="work_logo">
@@ -136,8 +136,8 @@ export function ScheduleCall({ data, forms }: { data: ScheduleCallContent; forms
                     </div>
                     {' '}
                   </a>
-                </li>
-              </ul>
+                </li>}
+              </ul>}
             </div>
             {' '}
             <div className="col-12 col-sm-12 col-lg-7">

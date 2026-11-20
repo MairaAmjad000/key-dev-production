@@ -6,7 +6,7 @@ export function Hero({ data }: { data: HeroContent }) {
   return (
     <section className="banner home">
       <div className="video">
-        <img src={data.image.src} alt={data.image.alt} />
+        {data.image.src && <img src={data.image.src} alt={data.image.alt} />}
       </div>
       {' '}
       <div className="tenc-intro-main__wrapper">

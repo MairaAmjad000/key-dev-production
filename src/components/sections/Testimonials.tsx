@@ -53,7 +53,7 @@ export function Testimonials({ data }: { data: TestimonialsContent }) {
                 {' '}
                 <div className="testimonials_privew">
                   <div>
-                    <img id="testimonials_privew" className="lazy" data-src={data.image.src} alt={data.image.alt} />
+                    {data.image.src && <img id="testimonials_privew" className="lazy" data-src={data.image.src} alt={data.image.alt} />}
                   </div>
                   {' '}
                   <i className="fas fa-quote-left" />

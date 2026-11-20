@@ -46,9 +46,24 @@ With no environment variables the site renders the files in `content/`.
 
 With `CMS_API_URL=https://kd.keydevs.net/api` the site reads `GET /layout`, `/form-options`, `/global-sections` and `/home`
 (responses are `{ success, data }`). `src/lib/cms/adapters/` converts them into the shapes the components already use, so the
-markup and styles do not change. Anything the API does not send, or the whole API when it is unreachable, falls back to `content/`.
-A home section or global section the API omits (or sets `enabled`/`status` false) is not rendered; global sections also honour `show_on`.
-The header, mobile menu and footer links are built from the API menus. Pages other than home still render from `content/` for now.
+markup and styles do not change.
+
+**No fallback content.** Every text, link, image and icon the API has a field for is taken from the API only; when the admin
+leaves a field empty, it renders empty (it is never filled from `content/`). A home or global section the API omits, switches
+off (`enabled`/`status` false) or sends without items is not rendered; global sections also honour `show_on`. If the API
+cannot be reached, the request throws, so Next.js keeps serving the last good page instead of dummy data.
+
+`content/` is used only as a *template*: CSS classes, fixed markup and labels the API has no field for (e.g. the
+"Explore More" / "Read More" buttons, form labels, the footer experience character, the header rating badge, the address
+and phone glyphs), and the `width`/`height` of images, so an uploaded picture gets exactly the size of the placeholder it
+replaces. Pages other than home still render from `content/` (the API has no endpoint for them yet), and with an empty
+`CMS_API_URL` the whole site renders from `content/` (demo mode).
+
+**Uploaded icons.** Where the design used inline SVG, the admin sends an image URL. `<Icon name={url}>` renders it as
+`<img class="cms-icon">`, and `src/styles/base/cms-icons.css` gives it the same box (width, height, padding, shadow, radius,
+responsive sizes) as the SVG in that slot (industries, values, process, offering tabs, menu icons, ...). Add a rule there
+if you introduce a new icon slot. Note: an `<img>` cannot take the hover colour change that the inline SVGs get; use
+artwork that already looks right in its normal state.
 
 ### Legacy path-per-file format
 
@@ -362,5 +377,6 @@ Page sections and the footer are wrapped in `<main>` again (as in the source HTM
 - Steps `web_payment_2`, `web_advertise` and `web_old_dynamic_brief_description` are inactive, as in the template.
 - Final form: `briefAttachment` file input, "Select Your Region" placeholder, `check1` label link, and the "Thank You" success modal.
 - Styles for `.pjax-content` and the paperclip icon were added to `estimate-page.css`.
-#   k e y - d e v - p r o d u c t i o n  
+#   k e y - d e v - p r o d u c t i o n 
+ 
  

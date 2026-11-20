@@ -48,7 +48,7 @@ export function Offerings({ data }: { data: OfferingsContent }) {
           </ul>
           {' '}
           <div className="tab-content" id="servicesTabContent">
-            <div className="tab-pane fade show active" id="app" role="tabpanel" aria-labelledby="app-tab">
+            <>{data.items.length > 0 && <div className="tab-pane fade show active" id="app" role="tabpanel" aria-labelledby="app-tab">
               <div className="row align-items-center justify-content-center justify-content-lg-between">
                 <div className="col-12 col-lg-5 order-lg-1 text-center">
                   <img
@@ -113,9 +113,9 @@ export function Offerings({ data }: { data: OfferingsContent }) {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}</>
             {' '}
-            <div className="tab-pane fade" id="web" role="tabpanel" aria-labelledby="web-tab">
+            <>{data.items.length > 1 && <div className="tab-pane fade" id="web" role="tabpanel" aria-labelledby="web-tab">
               <div className="row align-items-center justify-content-center justify-content-lg-between">
                 <div className="col-12 col-lg-5 order-lg-1 text-center">
                   <img className="lazy" data-src={data.image2.src} alt={data.image2.alt} />
@@ -143,14 +143,6 @@ export function Offerings({ data }: { data: OfferingsContent }) {
                     ))}
                     {' '}
                     <ul>
-                      <li>
-                        <a className="waves-effect waves-light" title="" {...link(data.link4.href)}>
-                          {' '}
-                          <Icon name="svg-080dc3" />
-                          {' '}
-                        </a>
-                      </li>
-                      {' '}
                       {data.items3.map((item, i) => (
                         <Fragment key={i}>
                           {i > 0 && ' '}
@@ -177,9 +169,9 @@ export function Offerings({ data }: { data: OfferingsContent }) {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}</>
             {' '}
-            <div className="tab-pane fade" id="ar-vr" role="tabpanel" aria-labelledby="ar-vr-tab">
+            <>{data.items.length > 2 && <div className="tab-pane fade" id="ar-vr" role="tabpanel" aria-labelledby="ar-vr-tab">
               <div className="row align-items-center justify-content-center justify-content-lg-between">
                 <div className="col-12 col-lg-5 order-lg-1 text-center">
                   <img className="lazy" data-src={data.image3.src} alt={data.image3.alt} />
@@ -208,18 +200,6 @@ export function Offerings({ data }: { data: OfferingsContent }) {
                     {' '}
                     <ul>
                       <li>
-                        <a className="waves-effect waves-light" {...link(data.link7.href)}>
-                          {' '}
-                          <Icon name="svg-4493c2" />
-                          {' '}
-                        </a>
-                      </li>
-                      {' '}
-                      <span className="or">
-                        {data.or}
-                      </span>
-                      {' '}
-                      <li>
                         <a
                           className="btn-custome btn waves-effect waves-light"
                           title=""
@@ -232,9 +212,9 @@ export function Offerings({ data }: { data: OfferingsContent }) {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}</>
             {' '}
-            <div className="tab-pane fade" id="game" role="tabpanel" aria-labelledby="game-tab">
+            <>{data.items.length > 3 && <div className="tab-pane fade" id="game" role="tabpanel" aria-labelledby="game-tab">
               <div className="row align-items-center justify-content-center justify-content-lg-between">
                 <div className="col-12 col-lg-5 order-lg-1 text-center">
                   <img className="lazy" data-src={data.image4.src} alt={data.image4.alt} />
@@ -292,9 +272,9 @@ export function Offerings({ data }: { data: OfferingsContent }) {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}</>
             {' '}
-            <div className="tab-pane fade" id="ui-ux" role="tabpanel" aria-labelledby="ui-ux-tab">
+            <>{data.items.length > 4 && <div className="tab-pane fade" id="ui-ux" role="tabpanel" aria-labelledby="ui-ux-tab">
               <div className="row align-items-center justify-content-center justify-content-lg-between">
                 <div className="col-12 col-lg-5 order-lg-1 text-center">
                   <img className="lazy" data-src={data.image5.src} alt={data.image5.alt} />
@@ -335,7 +315,7 @@ export function Offerings({ data }: { data: OfferingsContent }) {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}</>
           </div>
         </div>
       </div>

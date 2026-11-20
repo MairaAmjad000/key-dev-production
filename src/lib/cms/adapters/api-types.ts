@@ -42,7 +42,7 @@ export interface ApiLayout {
     social?: Maybe<Record<string, Maybe<string>>>;
     seo?: Maybe<ApiSeo>;
     header_top_bar?: Maybe<{
-      consultant_image?: Maybe<string>; rating?: Maybe<number>; rating_text?: Maybe<string>; email_text?: Maybe<string>;
+      clutch_image?: Maybe<string>; consultant_image?: Maybe<string>; rating?: Maybe<number>; rating_text?: Maybe<string>; email_text?: Maybe<string>;
       phone_text?: Maybe<string>; callback_text?: Maybe<string>; text?: Maybe<string>; link?: Maybe<string>;
     }>;
     header_services_cta?: Maybe<ApiCta>;
@@ -91,7 +91,7 @@ interface ApiGlobalBase {
 }
 
 export interface ApiGlobalSections {
-  connect?: Maybe<ApiGlobalBase & { items?: Maybe<Array<{ logo?: Maybe<string>; rating?: Maybe<number>; review_count?: Maybe<string> }>> }>;
+  connect?: Maybe<ApiGlobalBase & { items?: Maybe<Array<{ logo?: Maybe<string>; logo_alt?: Maybe<string>; rating?: Maybe<number>; review_count?: Maybe<string>; url?: Maybe<string>; link?: Maybe<string> }>> }>;
   schedule_meeting?: Maybe<ApiGlobalBase & { button_1_text?: Maybe<string>; button_2_text?: Maybe<string>; image?: Maybe<string>; alt?: Maybe<string> }>;
   engagement_models?: Maybe<ApiGlobalBase & {
     button_text?: Maybe<string>; image?: Maybe<string>; alt?: Maybe<string>; items?: Maybe<Array<{ icon?: Maybe<string>; title?: Maybe<string> }>>;
@@ -107,7 +107,7 @@ interface ApiHead { small_title?: Maybe<string>; title?: Maybe<string>; descript
 export interface ApiHomeSections {
   hero?: Maybe<ApiHead & Record<string, Maybe<string>>>;
   banner?: Maybe<{ enabled?: Maybe<boolean>; status?: Maybe<boolean>; items?: Maybe<Array<{ image?: Maybe<string> }>> }>;
-  about?: Maybe<ApiHead & { image?: Maybe<string>; side_image?: Maybe<string>; button_text?: Maybe<string>; button_url?: Maybe<string> }>;
+  about?: Maybe<ApiHead & { image?: Maybe<string>; image_alt?: Maybe<string>; side_image?: Maybe<string>; side_image_alt?: Maybe<string>; button_text?: Maybe<string>; button_url?: Maybe<string> }>;
   statistics?: Maybe<{ enabled?: Maybe<boolean>; status?: Maybe<boolean>; items?: Maybe<Array<{ number?: Maybe<string>; title?: Maybe<string>; icon?: Maybe<string> }>> }>;
   offerings?: Maybe<ApiHead & {
     items?: Maybe<Array<{
@@ -115,7 +115,7 @@ export interface ApiHomeSections {
       description?: Maybe<string>; button_text?: Maybe<string>; button_link?: Maybe<string>;
     }>>;
   }>;
-  industries?: Maybe<ApiHead & { items?: Maybe<Array<{ title?: Maybe<string>; description?: Maybe<string>; icon?: Maybe<string> }>> }>;
+  industries?: Maybe<ApiHead & { items?: Maybe<Array<{ title?: Maybe<string>; description?: Maybe<string>; icon?: Maybe<string>; url?: Maybe<string>; link?: Maybe<string>; button_link?: Maybe<string> }>> }>;
   value?: Maybe<ApiHead & { items?: Maybe<Array<{ title?: Maybe<string>; description?: Maybe<string>; icon?: Maybe<string> }>> }>;
   callout?: Maybe<{
     text_before?: Maybe<string>; typed_words?: Maybe<Array<{ word: string }>>; text_after?: Maybe<string>;

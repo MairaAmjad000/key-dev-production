@@ -14,7 +14,7 @@ function unwrap<T>(body: unknown): T | null {
 
 /**
  * GET {CMS_API_URL}/{path} and parse the JSON body.
- * Returns null when no CMS is configured or the request fails, so callers can fall back to content/.
+ * Returns null when no CMS is configured or the request fails.
  */
 export async function fetchFromCms<T>(path: string, tags: string[] = []): Promise<T | null> {
   if (!cmsConfig.apiUrl) return null;
@@ -37,4 +37,17 @@ export async function fetchFromCms<T>(path: string, tags: string[] = []): Promis
     console.error(`[cms] could not reach ${url}`, error);
     return null;
   }
+}
+
+/**
+ * Like fetchFromCms, but for content the page cannot render without: when the admin panel is configured and the
+ * request fails, this THROWS instead of returning null. There is deliberately no bundled fallback content: Next.js
+ * then keeps serving the last successfully generated page (or shows its error page) rather than dummy data.
+ * Returns null only when no CMS is configured (local demo mode, content/ is used).
+ */
+export async function requireFromCms<T>(path: string, tags: string[] = []): Promise<T | null> {
+  if (!cmsConfig.apiUrl) return null;
+  const data = await fetchFromCms<T>(path, tags);
+  if (data === null || data === undefined) throw new Error(`[cms] "${path}" could not be loaded from ${cmsConfig.apiUrl}`);
+  return data;
 }

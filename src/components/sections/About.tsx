@@ -5,25 +5,25 @@ export function About({ data }: { data: AboutContent }) {
   return (
     <section className="about">
       <div className="about-bg-section">
-        <img
+        {data.image.src && <img
           style={{ position: "absolute", left: "0", top: "0", height: "100%", width: "100%", objectFit: "cover" }}
           alt=""
           width=""
           height=""
           src={data.image.src}
-        />
+        />}
       </div>
       {' '}
       <div className="container">
         <div className="row align-items-center">
           <div className="col-12 col-lg-6 col-sm-12 mb-4 mb-lg-0">
             <div className="video-area-wrapper">
-              <img
+              {data.image2.src && <img
                 src={data.image2.src}
                 alt={data.image2.alt}
                 width={data.image2.width}
                 height={data.image2.height}
-              />
+              />}
               {' '}
               <div className="hover" />
             </div>
@@ -60,7 +60,7 @@ export function About({ data }: { data: AboutContent }) {
             <Fragment key={i}>
               {i > 0 && ' '}
               <li>
-                <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} />
+                {item.image.src && <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} />}
                 {' '}
                 <div className="counter_text">
                   <div className="counter" data-count={item.counter.dataCount}>

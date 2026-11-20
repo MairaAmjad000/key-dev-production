@@ -166,12 +166,12 @@ export function Header({ data, menu }: { data: HeaderContent; menu?: MenuItem[] 
               </span>
               {' '}
               <a className="head-requet-btn" {...link(data.headRequetBtn.href)}>
-                <img
+                {data.headRequetBtn.image.src && <img
                   src={data.headRequetBtn.image.src}
                   width={data.headRequetBtn.image.width}
                   height={data.headRequetBtn.image.height}
                   alt={data.headRequetBtn.image.alt}
-                />
+                />}
                 {data.headRequetBtn.text}
               </a>
             </div>
@@ -184,12 +184,12 @@ export function Header({ data, menu }: { data: HeaderContent; menu?: MenuItem[] 
           <nav className="navbar">
             <div className="navbar-header">
               <a {...link(data.link3.href)}>
-                <img
+                {data.link3.image.src && <img
                   src={data.link3.image.src}
                   alt={data.link3.image.alt}
                   width={data.link3.image.width}
                   height={data.link3.image.height}
-                />
+                />}
               </a>
             </div>
             {' '}

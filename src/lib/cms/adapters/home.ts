@@ -1,8 +1,13 @@
 /**
  * GET /home → the home page the components already render.
  *
- * The order of the sections is the one of content/pages/home/page.json. A section the API leaves out (or
- * switches off) is not rendered; fields the API has no value for keep the bundled content/ value.
+ * Content comes ONLY from the admin panel: there is no fallback to the bundled content/ files. The bundled data
+ * is used purely as a template for things the admin panel does not control: CSS classes, fixed markup, button
+ * labels the API has no field for, and the width / height attributes of images, so an uploaded picture or icon
+ * occupies exactly the box of the placeholder it replaces.
+ *
+ * The order of the sections is the one of content/pages/home/page.json. A section the API leaves out (or switches
+ * off), or one without any items, is not rendered.
  */
 import type { PageData, SectionBlock, SectionDataMap, SectionType } from '@/types';
 import type { ApiHome, ApiHomeSections } from './api-types';
@@ -11,6 +16,9 @@ import { cycle, isOn, path, pick, toSeoMeta } from './common';
 type Mapper<K extends SectionType> = (api: ApiHomeSections, local: SectionDataMap[K]) => SectionDataMap[K] | null;
 
 const digits = (value: string | null | undefined) => (value ?? '').replace(/[^\d.]/g, '');
+/** API string or '' (never a bundled value). */
+const str = (...values: Array<string | null | undefined>) => pick(...values) ?? '';
+const escape = (value: string | null | undefined) => (value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const hero: Mapper<'hero'> = ({ hero: api }, local) => {
   if (!api || !isOn(api)) return null;
@@ -20,60 +28,64 @@ const hero: Mapper<'hero'> = ({ hero: api }, local) => {
   ];
   return {
     ...local,
-    image: { src: pick(api.image) ?? local.image.src, alt: '' },
-    heading: pick(api.title) ?? local.heading,
-    text: pick(api.subtitle) ?? local.text,
-    links: local.links.map((item, i) => ({ ...item, text: buttons[i]?.text ?? item.text, href: buttons[i]?.href ?? item.href })),
+    image: { src: str(api.image), alt: str(api.image_alt, api.title) },
+    heading: str(api.title),
+    text: str(api.subtitle),
+    links: local.links.flatMap((item, i) => (buttons[i]?.text ? [{ ...item, text: buttons[i].text as string, href: buttons[i].href ?? '#' }] : [])),
   };
 };
 
-const brandLogos: Mapper<'brandLogos'> = ({ banner }, local) => {
+const brandLogos: Mapper<'brandLogos'> = ({ banner }) => {
   if (!banner || !isOn(banner)) return null;
   const blocks = (banner.items ?? []).flatMap((item) => (pick(item.image) ? [{ image: { src: pick(item.image) as string, alt: '' } }] : []));
-  return blocks.length > 0 ? { blocks } : local;
+  return blocks.length > 0 ? { blocks } : null;
 };
 
 const about: Mapper<'about'> = ({ about: api, statistics }, local) => {
   if (!api || !isOn(api)) return null;
-  const stats = statistics?.items ?? [];
+  const stats = statistics && isOn(statistics) ? statistics.items ?? [] : [];
+  const size = local.items[0]?.image;
   return {
     ...local,
-    image: { src: pick(api.image) ?? local.image.src },
-    image2: { ...local.image2, src: pick(api.side_image) ?? local.image2.src, alt: '' },
-    text: pick(api.small_title) ?? local.text,
-    heading: pick(api.title) ?? local.heading,
+    image: { src: str(api.image) },
+    image2: { ...local.image2, src: str(api.side_image), alt: str(api.side_image_alt, api.title) },
+    text: str(api.small_title),
+    heading: str(api.title),
     heading2: '',
-    texts: pick(api.description) ? (api.description as string).split(/\n{2,}/).map((text) => ({ text: text.trim() })).filter((item) => item.text) : local.texts,
-    items:
-      stats.length > 0
-        ? stats.map((stat, i) => {
-            const template = cycle(local.items, i);
-            const number = stat.number ?? '';
-            const suffix = number.endsWith('%') ? 'fas fa-percent' : number.endsWith('+') ? 'fas fa-plus' : '';
-            return {
-              image: { src: pick(stat.icon) ?? template?.image.src ?? '', alt: '', width: template?.image.width ?? '50', height: template?.image.height ?? '50' },
-              counter: { dataCount: digits(number) || template?.counter.dataCount || '0', text: digits(number) || template?.counter.text || '0' },
-              icon: { className: suffix },
-              text: pick(stat.title) ?? template?.text ?? '',
-            };
-          })
-        : local.items,
+    texts: pick(api.description) ? (api.description as string).split(/\n{2,}/).map((text) => ({ text: text.trim() })).filter((item) => item.text) : [],
+    items: stats.map((stat, i) => {
+      const number = stat.number ?? '';
+      const suffix = number.endsWith('%') ? 'fas fa-percent' : number.endsWith('+') ? 'fas fa-plus' : '';
+      return {
+        image: { src: str(stat.icon), alt: str(stat.title), width: size?.width ?? '50', height: size?.height ?? '50' },
+        counter: { dataCount: digits(number) || '0', text: digits(number) || '0' },
+        icon: { className: suffix },
+        text: str(stat.title),
+      };
+    }),
   };
 };
 
-/** Offerings: the five tab panels are fixed markup, so API item N fills panel N and only the API's tabs are listed. */
+/**
+ * Offerings: the five tab panels are fixed markup, so API item N fills panel N (extra items are not shown, panels
+ * without an item are not rendered). Sub-service icon links inside a panel have no API field and are left out.
+ */
 const offerings: Mapper<'offerings'> = ({ offerings: api }, local) => {
   if (!api || !isOn(api)) return null;
-  const items = api.items ?? [];
-  const data = { ...local };
-  data.text = pick(api.small_title) ?? local.text;
-  data.heading = pick(api.title) ?? local.heading;
-  data.text2 = pick(api.description) ?? local.text2;
-  if (items.length === 0) return data;
+  const items = (api.items ?? []).slice(0, local.items.length);
+  if (items.length === 0) return null;
 
-  data.items = local.items.slice(0, items.length).map((tab, i) => ({
-    link: { ...tab.link, text: pick(items[i]?.tab_title) ?? tab.link.text },
-  }));
+  const data: SectionDataMap['offerings'] = {
+    ...local,
+    text: str(api.small_title),
+    heading: str(api.title),
+    text2: str(api.description),
+    items: local.items.slice(0, items.length).map((tab, i) => ({
+      link: { ...tab.link, icon: str(items[i].icon), text: str(items[i].tab_title, items[i].title) },
+    })),
+    items2: [], items3: [], items4: [],
+    or: '',
+  };
   const panels = [
     { image: 'image', link: 'link', sub: 'text3', texts: 'texts', button: 'link2' },
     { image: 'image2', link: 'link3', sub: 'text4', texts: 'texts2', button: 'link5' },
@@ -83,16 +95,13 @@ const offerings: Mapper<'offerings'> = ({ offerings: api }, local) => {
   ] as const;
   const out = data as unknown as Record<string, { src?: string; alt?: string; href?: string; text?: string } | string | Array<{ text: string }>>;
   panels.forEach((panel, i) => {
-    const item = items[i];
-    if (!item) return;
+    const item = items[i] ?? {};
     const image = out[panel.image] as { src: string; alt: string } | undefined;
-    if (image) out[panel.image] = { ...image, src: pick(item.image) ?? image.src, alt: '' };
-    const link = out[panel.link] as { href: string; text: string } | undefined;
-    if (link) out[panel.link] = { href: pick(item.button_link) ?? link.href, text: pick(item.title) ?? link.text };
-    if (pick(item.subtitle)) out[panel.sub] = item.subtitle as string;
-    if (pick(item.description)) out[panel.texts] = [{ text: item.description as string }];
-    const button = out[panel.button] as { href: string; text: string } | undefined;
-    if (button) out[panel.button] = { href: pick(item.button_link) ?? button.href, text: pick(item.button_text) ?? button.text };
+    if (image) out[panel.image] = { ...image, src: str(item.image), alt: str(item.title) };
+    out[panel.link] = { href: str(item.button_link), text: str(item.title) };
+    out[panel.sub] = str(item.subtitle);
+    out[panel.texts] = pick(item.description) ? (item.description as string).split(/\n{2,}/).map((text) => ({ text: text.trim() })).filter((part) => part.text) : [];
+    out[panel.button] = { href: str(item.button_link), text: str(item.button_text) };
   });
   return data;
 };
@@ -100,40 +109,32 @@ const offerings: Mapper<'offerings'> = ({ offerings: api }, local) => {
 const industries: Mapper<'industries'> = ({ industries: api }, local) => {
   if (!api || !isOn(api)) return null;
   const items = api.items ?? [];
+  if (items.length === 0) return null;
+  const label = local.blocks[0]?.link.text ?? '';
   return {
     ...local,
-    text: pick(api.small_title) ?? local.text,
-    heading: pick(api.title) ?? local.heading,
-    text2: pick(api.description) ?? local.text2,
-    blocks: items.length > 0
-      ? items.map((item, i) => {
-          const template = cycle(local.blocks, i);
-          return {
-            icon: template?.icon ?? '',
-            subheading: pick(item.title) ?? template?.subheading ?? '',
-            text: pick(item.description) ?? template?.text ?? '',
-            link: template?.link ?? { href: '/contact', text: 'Explore More' },
-          };
-        })
-      : local.blocks,
+    text: str(api.small_title),
+    heading: str(api.title),
+    text2: str(api.description),
+    blocks: items.map((item) => ({
+      icon: str(item.icon),
+      subheading: str(item.title),
+      text: str(item.description),
+      link: { href: str(item.url, item.link, item.button_link) || '#', text: label },
+    })),
   };
 };
 
 const values: Mapper<'values'> = ({ value: api }, local) => {
   if (!api || !isOn(api)) return null;
   const items = api.items ?? [];
+  if (items.length === 0) return null;
   return {
     ...local,
-    text: pick(api.small_title) ?? local.text,
-    heading: pick(api.title) ?? local.heading,
-    text2: pick(api.description) ?? local.text2,
-    items: items.length > 0
-      ? items.map((item, i) => ({
-          icon: cycle(local.items, i)?.icon ?? '',
-          subheading: pick(item.title) ?? cycle(local.items, i)?.subheading ?? '',
-          text: pick(item.description) ?? cycle(local.items, i)?.text ?? '',
-        }))
-      : local.items,
+    text: str(api.small_title),
+    heading: str(api.title),
+    text2: str(api.description),
+    items: items.map((item) => ({ icon: str(item.icon), subheading: str(item.title), text: str(item.description) })),
   };
 };
 
@@ -142,90 +143,88 @@ const callout: Mapper<'callout'> = ({ callout: api }, local) => {
   const words = (api.typed_words ?? []).map((item) => item.word).filter(Boolean);
   const esc = (value: string) => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
   const typed = `<span id="callouts-type"${words.length > 0 ? ` data-strings="${esc(JSON.stringify(words))}"` : ''}></span>`;
-  const hasText = pick(api.text_before) || pick(api.text_after) || words.length > 0;
   return {
     ...local,
-    text: hasText ? `${esc(pick(api.text_before) ?? '')} ${typed} ${esc(pick(api.text_after) ?? '')}`.trim() : local.text,
-    link: { href: pick(api.button_url) ?? local.link.href, text: pick(api.button_text) ?? local.link.text },
+    text: `${esc(str(api.text_before))} ${typed} ${esc(str(api.text_after))}`.trim(),
+    link: { href: str(api.button_url), text: str(api.button_text) },
   };
 };
 
-/** Process: steps fill the bundled slots in reading order (4 in the first row, 1 + 2 in the second row, all in the mobile slider). */
+/** Process: steps fill the markup slots in reading order (4 in the first row, 1 + 2 in the second row, all in the mobile slider). */
 const process: Mapper<'process'> = ({ process: api }, local) => {
   if (!api || !isOn(api)) return null;
   const steps = (api.items ?? []).map((step) => ({
+    icon: str(step.icon),
     subheading: [pick(step.number), pick(step.title)].filter(Boolean).join(' '),
-    items: pick(step.description) ? [{ html: `<i class="fas fa-chevron-right"></i>${(step.description as string).replace(/&/g, '&amp;').replace(/</g, '&lt;')}` }] : [],
+    items: pick(step.description) ? [{ html: `<i class="fas fa-chevron-right"></i>${escape(step.description)}` }] : [],
   }));
-  const data = { ...local, text: pick(api.small_title) ?? local.text, heading: pick(api.title) ?? local.heading, text2: pick(api.description) ?? local.text2 };
-  if (steps.length === 0) return data;
+  if (steps.length === 0) return null;
   const first = local.processItemsList.length;
-  data.processItemsList = local.processItemsList.slice(0, steps.length).map((slot, i) => ({ ...slot, ...steps[i] }));
-  if (steps[first]) {
-    data.subheading = steps[first].subheading;
-    data.items = steps[first].items;
-  }
-  data.processItemsList2 = local.processItemsList2.slice(0, Math.max(0, steps.length - first - 1)).map((slot, i) => ({ ...slot, ...steps[first + 1 + i] }));
-  data.items2 = steps.map((step, i) => ({ icon: cycle(local.items2, i)?.icon ?? '', ...step }));
-  return data;
+  const second = steps[first];
+  return {
+    ...local,
+    text: str(api.small_title),
+    heading: str(api.title),
+    text2: str(api.description),
+    processItemsList: local.processItemsList.slice(0, steps.length).map((slot, i) => ({ ...slot, icon2: steps[i].icon, subheading: steps[i].subheading, items: steps[i].items })),
+    icon: second?.icon ?? '',
+    subheading: second?.subheading ?? '',
+    items: second?.items ?? [],
+    processItemsList2: local.processItemsList2.slice(0, Math.max(0, steps.length - first - 1)).map((slot, i) => {
+      const step = steps[first + 1 + i];
+      return { ...slot, icon: step.icon, subheading: step.subheading, items: step.items };
+    }),
+    items2: steps,
+  };
 };
 
 const testimonials: Mapper<'testimonials'> = ({ testimonials: api }, local) => {
   if (!api || !isOn(api)) return null;
   const list = (api.testimonials ?? []).filter((item) => item.status !== false);
   if (list.length === 0) return null;
-  const image = (src: string | null | undefined, i: number) => pick(src) ?? cycle(local.items, i)?.testImg.image.src ?? '';
+  const size = local.items[0]?.testImg;
   return {
     ...local,
-    text: pick(api.small_title) ?? local.text,
-    heading: pick(api.title) ?? local.heading,
-    text2: pick(api.description) ?? local.text2,
-    items: list.map((item, i) => {
-      const template = cycle(local.items, i)?.testImg;
-      return {
-        testImg: {
-          href: template?.href ?? 'javascript:;',
-          title: item.name ?? '',
-          dataSlide: String(i + 1),
-          className: i === 0 ? 'active test-img' : 'test-img',
-          image: { src: image(item.image, i), alt: '', width: template?.image.width ?? '71', height: template?.image.height ?? '71' },
-        },
-      };
-    }),
-    image: { src: image(list[0]?.image, 0) || local.image.src, alt: '' },
+    text: str(api.small_title),
+    heading: str(api.title),
+    text2: str(api.description),
+    items: list.map((item, i) => ({
+      testImg: {
+        href: size?.href ?? 'javascript:;',
+        title: str(item.name),
+        dataSlide: String(i + 1),
+        className: i === 0 ? 'active test-img' : 'test-img',
+        image: { src: str(item.image), alt: str(item.name), width: size?.image.width ?? '71', height: size?.image.height ?? '71' },
+      },
+    })),
+    image: { src: str(list[0]?.image), alt: str(list[0]?.name) },
     testimonialTextSections: list.map((item, i) => ({
       dataIndex: String(i + 1),
-      text: item.review ?? '',
+      text: str(item.review),
       text2: [`<strong>${escape(item.name)}</strong>`, escape(item.designation), escape(item.company)].filter((part) => part && part !== '<strong></strong>').join(', '),
     })),
   };
 };
 
-function escape(value: string | null | undefined): string {
-  return (value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
 const portfolio: Mapper<'portfolio'> = ({ portfolio: api }, local) => {
   if (!api || !isOn(api)) return null;
   const list = (api.portfolios ?? []).filter((item) => item.status !== false);
   if (list.length === 0) return null;
+  const size = local.items[0]?.image;
+  const label = local.items[0]?.link?.text ?? '';
   return {
     ...local,
-    text: pick(api.small_title) ?? local.text,
-    heading: pick(api.title) ?? local.heading,
-    text2: pick(api.description) ?? local.text2,
-    items: list.map((item, i) => {
-      const template = cycle(local.items, i);
-      const text = pick(item.tagline, item.short_description) ?? '';
-      return {
-        heading: item.title ?? '',
-        text,
-        image: { src: pick(item.image) ?? template?.image.src ?? '', alt: pick(item.image_alt) ?? '', width: template?.image.width, height: template?.image.height },
-        heading2: item.title ?? '',
-        text2: pick(item.short_description, item.tagline) ?? '',
-        link: { href: path('/portfolio', item.slug), text: template?.link?.text ?? 'Explore More' },
-      };
-    }),
+    text: str(api.small_title),
+    heading: str(api.title),
+    text2: str(api.description),
+    items: list.map((item) => ({
+      heading: str(item.title),
+      text: str(item.tagline, item.short_description),
+      image: { src: str(item.image), alt: str(item.image_alt, item.title), width: size?.width, height: size?.height },
+      heading2: str(item.title),
+      text2: str(item.short_description, item.tagline),
+      link: { href: path('/portfolio', item.slug), text: label },
+    })),
   };
 };
 
@@ -238,15 +237,15 @@ const technologies: Mapper<'technologies'> = ({ technologies: api }, local) => {
   const size = local.blocks[0]?.items[0]?.image;
   return {
     ...local,
-    link2: { ...local.link2, text: pick(api.small_title) ?? local.link2.text, heading: pick(api.title) ?? local.link2.heading },
-    link6: { href: '#mobile-technologies', text: first.title ?? local.link6.text },
-    items: rest.map((item) => ({ link: { id: `${slug(item)}-tab`, href: `#${slug(item)}`, ariaControls: slug(item), text: item.title ?? '' } })),
+    link2: { ...local.link2, text: str(api.small_title), heading: str(api.title) },
+    link6: { href: '#mobile-technologies', text: str(first.title) },
+    items: rest.map((item) => ({ link: { id: `${slug(item)}-tab`, href: `#${slug(item)}`, ariaControls: slug(item), text: str(item.title) } })),
     blocks: list.map((item, i) => ({
       className: i === 0 ? 'tab-pane fade show active' : 'tab-pane fade',
       id: i === 0 ? 'mobile-technologies' : slug(item),
       ariaLabelledby: i === 0 ? 'mobile-technologies-tab' : `${slug(item)}-tab`,
       items: (item.images ?? []).flatMap((image) =>
-        pick(image.url) ? [{ image: { src: image.url as string, title: '', alt: '', width: size?.width ?? '78', height: size?.height ?? '78' } }] : [],
+        pick(image.url) ? [{ image: { src: image.url as string, title: str(image.alt), alt: str(image.alt), width: size?.width ?? '78', height: size?.height ?? '78' } }] : [],
       ),
     })),
   };
@@ -256,23 +255,23 @@ const blog: Mapper<'blog'> = ({ blogs: api }, local) => {
   if (!api || !isOn(api)) return null;
   const list = (api.blogs ?? []).filter((item) => item.status !== false);
   if (list.length === 0) return null;
+  const template = local.items[0];
   return {
     ...local,
-    text: pick(api.small_title) ?? local.text,
-    heading: pick(api.title) ?? local.heading,
-    items: list.map((item, i) => {
-      const template = cycle(local.items, i);
+    text: str(api.small_title),
+    heading: str(api.title),
+    items: list.map((item) => {
       const href = path('/blog', item.slug);
       return {
         blogPostFeatureLink: {
           href,
-          title: item.title ?? '',
-          image: { src: pick(item.image) ?? template?.blogPostFeatureLink.image.src ?? '', alt: pick(item.image_alt) ?? '', width: template?.blogPostFeatureLink.image.width ?? '370', height: template?.blogPostFeatureLink.image.height ?? '193' },
+          title: str(item.title),
+          image: { src: str(item.image), alt: str(item.image_alt, item.title), width: template?.blogPostFeatureLink.image.width ?? '370', height: template?.blogPostFeatureLink.image.height ?? '193' },
         },
-        link: { href, text: item.title ?? '' },
-        text: item.short_description ?? '',
-        datePost: template?.datePost ?? 'Read More',
-        link2: { href, title: template?.link2.title ?? 'Read More' },
+        link: { href, text: str(item.title) },
+        text: str(item.short_description),
+        datePost: template?.datePost ?? '',
+        link2: { href, title: template?.link2.title ?? '' },
       };
     }),
   };
@@ -294,13 +293,7 @@ export function adaptHome(api: ApiHome, local: PageData): PageData {
   const seo = api.seo;
   return {
     ...local,
-    seo: {
-      ...local.seo,
-      title: pick(seo?.meta_title) ?? local.seo?.title,
-      description: pick(seo?.meta_description) ?? local.seo?.description,
-      ...toSeoMeta(seo),
-    },
+    seo: { title: pick(seo?.meta_title), description: pick(seo?.meta_description), ...toSeoMeta(seo) },
     sections: blocks,
   };
 }
-

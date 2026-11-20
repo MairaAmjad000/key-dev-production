@@ -1,8 +1,11 @@
 import { Icon } from '@/components/icons';
 
-/** Menu entry icon: a bundled inline SVG when the key is "svg-…", otherwise the image the admin panel sent. */
-export function MenuIcon({ icon, size }: { icon: string | null; size: number }) {
+/**
+ * Menu entry icon: a bundled inline SVG when the key is "svg-…", otherwise the image the admin panel sent.
+ * Both go through <Icon>, so an uploaded image gets exactly the width / height the SVG has in `.mainmenuicon` /
+ * `.submenuicon` at every breakpoint (see styles/base/cms-icons.css). `size` is kept for the callers' signature.
+ */
+export function MenuIcon({ icon }: { icon: string | null; size?: number }) {
   if (!icon) return null;
-  if (icon.startsWith('svg-')) return <Icon name={icon} />;
-  return <img src={icon} alt="" width={size} height={size} />;
+  return <Icon name={icon} />;
 }

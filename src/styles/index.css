@@ -96,6 +96,9 @@
 @import './layout/cookie-alert.css';
 @import './layout/hire-sticky-bar.css';
 
+/* Admin-uploaded icons (<img>) sized like the SVGs they replace */
+@import './base/cms-icons.css';
+
 /* Responsive fixes: must come after every sheet above */
 @import './base/responsive.css';
 

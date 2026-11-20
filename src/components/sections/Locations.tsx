@@ -25,13 +25,13 @@ export function Locations({ data }: { data: LocationsContent }) {
                 <div className="row align-items-end justify-content-between">
                   <div className="col-12 col-sm-12">
                     <div className="footer_box_img mb-30">
-                      <img
+                      {data.boxShadow.src && <img
                         className="lazy box-shadow rounded10"
                         data-src={data.boxShadow.src}
                         alt={data.boxShadow.alt}
                         width={data.boxShadow.width}
                         height={data.boxShadow.height}
-                      />
+                      />}
                     </div>
                     {' '}
                     <div className="footer_box_add">
@@ -85,13 +85,13 @@ export function Locations({ data }: { data: LocationsContent }) {
                     <div className="row align-items-end justify-content-between">
                       <div className="col-12 col-sm-12">
                         <div className="footer_box_img mb-30">
-                          <img
+                          {item.boxShadow.src && <img
                             className="lazy box-shadow rounded10"
                             data-src={item.boxShadow.src}
                             alt={item.boxShadow.alt}
                             width={item.boxShadow.width}
                             height={item.boxShadow.height}
-                          />
+                          />}
                         </div>
                         {' '}
                         <div className="footer_box_add">

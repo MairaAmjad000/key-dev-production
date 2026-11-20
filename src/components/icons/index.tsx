@@ -10178,7 +10178,17 @@ const ICONS: Record<string, () => ReactElement> = {
   ),
 };
 
+/** True when an icon value is an image address from the admin panel (not a registry key or inline SVG). */
+export const isIconUrl = (value: string) => /^(https?:)?\/\/|^\/|^data:image\/|\.(svg|png|webp|jpe?g|gif|avif)(\?.*)?$/i.test(value.trim());
+
+/**
+ * An icon slot. `name` is either a registry key (bundled inline SVG) or an image URL coming from the admin panel.
+ * A URL renders as <img class="cms-icon">; styles/base/cms-icons.css gives it exactly the box the inline SVG has
+ * in the same slot, so swapping the artwork never changes the layout.
+ */
 export function Icon({ name }: { name: string }) {
+  if (!name) return null;
+  if (isIconUrl(name)) return <img className="cms-icon" src={name} alt="" />;
   const render = ICONS[name];
   return render ? render() : null;
 }

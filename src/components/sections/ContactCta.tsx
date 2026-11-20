@@ -33,6 +33,8 @@ export function ContactCta({ data }: { data: ContactCtaContent }) {
                   </a>
                 </li>
                 {' '}
+                {data.item && (
+                  <>
                 <li>
                   <span className="orange-text">
                     {data.orangeText}
@@ -56,6 +58,8 @@ export function ContactCta({ data }: { data: ContactCtaContent }) {
                     {' '}
                   </a>
                 </li>
+                  </>
+                )}
                 <a title={data.link3.title} {...link(data.link3.href)}>
                   {' '}
                 </a>
