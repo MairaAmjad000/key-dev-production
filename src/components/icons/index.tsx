@@ -1,4 +1,6 @@
 import type { ReactElement } from 'react';
+import { isSvgUrl } from '@/lib/utils/svg';
+import { CmsSvg } from './CmsSvg';
 
 /**
  * Inline SVG registry. Content refers to icons by key (e.g. "svg-1a2b3c"); markup stays here.
@@ -10188,6 +10190,8 @@ export const isIconUrl = (value: string) => /^(https?:)?\/\/|^\/|^data:image\/|\
  */
 export function Icon({ name }: { name: string }) {
   if (!name) return null;
+  // SVG files from the admin panel are inlined so their lines / fills can be styled (hover); other images stay <img>.
+  if (isIconUrl(name) && isSvgUrl(name)) return <CmsSvg src={name} />;
   if (isIconUrl(name)) return <img className="cms-icon" src={name} alt="" />;
   const render = ICONS[name];
   return render ? render() : null;

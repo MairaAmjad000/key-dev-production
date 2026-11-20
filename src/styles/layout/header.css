@@ -387,6 +387,16 @@ nav.navbar {
    align-items: center
 }
 
+/* The badge picture comes from the admin panel and can have any shape. The global `img { height: auto }` rule would
+   let a square logo grow far taller than the 88 x 25 badge this bar was designed around, so lock the height. */
+.top-left-part a>img {
+   height: 25px;
+   width: auto;
+   max-width: 120px;
+   object-fit: contain;
+   flex: none
+}
+
 .top-left-part a:hover {
    opacity: .8;
    color: #fff
