@@ -1,0 +1,366 @@
+# KeyDevs Technologies: CMS frontend
+
+Next.js (App Router) frontend where **all content comes from the admin panel**: text, links, images, menus,
+forms options, SEO, page sections and their order. The code only holds markup and styles.
+
+```
+content/                      Bundled copy of the admin-panel data (used when CMS_API_URL is empty or unreachable)
+  settings/                   site.json (language, theme colour, SEO, 404 text), forms.json (dropdown options)
+  navigation/                 header.json, mobile-menu.json
+  globals/                    blocks on every page: footer, quote popup, cookie alert, call-back sidebar, ...
+  pages/home/                 page.json (slug, SEO, ordered list of sections) + sections/*.json
+public/                       images/, fonts/, scripts/ (browser scripts), favicon.png
+src/
+  app/
+    layout.tsx                <html>, metadata and viewport from settings, loads the stylesheets
+    [[...slug]]/page.tsx      renders any CMS page: "/" = slug "home", "/a/b" = slug "a/b"; 404 if unknown
+    not-found.tsx             404 page (text from settings)
+    api/revalidate/route.ts   webhook the admin panel calls on publish
+  components/
+    layout/                   SiteShell, Header, MobileMenu, Footer, popups, ... (site-wide chrome)
+    sections/                 one component per page section + SectionRenderer (type -> component)
+    ui/  icons/  scripts/     form helpers, inline SVG registry, browser-script loader
+  lib/cms/                    client.ts (HTTP), local.ts (content/ files), api.ts (what the app calls)
+  lib/utils/markup.tsx        small JSX helpers
+  config/cms.ts               environment variables
+  types/                      TypeScript shapes of the content (settings, layout, sections, page)
+  styles/
+    index.css                 imports everything in cascade order (order matters)
+    base/                     fonts, global rules, utilities, buttons, shared rules
+    layout/                   header, mega menu, mobile menu, footer, popups, ...
+    sections/                 one file per page section
+    vendor/                   Bootstrap copy, slick, Magnific Popup, intl-tel-input, Font Awesome
+```
+
+## Run
+
+```
+npm install
+npm run dev          # http://localhost:3000
+npm run typecheck && npm run lint && npm run build
+```
+
+With no environment variables the site renders the files in `content/`.
+
+## Connecting the admin panel (KeyDevs API)
+
+With `CMS_API_URL=https://kd.keydevs.net/api` the site reads `GET /layout`, `/form-options`, `/global-sections` and `/home`
+(responses are `{ success, data }`). `src/lib/cms/adapters/` converts them into the shapes the components already use, so the
+markup and styles do not change. Anything the API does not send, or the whole API when it is unreachable, falls back to `content/`.
+A home section or global section the API omits (or sets `enabled`/`status` false) is not rendered; global sections also honour `show_on`.
+The header, mobile menu and footer links are built from the API menus. Pages other than home still render from `content/` for now.
+
+### Legacy path-per-file format
+
+Copy `.env.example` to `.env.local` and set `CMS_API_URL`. The site then requests these paths
+(`GET {CMS_API_URL}/<path>`, JSON, same shape as the matching file in `content/`):
+
+| Path | Content |
+|---|---|
+| `settings/site`, `settings/forms` | settings, form dropdown options |
+| `navigation/header`, `navigation/mobile-menu` | menus |
+| `globals/footer`, `globals/quote-popup`, `globals/cookie-alert`, `globals/hire-sticky-bar`, `globals/get-quote-button`, `globals/call-back-sidebar` | site-wide blocks |
+| `pages` | list of `{ "slug": "..." }` for all pages |
+| `pages/<slug>` | `{ "slug", "seo": { "title", "description" }, "sections": [ { "type": "hero", "data": { ... } }, ... ] }` |
+
+Section `type` values: `hero`, `brandLogos`, `about`, `offerings`, `industries`, `values`, `callout`, `process`,
+`testimonials`, `portfolio`, `contactCta`, `whatsAppAnchor`, `technologies`, `blog`, `scheduleCall`, `engagement`,
+`locations`. Their `data` shapes are in `src/types/sections.ts`. The order of the array is the order on the page.
+
+If the admin panel is down, the bundled `content/` is used, so the site keeps rendering.
+Responses are cached for `CMS_REVALIDATE_SECONDS`; to publish instantly, have the admin panel call
+`POST /api/revalidate` with header `x-revalidate-secret: <CMS_REVALIDATE_SECRET>`.
+If your CMS returns a different JSON shape, adapt it in `src/lib/cms/api.ts` only.
+
+## Category (service) pages
+
+> `service-category/web-development` mirrors the supplied HTML exactly: categoryHero, introContent, serviceOfferings, frameworkTabs, whyChoose, brandLogos, portfolio, testimonials, featuredIn, technologies, blog (then the global sections). The table below lists the other category pages' sections.
+
+`/service-category/web-development` (`content/pages/service-category/web-development`) is the template for every
+service category page. To add another category, create a page with a new slug and the same list of sections, then
+fill each section's data in the admin panel. Sections, in page order:
+
+| type | component | note |
+| --- | --- | --- |
+| `categoryHero` | `CategoryHero` | banner + enquiry form (fields come from the CMS) + breadcrumb |
+| `brandLogos` | `BrandLogos` | existing |
+| `introContent` | `IntroContent` | heading, paragraphs, button, picture |
+| `serviceOfferings` | `ServiceOfferings` | sticky tab bar + one row per service (tabs are built from the rows) |
+| `featureList` | `FeatureList` | icon bullets + picture |
+| `advantageGrid` | `AdvantageGrid` | equal-height icon cards |
+| `process` | `Process` | existing (optional `icon` for step 5) |
+| `frameworkTabs` | `FrameworkTabs` | vertical tabs, accordion on mobile |
+| `contactCta` | `ContactCta` | existing (optional `background`, e.g. `bg-white`) |
+| `whyChoose` | `WhyChoose` | two-column icon cards |
+| `portfolio`, `testimonials`, `technologies`, `blog`, `scheduleCall` | existing | |
+| `faq` | `Faq` | Bootstrap accordion |
+| `featuredIn` | `FeaturedIn` | press / platform logo strip |
+
+Sticky tabs and scroll-spy for `serviceOfferings` live in `public/scripts/category-page.js` (+ `scroll-to-fixed.js`).
+The hero form is markup only, like the other forms in this project; hook your submit handler to the form `id`.
+
+Other category pages built from this template (same sections, own content): `/service-category/mobile-app-development`,
+`/service-category/ecommerce-development`, `/service-category/game-development`, `/service-category/ui-ux-design`
+(`content/pages/service-category/<slug>`; each is registered in `src/lib/cms/local.ts`). Banner, "features" and the six
+service listing pictures of these four pages are placeholders copied from the web-development set
+(`public/images/category/<slug>/banner-<slug>.webp`, `features-<slug>.webp`, `listing-1..6.webp`): overwrite them with real artwork.
+
+## Service pages
+
+`/service/mvp-development` (`content/pages/service/mvp-development`) is the template for every individual service
+page. Create another page with a new slug and the same list of sections. It reuses `categoryHero` (without `form`,
+the text spans the full width), `brandLogos`, `introContent`, `contactCta`, `portfolio` (with its optional `callout`
+bar), `testimonials`, `technologies`, `faq`, `featuredIn`, `blog`, `scheduleCall` and `engagement`, plus:
+
+| type | component | note |
+| --- | --- | --- |
+| `offerCards` | `OfferCards` | three cards: illustration + boxed title/text |
+| `imageCards` | `ImageCards` | three cards: picture, title, text, button |
+| `compareBenefits` | `CompareBenefits` | before/after slider + icon benefit boxes (`public/scripts/twentytwenty.js`) |
+| `sprintProcess` | `SprintProcess` | numbered step cards; each sets its own grid order |
+| `techStackTabs` | `TechStackTabs` | technology logos in tabs; `idPrefix` keeps ids unique on the page |
+| `whyChooseImage` | `WhyChooseImage` | picture + card with icon rows |
+
+## Individual service pages (37)
+
+Every service linked from the menus has its own page at `/service/<slug>`, built from the MVP template
+(`content/pages/service/<slug>`): iphone-app-development, android-app-development, flutter-app-development,
+cross-platform-app-development, ar-app-development, vr-app-development, ios-game-development, android-game-development,
+unity-2d-3d-game-development, ar-game-development, vr-game-development, windows-game-development, mac-game-development,
+php-web-development, wordpress-development, codeigniter-development, laravel-development, angularjs-development,
+nodejs-development, erp-development, crm-development, cms-development, software-development, chatbot-development,
+taxi-app-development, food-delivery-app-development, car-wash-app-development, seo-services, real-estate-app-development,
+finance-app-development, travel-app-development, health-fitness-app-development, social-media-app-development,
+dating-app-development, instant-messaging-app-development, media-entertainment-app-development,
+fantasy-sports-app-development. They are registered in `src/lib/cms/local-services.ts` (add a page there when you add a folder).
+They reuse existing pictures (`public/images/services`, `public/images/portfolio`, `public/images/category/web-development/banner-web-development.webp`),
+so swap in service-specific artwork when you have it.
+
+## Solution pages
+
+Solution pages live in `content/pages/solutions/<slug>` (URL `/solutions/<slug>`), e.g. `taxi-app-development`.
+They are registered in `src/lib/cms/local-solutions.ts` (same pattern as `local-services.ts`).
+
+Sections of a solution page, in order: `categoryHero` (with `sideImage`), `brandLogos`, `introContent`,
+`featureTabs`, `contactCta`, `whyChoose` (advantages, with `sectionClass` / `heightClass`), `technologies`,
+`idealBusiness`, `faq` (`variant: "list"`), `solutionCta`, `otherSolutions`, `whyInvest`, `testimonials`,
+`featuredIn`, `blog`, `scheduleCall`, `engagement`.
+
+To add another solution page (the four others were made this way): copy the folder, edit the JSON, add images under `public/images/solutions/<slug>/`,
+and add its imports to `local-solutions.ts`. New icons go in `src/components/icons/index.tsx`.
+`public/scripts/solution-page.js` provides the FAQ list toggle and the feature tabs' Show All button.
+
+## Portfolio page
+
+`content/pages/portfolio` (URL `/portfolio`, registered in `src/lib/cms/local-portfolio.ts`). Sections:
+`categoryHero` (tall banner, centred, with an "OR" separator), `portfolioShowcase` (filter bar + project rows),
+`callout` (wrapped in a section), `testimonials`, `featuredIn`, `technologies`, `blog`, `contactCta`,
+`scheduleCall`, `engagement`.
+
+Each project is one item in `portfolio-showcase.json`: filter classes, logo, tags, paragraphs, store / website
+buttons and a device-stack picture (`thumb.layout`: `single`, `default`, `opt2`, `landscape`). Filter buttons
+come from `filters`; an item shows under a filter when its `classes` contain the filter's class.
+Filtering uses Isotope (`public/scripts/portfolio-vendor.js`, `portfolio-page.js`).
+
+Project logos and screenshots belong in `public/images/portfolio/mainpage/` (list in the README.txt there).
+
+## Blog page
+
+`content/pages/blog` (URL `/blog`, registered in `src/lib/cms/local-blog.ts`): `categoryHero`, `blogList`
+(articles + sidebar), `testimonials`, `scheduleCall`. Articles beyond `pageSize` are hidden until "Load More"
+(`public/scripts/blog-page.js`). Article, author and category links (`/blog/<slug>`, `/blog/author/...`,
+`/blog/category/...`) need their own pages. Article images and avatars go in `public/images/blog/mainpage/`
+(list in the README.txt there).
+
+## Contact page
+
+`content/pages/contact` (URL `/contact`, registered in `src/lib/cms/local-contact.ts`): `categoryHero` (with a
+`subheading`), `contactForm` (fields + "schedule a meeting" card; the select lists come from
+`content/settings/forms.json`), `contactInfo` (three boxes + social bar), `contactMap` (office tabs + Google Maps).
+Scripts: `public/scripts/contact-page.js`. Office photos go in `public/images/contact/` (list in the README.txt there).
+
+## Who we are page
+
+`content/pages/who-we-are` (URL `/who-we-are`, registered in `src/lib/cms/local-who-we-are.ts`): `categoryHero`
+(`headingHtml` allows a <span>), `brandLogos`, `introContent` (team, with section / content class options),
+`statsCounters`, `leadership`, `missionVision`, `coreValues`, `historyTimeline`, `contactCta`, `testimonials`,
+`portfolio`, `technologies`, `scheduleCall`, `engagement`. The history slider is initialised in
+`public/scripts/about-page.js`. New pictures are in `public/images/about/`.
+
+## How we work page
+
+`content/pages/how-we-work` (URL `/how-we-work`, registered in `src/lib/cms/local-how-we-work.ts`): `categoryHero`,
+`brandLogos`, `introContent`, `processSteps` (sticky step navigator + seven numbered rows), `contactCta`,
+`testimonials`, `portfolio`, `technologies`, `blog`, `scheduleCall`, `engagement`. The navigator's highlighting and
+progress bar are in `public/scripts/process-page.js`. Step pictures go in `public/images/how-we-work/process/`
+(list in the README.txt there).
+
+## Client review page
+
+`content/pages/client-review` (URL `/client-review`, registered in `src/lib/cms/local-client-review.ts`): `categoryHero`,
+`brandLogos`, `clutchReviews` (Clutch.co widget), `clientReviews` (testimonial cards), `technologies`, `blog`,
+`scheduleCall`, `engagement`. The Clutch script is added on demand by `public/scripts/client-review-page.js`.
+Reviewer photos go in `public/images/client-review/reviews/` (list in the README.txt there).
+
+## Technologies page
+
+`content/pages/technologies` (URL `/technologies`, registered in `src/lib/cms/local-technologies.ts`): `categoryHero`,
+`technologyGroups` (sticky tab bar + six logo groups), `contactCta`, `testimonials`, `featuredIn`, `blog`,
+`technologies`, `scheduleCall`, `engagement`. Logos reuse `public/images/technologies/`; three logos the page also
+needs are listed in `public/images/technologies/README-technologies-page.txt`. The tab bar behaviour is in
+`public/scripts/category-page.js`.
+
+## Estimate page
+
+`content/pages/app-development-cost-calculator` (the URL your menu and banners already link to; the template's canonical
+is `/estimate-your-project`; registered in `src/lib/cms/local-estimate.ts`). One section, `estimateWizard`, whose
+`steps` use the same shape as the admin panel's estimate-steps export (key, question, answer_type, next_step,
+options with icon / next_step ...). Branching, answers, submit (POST to `form.action`, JSON reply) and the phone
+field are in `public/scripts/estimate-page.js`. Option icons are in `public/images/estimate/`.
+
+## Placeholder images
+
+Pictures that the page templates referenced from the live site (portfolio logos and screenshots, blog images, process
+pictures, reviewer photos, office photos, three technology logos) were not available, so they exist as placeholders
+copied from existing images. `public/images/PLACEHOLDERS.txt` lists each placeholder and its source. Replace a placeholder by
+saving the real image under the same path and file name.
+
+## Global sections
+
+Four sections are shared by all pages and shown at the end, above the footer, always in this order: **Connect With Us**
+(`contactCta`), **Schedule Meeting** (`scheduleCall`), **Engagement Models** (`engagement`), **Locations** (`locations`).
+Their content lives once in `content/globals/global-sections.json` (API path `globals/global-sections`):
+`{ "sections": [ { "type", "enabled", "data" }, ... ] }`. `enabled: false` hides a section on every page.
+A page can opt out of some or all with `hideGlobalSections` in its `page.json` (the contact and estimate pages hide all four).
+Pages no longer list these four types in their own `sections`; if an API page still does, they are ignored and the global
+ones are used (see `src/lib/cms/global-sections.ts`).
+
+## Adding things
+
+* **New page**: create it in the admin panel (or add `content/pages/<slug>/page.json`) and it is served at `/<slug>`.
+* **New section type**: add its type in `src/types/sections.ts` + `page.ts`, a component in `src/components/sections`,
+  a `case` in `SectionRenderer.tsx`, and its stylesheet in `src/styles/sections` (import it in `styles/index.css`).
+
+## Notes
+
+* Service page images to upload: `public/images/service/mvp-development/` (`prototype-design.png`,
+  `single-feature-mvp.png`, `single-feature-mvp2.png`, `on-demand-taxi-booking.jpg`, `on-demand-food-delivery.jpg`,
+  `instant-messaging.jpg`, `on-demand-car-wash.jpg`, `why-choose-mvp-development.jpg`), `public/images/technologies/`
+  (`php.png`, `node.png`, `angular.png`, `my-sql.png`, `amazon-rds.png`, `aws-ec2.png`, `aws-s3.png`) and
+  `public/images/portfolio/` (`fantasyji.jpg`, `finance-app.jpg`, `healthcare-and-fitness.jpg`, `real-estate.jpg`,
+  `social-media.jpg`, `event-and-community-building.jpg`). The "featured in" logos use the category page folder below.
+* Category page images to upload to `public/images/category/web-development/`: `custom-web-development-listing.webp`,
+  `ecommerce-website-listing.webp`, `web-app-development-listing.webp`, `content-management-system-listing.webp`,
+  `erp-solution-listing.webp`, `crm-solution-listing.webp`, `daily-mail.webp`, `post.webp`, `sun.webp`, `men.webp`,
+  `bbc.webp` (the template referenced them from the live site, they were not embedded).
+
+* Images referenced by the content but missing from `public/`: `images/author/yasir.jpg`,
+  `images/author/nick-konechny.webp`, `images/author/star-user.svg`, `images/brand/upwork-rating.webp`,
+  `images/brand/pph.webp`, `images/footer/handshake.png`. Upload them (or change the paths in the admin panel).
+* Components are server components on purpose: jQuery/slick manage the DOM after load, so React must not re-render it.
+  `public/scripts` are those browser scripts, loaded in order by `components/scripts/SiteScripts.tsx`.
+
+## Privacy policy (and other legal pages)
+
+`/privacy-policy` is CMS content like every other page (`content/pages/privacy-policy`): a `categoryHero` banner plus a
+`policyContent` section (last-updated date, intro, sections with anchors, contact card). The footer and the cookie notice
+already link to it. Another legal page (terms, cookie policy) is a new folder with the same two sections, registered in
+`src/lib/cms/local-legal.ts`.
+
+## Mobile application development page (several service blocks on one page)
+
+`/mobile-application-development` (`content/pages/mobile-application-development`) stacks five service blocks
+(startups, Android, iPhone, Flutter, cross platform) under a row of jump links. Because a section type repeats
+(five `categoryHero`s, ...), its manifest entries are `"type"` or `"type:block"` (e.g. `"categoryHero:android"`) and
+the data file is `sections/<type-in-kebab-case>[-block].json`; it is registered in `src/lib/cms/local-mobile-application.ts`.
+When the admin panel returns the page, it is the usual ordered `{ type, data }` list, so repeats need nothing special.
+
+| type | component | note |
+| --- | --- | --- |
+| `anchorNav` | `AnchorNav` | row of "jump to" links (`items[].id` = id of a `sectionAnchor`) |
+| `sectionAnchor` | `SectionAnchor` | invisible target that opens a block |
+| `introSlider` | `IntroSlider` | picture slider with round icon tabs + heading, text, button |
+| `offerGrid` | `OfferGrid` | service cards with a round icon on the top edge |
+
+Reused as they were: `categoryHero`, `introContent`, `process`, `appPlatforms`, `appWhyChoose`, `industryTabs`,
+`whyChoose`, `callout`, `brandLogos`, `portfolio`, `testimonials`, `technologies`, `blog`, `featuredIn`.
+`appWhyChoose` and `industryTabs` gained an optional callout bar (and `appWhyChoose.sectionClass`); `industryTabs`
+skips its title block when `heading` is empty. Icons in these sections are keys of the icon registry (`svg-xxxxxx`);
+inline SVG markup still works.
+
+## Web technology service pages (`/service/php-web-development`, `wordpress-development`, `codeigniter-development`, `laravel-development`, `angularjs-development`, `nodejs-development`)
+
+Page order: `categoryHero` (no form), `introContent`, `iconCards` (Node.js uses `coreValues`), optional `featureList` / `advantageGrid`, `whyChoose`, then `brandLogos`, `portfolio`, `testimonials`, `featuredIn`, `technologies`, `blog`, and the global sections last.
+`iconCards` is the only new section type (`IconCards`, styles already in `why-choose.css`). `advantageGrid` and `coreValues` gained optional `sectionClass` / `heightClass` / `columnClass` fields.
+
+## Enterprise solutions pages (`/service/mvp-development`, `erp-development`, `crm-development`, `cms-development`, `/service-category/ecommerce-development`, `ui-ux-design`)
+
+New section types: `offerBoxes`, `moduleBoxes` (ERP/CRM/CMS cards), `techIcons` (single row of technology logos), `uiuxServices`, `uiuxMobileDesign`, `uiuxWebDesign`, `uiuxProcess`, `uiuxTools` (styles in `styles/sections/uiux-design.css`). `whyInvest` gained `sectionClass` / `containerClass` / `columnClass` / `ctaBox`; `whyChoose` gained `rowClass`; `techStackTabs` gained `sectionClass`.
+Images that the HTML only referenced by path are copies of existing pictures listed in `public/images/PLACEHOLDERS.txt`; replace them with the real files.
+
+## iOS game development page (`/service/ios-game-development`)
+
+Mirrors the supplied `ios-game-development.html`. Page order: `categoryHero` (no form), `brandLogos`, `introContent`, `gameWhyUs`, `gameExpertise`, `callout`, `portfolio`, `testimonials`, `featuredIn`, `technologies`, `blog`, and the global sections last.
+
+| type | component | note |
+| --- | --- | --- |
+| `gameWhyUs` | `GameWhyUs` | **new**: picture beside four icon + title + text rows (`headingHtml` allows a `<br>`) |
+| `gameExpertise` | `GameExpertise` | **new**: wrapping grid of round icons with a label ("Types of games we develop") |
+
+Reused: `categoryHero`, `brandLogos`, `introContent` (`imageClass: ""` for the plain picture), `callout` (`wrapperClass: "padding-60-00 bg-white"`), `portfolio`, `testimonials`, `featuredIn`, `technologies`, `blog`.
+`portfolio` items gained three optional fields: `figureClass` (coloured card, e.g. `whitetext greenshadebg`), `storeLinks` (Google Play / App Store badges in the hover caption) and `link` is now optional (cards with store badges have no "Explore More" button).
+Styles: `styles/sections/game-service.css` (must stay before `layout/mobile-menu.css` / `layout/footer.css`, which hold the responsive rules) and the store-badge rule at the end of `portfolio.css`.
+New images: `images/service/ios-game-development/` (banner, intro, why-choose) and `images/ui/` (store badges). The six game screenshots in `images/portfolio/games/` are placeholders (see `PLACEHOLDERS.txt`): overwrite them with the real files of the same name.
+
+## Android game development page (`/service/android-game-development`)
+
+Same section list and components as the iOS game page above (`categoryHero`, `brandLogos`, `introContent`, `gameWhyUs`, `gameExpertise`, `callout`, `portfolio`, `testimonials`, `featuredIn`, `technologies`, `blog`, then the global sections), with its own copy, banner / intro / why-choose images (`images/service/android-game-development/`) and four new "why choose us" icons. The game-type icons, store badges and the six game screenshots (`images/portfolio/games/`, still placeholders) are shared with the iOS page.
+Any further game page (Mac, Windows, Unity ...) can reuse this exact layout: only the JSON in `content/pages/service/<slug>/sections/` and the images change.
+
+## On-demand solution pages (taxi / food delivery / car wash)
+
+`/solutions/{taxi,food-delivery,car-wash}-app-development` now mirror the source HTML section by section.
+New sections: `similarApp` (taxi) and `workflowProcess` (car wash); `featureTabs` and `otherSolutions` gained `sectionClass`
+(and per-item `columnClass`). Page-specific CSS ported to `src/styles/sections/solution-extras.css`.
+Image placeholders (if any) are listed in `public/images/PLACEHOLDERS.txt`.
+The older `/service/*-app-development` copies of these pages were left untouched.
+
+## Industry solution pages (real estate / finance / travel / health & fitness)
+
+`/solutions/{real-estate,finance,travel,health-fitness}-app-development` mirror the source HTML section by section.
+New sections: `keyFeatures`, `solutionOffers`, `fitnessAudience`. Extended: `featureTabs` (`variant: "fitness"`, `bar`), `similarApp`
+(`backgroundImage`, `spacerAfter`), `whyChoose` / `whyInvest` (`columnClass`, empty `heightClass` = no wrapper), `moduleBoxes`,
+`categoryHero` (`textColumnClass`). CSS: `src/styles/sections/industry-extras.css`; "Show All" for key features: `public/scripts/solution-page.js`.
+
+## Social solution pages (social media / chat & instant messaging / media & entertainment)
+
+`/solutions/{social-media,chat-instant-messaging,media-entertainment}-app-development` mirror the source HTML section by section.
+New sections: `socialTypes`, `messagingFeatures`, `messagingPanels` (plus the existing `keyFeatures`, `solutionOffers`, `similarApp`, `whyInvest`, `techStackTabs`, `solutionCta`).
+`solutionOffers` gained `rowClass`, `messagingFeatures` items can carry `moreText`. CSS: `src/styles/sections/social-extras.css`.
+
+## Other solution pages
+
+`/solutions/fantasy-sports-app-development` and `/solutions/chatbot-development` are rebuilt from the supplied HTML.
+
+- New sections: `keyFeatureTabs`, `caseStudy`, `chatbotAdvantages`, `chatbotPlatforms`.
+- Extended: `categoryHero` (`sideImageInner`, `textWrapperClass`, `plain`), `introContent` (`imageFirst`, `textColumnClass`, `imageColumnClass`), `industryTabs` (`text2`, `bareIcons`), `techStackTabs` (`titleClass`), `appWhyChoose` (`rowClass`), `SectionTitle` (skips an empty heading).
+- Styles: `src/styles/sections/other-extras.css`.
+
+## Digital marketing (merged from the other AI's zip)
+
+- `/service-category/digital-marketing` and `/service/{seo-services,social-media-marketing,facebook-ads,google-ads,ecommerce-ads,youtube-promotion}`; registry in `src/lib/cms/local-digital-marketing.ts` (SEO is in `local-services.ts`).
+- Shared components extended: `CategoryHero` form title / `idPrefix`, `FeaturedIn` `grid` variant with callout, `IntroContent` `subheading`.
+- Header and mobile menu: "Digital Marketing" replaces the "Game Development" dropdown. The game pages still exist and are linked from the Mobile App Development menu (iOS and Android).
+
+## Footer reveal
+
+Page sections and the footer are wrapped in `<main>` again (as in the source HTML). The fixed footer is uncovered as the page scrolls. The earlier "footer fix" overrides in `global.css` and `footer.css` were removed.
+
+## Estimate page
+
+- `app-development-cost-calculator` now has `bareLayout: true`: no footer, quote popup, cookie bar or sticky bar, and no `<main>` wrapper (as in the template). `buildPage` passes `hideGlobalSections` and `bareLayout` from the manifest on to the page.
+- Steps `web_payment_2`, `web_advertise` and `web_old_dynamic_brief_description` are inactive, as in the template.
+- Final form: `briefAttachment` file input, "Select Your Region" placeholder, `check1` label link, and the "Thank You" success modal.
+- Styles for `.pjax-content` and the paperclip icon were added to `estimate-page.css`.
+#   k e y - d e v - p r o d u c t i o n  
+ 
