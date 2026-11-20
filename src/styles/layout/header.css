@@ -97,7 +97,12 @@ nav.navbar {
 }
 
 .navbar-header img {
-   width: 230px
+   width: 230px;
+   /* Keep the box of the original logo (867x317) so a logo of any shape coming from the CMS
+      fits inside it instead of stretching the header. */
+   aspect-ratio: 867 / 317;
+   object-fit: contain;
+   object-position: left center
 }
 
 .main-navbar .navbar-nav>li {

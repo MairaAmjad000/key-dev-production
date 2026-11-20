@@ -275,7 +275,7 @@ h1, h2, h3, h4, h5, h6, p, li, a {
 @media (max-width: 1024px) {
   .navbar-header { padding: 8px 0; }
   .navbar-header > a { width: 170px; max-width: 60vw; padding: 0; }
-  .navbar-header > a > img { width: 100%; height: auto; display: block; margin: 0 auto; }
+  .navbar-header > a > img { width: 100%; height: auto; display: block; margin: 0 auto; object-position: center; }
   .cd-nav-trigger { top: 14px; }
   header #estimate-mobile-btn { top: 19px; }
 }
