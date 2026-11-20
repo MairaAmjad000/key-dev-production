@@ -95,10 +95,10 @@ const offerings: Mapper<'offerings'> = ({ offerings: api }, local) => {
     { image: 'image4', link: 'link9', sub: 'text6', texts: 'texts4', button: 'link10' },
     { image: 'image5', link: 'link11', sub: 'text7', texts: 'texts5', button: 'link12' },
   ] as const;
-  const out = data as unknown as Record<string, { src?: string; alt?: string; href?: string; text?: string } | string | Array<{ text: string }>>;
+  const out = data as unknown as Record<string, { src?: string; alt?: string; href?: string; text?: string; width?: string; height?: string } | string | Array<{ text: string }>>;
   panels.forEach((panel, i) => {
     const item = items[i] ?? {};
-    const image = out[panel.image] as { src: string; alt: string } | undefined;
+    const image = out[panel.image] as { src: string; alt: string; width?: string; height?: string } | undefined;
     if (image) out[panel.image] = { ...image, width: first?.width, height: first?.height, src: str(item.image), alt: str(item.title) };
     out[panel.link] = { href: str(item.button_link), text: str(item.title) };
     out[panel.sub] = str(item.subtitle);
