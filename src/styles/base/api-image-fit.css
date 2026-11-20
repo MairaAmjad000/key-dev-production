@@ -56,3 +56,32 @@
 img.lazy:not([src]) {
    background: #f1f3f5
 }
+
+/*
+ * Home: blog slider before (or without) slick. API cards must lay out exactly like the bundled ones: 3 per row on
+ * desktop, 2 on tablet, 1 on mobile. Without this the flex items shrink to the width of their (still empty) lazy
+ * images and the cards collapse into thin strips. Once slick initializes it takes over the sizing.
+ */
+.blog-slider:not(.slick-initialized) {
+   flex-wrap: nowrap
+}
+
+.blog-slider:not(.slick-initialized) > .item {
+   flex: 0 0 33.3333%;
+   max-width: 33.3333%;
+   min-width: 0
+}
+
+@media (max-width:1023px) {
+  .blog-slider:not(.slick-initialized) > .item {
+     flex-basis: 50%;
+     max-width: 50%
+  }
+}
+
+@media (max-width:767px) {
+  .blog-slider:not(.slick-initialized) > .item {
+     flex-basis: 100%;
+     max-width: 100%
+  }
+}
