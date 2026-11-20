@@ -115,14 +115,14 @@ img.lazy:not([src]) {
 }
 
 /*
- * Locations (footer offices): the bundled pictures are 360 x 227. An uploaded picture of any shape gets the same
- * box and is cropped to fill it (never stretched), and shrinks proportionally on small screens.
+ * Locations (footer offices): the bundled pictures show at 360 x 255 (their real 1.41 : 1 shape). An uploaded
+ * picture of any shape gets the same box and is cropped to fill it (never stretched), and shrinks proportionally on small screens.
  */
 .footer_box_img img {
    display: inline-block;
    width: 360px;
    max-width: 100%;
    height: auto;
-   aspect-ratio: 360 / 227;
+   aspect-ratio: 360 / 255;
    object-fit: cover
 }
