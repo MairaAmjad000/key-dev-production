@@ -51,7 +51,7 @@ export function TechStackTabs({ data }: { data: TechStackTabsContent }) {
                   <ul className="technologies_icons d-flex align-items-center justify-content-center">
                     {tab.icons.map((icon, i2) => (
                       <li key={i2}>
-                        <img className="lazy" data-src={icon.image.src} alt={icon.image.alt} />
+                        <img className="lazy" src={icon.image.src} data-src={icon.image.src} decoding="async" alt={icon.image.alt} />
                       </li>
                     ))}
                   </ul>

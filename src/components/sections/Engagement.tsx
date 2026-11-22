@@ -30,7 +30,7 @@ export function Engagement({ data }: { data: EngagementContent }) {
                     <div className="hire_box">
                       <img
                         className="lazy"
-                        data-src={item.image.src}
+                        src={item.image.src} data-src={item.image.src} decoding="async"
                         alt={item.image.alt}
                         width={item.image.width}
                         height={item.image.height}
@@ -58,7 +58,7 @@ export function Engagement({ data }: { data: EngagementContent }) {
           <div className="col-12 col-sm-12 col-lg-6 text-center d-none d-lg-flex">
             <img
               className="lazy rounded10 box-shadow"
-              data-src={data.boxShadow.src}
+              src={data.boxShadow.src} data-src={data.boxShadow.src} decoding="async"
               alt={data.boxShadow.alt}
               width={data.boxShadow.width}
               height={data.boxShadow.height}

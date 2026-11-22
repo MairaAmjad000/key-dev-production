@@ -34,7 +34,7 @@ export function Blog({ data }: { data: BlogContent }) {
                             {item.blogPostFeatureLink.image.src ? (
                               <img
                                 className="lazy"
-                                data-src={item.blogPostFeatureLink.image.src}
+                                src={item.blogPostFeatureLink.image.src} data-src={item.blogPostFeatureLink.image.src} decoding="async"
                                 alt={item.blogPostFeatureLink.image.alt}
                                 width={item.blogPostFeatureLink.image.width}
                                 height={item.blogPostFeatureLink.image.height}

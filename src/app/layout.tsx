@@ -9,7 +9,8 @@ import '@/styles/index.css';
 import { preconnect, preload } from 'react-dom';
 import { getSiteSettings, toMetadata } from '@/lib/cms';
 import { cmsConfig } from '@/config/cms';
-import { SCRIPTS, withVersion } from '@/components/scripts/script-list';
+import { siteUrl } from '@/config/site';
+import { CORE_SCRIPTS, withVersion } from '@/components/scripts/script-list';
 
 export async function generateViewport(): Promise<Viewport> {
   const site = await getSiteSettings();
@@ -21,6 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const metadata = toMetadata(site.seo, site.seo.siteName);
   return {
     ...metadata,
+    ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
     ...(site.seo.favicon ? { icons: { icon: [{ url: site.seo.favicon, type: 'image/png', sizes: '32x32' }] } } : {}),
     openGraph: { ...metadata.openGraph, siteName: site.seo.siteName, type: 'website' },
   };
@@ -28,13 +30,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   const site = await getSiteSettings();
-  // Open the connection to the admin server (images/icons) and start downloading every script in parallel now;
+  // Open the connection to the admin server (images/icons) and start downloading the core scripts in parallel now;
   // they still execute strictly in order, but no longer wait for each other to download.
   if (cmsConfig.apiUrl) preconnect(new URL(cmsConfig.apiUrl).origin);
-  preconnect('https://code.jquery.com');
-  preconnect('https://cdn.jsdelivr.net');
-  preconnect('https://cdnjs.cloudflare.com');
-  SCRIPTS.forEach((src) => preload(withVersion(src), { as: 'script' }));
+  CORE_SCRIPTS.forEach((src) => preload(withVersion(src), { as: 'script' }));
   return (
     <html lang={site.language}>
       <body>{children}</body>

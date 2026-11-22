@@ -9,7 +9,7 @@ export function ContactCta({ data }: { data: ContactCtaContent }) {
         <div className="row align-items-center">
           <div className="col-12 col-lg-5 col-xl-4 order-lg-1">
             <div className="call_shedule_img">
-              <img className="lazy" data-src={data.image.src} alt={data.image.alt} />
+              <img className="lazy" src={data.image.src} data-src={data.image.src} decoding="async" alt={data.image.alt} />
             </div>
           </div>
           {' '}

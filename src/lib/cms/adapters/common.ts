@@ -11,11 +11,6 @@ export function isOn(block: { enabled?: Maybe<boolean>; status?: Maybe<boolean> 
   return !!block && block.enabled !== false && block.status !== false;
 }
 
-/** Item `index` of `list`, wrapping around, for borrowing a bundled item (e.g. a placeholder image). */
-export function cycle<T>(list: readonly T[] | undefined, index: number): T | undefined {
-  return list && list.length > 0 ? list[index % list.length] : undefined;
-}
-
 /** Shallow clone helper: copies `base` and overwrites keys whose new value is defined. */
 export function merge<T extends object>(base: T, patch: { [K in keyof T]?: T[K] | undefined }): T {
   const out = { ...base };

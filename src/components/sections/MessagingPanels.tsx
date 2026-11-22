@@ -32,7 +32,7 @@ export function MessagingPanels({ data }: { data: MessagingPanelsContent }) {
             <div className="ins-msg-app-panels-content text-center">
               <img
                 className="lazy box-shadow rounded10"
-                data-src={data.image.src}
+                src={data.image.src} data-src={data.image.src} decoding="async"
                 alt={data.image.alt}
               />
             </div>

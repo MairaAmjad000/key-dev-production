@@ -56,7 +56,7 @@ export function Footer({ data }: { data: FooterContent }) {
                         data.image.src && (
                           <img
                             className="lazy"
-                            data-src={data.image.src}
+                            src={data.image.src} data-src={data.image.src} decoding="async"
                             width={data.image.width}
                             height={data.image.height}
                             alt={data.image.alt}
@@ -153,7 +153,7 @@ export function Footer({ data }: { data: FooterContent }) {
                         <div className="item">
                           <img
                             className="lazy"
-                            data-src={item.image.src}
+                            src={item.image.src} data-src={item.image.src} decoding="async"
                             width={item.image.width}
                             height={item.image.height}
                             alt={item.image.alt}

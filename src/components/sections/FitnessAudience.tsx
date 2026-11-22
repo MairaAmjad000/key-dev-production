@@ -18,7 +18,7 @@ export function FitnessAudience({ data }: { data: FitnessAudienceContent }) {
         <div className="fitness-app-image">
           <img
             className="box-shadow rounded10 lazy"
-            data-src={data.image.src}
+            src={data.image.src} data-src={data.image.src} decoding="async"
             alt={data.image.alt}
           />{" "}
           <div className="fitness-app-overlay-content">

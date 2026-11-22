@@ -9,7 +9,7 @@ export function HireStickyBar({ data }: { data: HireStickyBarContent }) {
         <div className="hire-team-sticky-icon">
           <img
             className="lazy"
-            data-src={data.image.src}
+            src={data.image.src} data-src={data.image.src} decoding="async"
             alt={data.image.alt}
             width={data.image.width}
             height={data.image.height}

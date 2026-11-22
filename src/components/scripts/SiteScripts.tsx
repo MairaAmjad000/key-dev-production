@@ -1,19 +1,13 @@
 'use client';
 
 import { useEffect } from 'react';
-import { SCRIPTS, withVersion } from './script-list';
+import { scriptsFor, withVersion } from './script-list';
 
 /**
  * Browser scripts (jQuery, Bootstrap, slick, lazy loading, popups), loaded once and strictly in this
- * order. The files under /scripts are served from public/scripts.
+ * order. The files under /scripts are served from public/scripts. Page-specific scripts are only loaded on pages
+ * whose markup needs them (see script-list.ts).
  */
-
-
-/**
- * Bump this whenever a file in public/scripts changes. Local scripts keep stable names and used to be cached for a
- * day, so browsers kept running an old copy (e.g. the one that reloaded the page on every portfolio filter click).
- */
-
 
 function loadScript(src: string): Promise<void> {
   return new Promise((resolve) => {
@@ -34,7 +28,7 @@ let loading: Promise<void> | null = null;
 
 function loadAllInOrder(): Promise<void> {
   loading ??= (async () => {
-    for (const src of SCRIPTS) await loadScript(src);
+    for (const src of scriptsFor((selector) => document.querySelector(selector) !== null)) await loadScript(src);
   })();
   return loading;
 }

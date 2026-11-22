@@ -38,7 +38,7 @@ export function Testimonials({ data }: { data: TestimonialsContent }) {
                           {' '}
                           <img
                             className="lazy"
-                            data-src={item.testImg.image.src}
+                            src={item.testImg.image.src} data-src={item.testImg.image.src} decoding="async"
                             alt={item.testImg.image.alt}
                             width={item.testImg.image.width}
                             height={item.testImg.image.height}
@@ -53,7 +53,7 @@ export function Testimonials({ data }: { data: TestimonialsContent }) {
                 {' '}
                 <div className="testimonials_privew">
                   <div>
-                    {data.image.src && <img id="testimonials_privew" className="lazy" data-src={data.image.src} alt={data.image.alt} />}
+                    {data.image.src && <img id="testimonials_privew" className="lazy" src={data.image.src} data-src={data.image.src} decoding="async" alt={data.image.alt} />}
                   </div>
                   {' '}
                   <i className="fas fa-quote-left" />

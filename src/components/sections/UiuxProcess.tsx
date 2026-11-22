@@ -37,7 +37,7 @@ export function UiuxProcess({ data }: { data: UiuxProcessContent }) {
                 data-wow-duration=".5s"
               >
                 <div className={`uiux-design-process-content-image ${flip ? 'right-image' : 'left-image'}`}>
-                  <img className="lazy rounded10 box-shadow" data-src={item.image.src} alt={item.image.alt} />
+                  <img className="lazy rounded10 box-shadow" src={item.image.src} data-src={item.image.src} decoding="async" alt={item.image.alt} />
                 </div>
               </div>
             );

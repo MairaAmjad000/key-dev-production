@@ -47,7 +47,7 @@ export function FeaturedIn({ data }: { data: FeaturedInContent }) {
             <li key={i}>
               <img
                 className="lazy"
-                data-src={logo.image.src}
+                src={logo.image.src} data-src={logo.image.src} decoding="async"
                 alt={logo.image.alt}
                 width={logo.image.width}
                 height={logo.image.height}

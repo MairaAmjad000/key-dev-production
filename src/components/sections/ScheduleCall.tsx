@@ -32,7 +32,7 @@ export function ScheduleCall({ data, forms }: { data: ScheduleCallContent; forms
                           {' '}
                           <img
                             className="lazy"
-                            data-src={item.link.image.src}
+                            src={item.link.image.src} data-src={item.link.image.src} decoding="async"
                             alt={item.link.image.alt}
                             width={item.link.image.width}
                             height={item.link.image.height}
@@ -78,7 +78,7 @@ export function ScheduleCall({ data, forms }: { data: ScheduleCallContent; forms
                         <div className="work_logo">
                           <img
                             className="lazy"
-                            data-src={item.link.image.src}
+                            src={item.link.image.src} data-src={item.link.image.src} decoding="async"
                             alt={item.link.image.alt}
                             width={item.link.image.width}
                             height={item.link.image.height}
@@ -112,7 +112,7 @@ export function ScheduleCall({ data, forms }: { data: ScheduleCallContent; forms
                     <div className="work_logo">
                       <img
                         className="lazy"
-                        data-src={data.link.image.src}
+                        src={data.link.image.src} data-src={data.link.image.src} decoding="async"
                         alt={data.link.image.alt}
                         width={data.link.image.width}
                         height={data.link.image.height}

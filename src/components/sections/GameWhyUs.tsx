@@ -21,7 +21,7 @@ export function GameWhyUs({ data }: { data: GameWhyUsContent }) {
               <img
                 className="lazy"
                 alt={data.image.alt}
-                data-src={data.image.src}
+                src={data.image.src} data-src={data.image.src} decoding="async"
                 width={data.image.width}
                 height={data.image.height}
               />

@@ -27,7 +27,7 @@ export function Locations({ data }: { data: LocationsContent }) {
                     <div className="footer_box_img mb-30">
                       {data.boxShadow.src && <img
                         className="lazy box-shadow rounded10"
-                        data-src={data.boxShadow.src}
+                        src={data.boxShadow.src} data-src={data.boxShadow.src} decoding="async"
                         alt={data.boxShadow.alt}
                         width={data.boxShadow.width}
                         height={data.boxShadow.height}
@@ -87,7 +87,7 @@ export function Locations({ data }: { data: LocationsContent }) {
                         <div className="footer_box_img mb-30">
                           {item.boxShadow.src && <img
                             className="lazy box-shadow rounded10"
-                            data-src={item.boxShadow.src}
+                            src={item.boxShadow.src} data-src={item.boxShadow.src} decoding="async"
                             alt={item.boxShadow.alt}
                             width={item.boxShadow.width}
                             height={item.boxShadow.height}

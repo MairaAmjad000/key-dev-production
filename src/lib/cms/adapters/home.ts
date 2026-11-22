@@ -11,7 +11,7 @@
  */
 import type { PageData, SectionBlock, SectionDataMap, SectionType } from '@/types';
 import type { ApiHome, ApiHomeSections } from './api-types';
-import { cycle, isOn, path, pick, toSeoMeta } from './common';
+import { isOn, path, pick, toSeoMeta } from './common';
 
 type Mapper<K extends SectionType> = (api: ApiHomeSections, local: SectionDataMap[K]) => SectionDataMap[K] | null;
 
@@ -65,7 +65,7 @@ const about: Mapper<'about'> = ({ about: api, statistics }, local) => {
     heading: str(api.title),
     heading2: '',
     texts: pick(api.description) ? (api.description as string).split(/\n{2,}/).map((text) => ({ text: text.trim() })).filter((item) => item.text) : [],
-    items: stats.map((stat, i) => {
+    items: stats.map((stat) => {
       const number = stat.number ?? '';
       const suffix = number.endsWith('%') ? 'fas fa-percent' : number.endsWith('+') ? 'fas fa-plus' : '';
       return {
@@ -170,7 +170,11 @@ const process: Mapper<'process'> = ({ process: api }, local) => {
   const steps = (api.items ?? []).map((step) => ({
     icon: str(step.icon),
     subheading: [pick(step.number), pick(step.title)].filter(Boolean).join(' '),
-    items: pick(step.description) ? [{ html: `<i class="fas fa-chevron-right"></i>${escape(step.description)}` }] : [],
+    items: (step.description ?? '')
+      .split(/\n+/)
+      .map((line) => plain(line))
+      .filter(Boolean)
+      .map((line) => ({ html: `<i class="fas fa-chevron-right"></i>${escape(line)}` })),
   }));
   if (steps.length === 0) return null;
   const first = local.processItemsList.length;

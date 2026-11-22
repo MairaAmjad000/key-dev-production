@@ -102,7 +102,7 @@ export function UiuxWebDesign({ data }: { data: UiuxWebDesignContent }) {
             <Fragment key={l.key}>
               {' '}
               <div className={l.cls} data-wow-delay={l.delay} data-wow-duration={l.duration}>
-                <img className="lazy" data-src={data.images[l.key].src} alt={data.images[l.key].alt} />
+                <img className="lazy" src={data.images[l.key].src} data-src={data.images[l.key].src} decoding="async" alt={data.images[l.key].alt} />
               </div>
             </Fragment>
           ))}

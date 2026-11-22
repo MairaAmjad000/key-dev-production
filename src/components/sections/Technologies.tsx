@@ -76,7 +76,7 @@ export function Technologies({ data }: { data: TechnologiesContent }) {
                         <li>
                           <img
                             className="lazy"
-                            data-src={item2.image.src}
+                            src={item2.image.src} data-src={item2.image.src} decoding="async"
                             title={item2.image.title}
                             alt={item2.image.alt}
                             width={item2.image.width}

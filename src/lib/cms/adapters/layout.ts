@@ -63,7 +63,7 @@ export function adaptHeader(api: Maybe<Settings>, local: HeaderContent): HeaderC
       ? `${escapeHtml(str(top?.email_text))} <a href="mailto:${escapeHtml(email)}"><strong>${escapeHtml(email)}</strong></a> ${escapeHtml(str(top?.phone_text))}`.trim()
       : '',
     link2: phone ? { href: `tel:${phone.replace(/[^\d+]/g, '')}`, strong: phone } : { href: '', strong: '' },
-    headRequetBtn: { ...local.headRequetBtn, text: callback, image: { ...local.headRequetBtn.image, src: str(top?.consultant_image), alt: '' } },
+    headRequetBtn: { ...local.headRequetBtn, text: callback, image: { ...local.headRequetBtn.image, src: str(top?.consultant_image), alt: str(callback, api?.general?.site_name) } },
     link3: { ...local.link3, image: { ...local.link3.image, src: str(api?.general?.logo), alt: str(api?.general?.site_name) } },
   };
 
@@ -154,7 +154,7 @@ export function adaptFooter(api: Maybe<Settings>, local: FooterContent, footerMe
   // Award badges keep the width / height of the bundled badge in the same position.
   footer.items2 = (awards?.items ?? []).flatMap((item, i) =>
     pick(item.image)
-      ? [{ image: { src: pick(item.image) as string, width: local.items2[i]?.image.width ?? local.items2[0]?.image.width ?? '', height: local.items2[i]?.image.height ?? local.items2[0]?.image.height ?? '', alt: '' } }]
+      ? [{ image: { src: pick(item.image) as string, width: local.items2[i]?.image.width ?? local.items2[0]?.image.width ?? '', height: local.items2[i]?.image.height ?? local.items2[0]?.image.height ?? '', alt: `${str(api?.general?.site_name)} award ${i + 1}`.trim() } }]
       : [],
   );
   footer.link2 = { href: str(awards?.button_link), text: str(awards?.button_text) };
@@ -198,7 +198,9 @@ export function adaptLayout(layout: Maybe<ApiLayout>, formOptions: Maybe<ApiForm
     cookieAlert: {
       ...local.cookieAlert,
       b: str(cookie?.title),
-      text3: pick(cookie?.text) ? `${escapeHtml(pick(cookie?.text) as string)} <a href="${escapeHtml(str(cookie?.button_link))}">Learn more</a>` : '',
+      text3: pick(cookie?.text)
+        ? `${escapeHtml(pick(cookie?.text) as string)}${pick(cookie?.button_link) ? ` <a href="${escapeHtml(pick(cookie?.button_link) as string)}">Learn more</a>` : ''}`
+        : '',
       customeBtn: { ...local.cookieAlert.customeBtn, text: str(cookie?.button_text) },
     },
     callBackSidebar: {

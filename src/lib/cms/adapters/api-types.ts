@@ -1,7 +1,7 @@
 /**
  * Shapes of the admin-panel API responses (GET {CMS_API_URL}/layout, /form-options, /global-sections, /home).
- * Every field is optional or nullable on purpose: the admin panel may leave any of them empty, and the
- * adapters fall back to the bundled content/ when a value is missing.
+ * Every field is optional or nullable on purpose: the admin panel may leave any of them empty. The adapters
+ * render such a field as empty (no bundled content is borrowed, see adapters/*.ts for the few documented exceptions).
  */
 
 export type Maybe<T> = T | null | undefined;
@@ -146,5 +146,4 @@ export interface ApiHome {
   page?: Maybe<string>;
   seo?: Maybe<ApiSeo>;
   sections?: Maybe<ApiHomeSections>;
-  global?: Maybe<ApiGlobalSections>;
 }

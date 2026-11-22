@@ -26,7 +26,7 @@ export function SolutionOffers({ data }: { data: SolutionOffersContent }) {
                   <div className="solution-we-offer-image">
                     <img
                       className="lazy rounded10 box-shadow"
-                      data-src={item.image.src}
+                      src={item.image.src} data-src={item.image.src} decoding="async"
                       alt={item.image.alt}
                     />
                   </div>{" "}

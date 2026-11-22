@@ -20,8 +20,9 @@ export async function fetchFromCms<T>(path: string, tags: string[] = []): Promis
   if (!cmsConfig.apiUrl) return null;
 
   const url = `${cmsConfig.apiUrl}/${path.replace(/^\/+/, '')}`;
-  // The admin server can be slow: never wait forever, and retry up to twice before giving up.
+  // The admin server can be slow: never wait forever, and retry up to twice (with a short backoff) before giving up.
   for (let attempt = 1; attempt <= 3; attempt++) {
+    if (attempt > 1) await new Promise((resolve) => setTimeout(resolve, 500 * 2 ** (attempt - 2)));
     try {
       const response = await fetch(url, {
         headers: {
@@ -29,7 +30,7 @@ export async function fetchFromCms<T>(path: string, tags: string[] = []): Promis
           ...(cmsConfig.apiToken ? { Authorization: `Bearer ${cmsConfig.apiToken}` } : {}),
         },
         next: { revalidate: cmsConfig.revalidateSeconds, tags: [CMS_TAG, ...tags] },
-        signal: AbortSignal.timeout(20000),
+        signal: AbortSignal.timeout(15000),
       });
       if (!response.ok) {
         if (response.status === 404) return null;

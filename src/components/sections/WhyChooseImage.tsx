@@ -13,7 +13,7 @@ export function WhyChooseImage({ data }: { data: WhyChooseImageContent }) {
           {data.image && (
             <>
               <div className="col-lg-5 col-md-12 col-sm-12 col-12 col-left d-none d-lg-block">
-                <img className="lazy box-shadow rounded10" data-src={data.image.src} alt={data.image.alt} />
+                <img className="lazy box-shadow rounded10" src={data.image.src} data-src={data.image.src} decoding="async" alt={data.image.alt} />
               </div>
               {' '}
             </>

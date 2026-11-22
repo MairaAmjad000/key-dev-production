@@ -18,7 +18,7 @@ export function UiuxTools({ data }: { data: UiuxToolsContent }) {
               {i > 0 && ' '}
               <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-30">
                 <div className="uiux-tools-box rounded10">
-                  <img className="lazy" data-src={item.image.src} alt={item.image.alt} />
+                  <img className="lazy" src={item.image.src} data-src={item.image.src} decoding="async" alt={item.image.alt} />
                 </div>
               </div>
             </Fragment>

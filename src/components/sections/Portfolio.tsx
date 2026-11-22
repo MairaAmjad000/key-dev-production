@@ -56,7 +56,7 @@ export function Portfolio({ data }: { data: PortfolioContent }) {
                   {' '}
                   <img
                     className="img-fluid lazy"
-                    data-src={item.image.src}
+                    src={item.image.src} data-src={item.image.src} decoding="async"
                     alt={item.image.alt}
                     width={item.image.width}
                     height={item.image.height}

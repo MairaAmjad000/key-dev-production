@@ -14,7 +14,7 @@ export function ImageCards({ data }: { data: ImageCardsContent }) {
             <div key={i} className="col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
               <div className="mvp-what-we-offer-box rounded10">
                 <div className="mvp-what-we-offer-image rounded10 o-hidden">
-                  <img className="lazy" data-src={item.image.src} alt={item.image.alt} />
+                  <img className="lazy" src={item.image.src} data-src={item.image.src} decoding="async" alt={item.image.alt} />
                 </div>
                 {' '}
                 <h4>{item.title}</h4>

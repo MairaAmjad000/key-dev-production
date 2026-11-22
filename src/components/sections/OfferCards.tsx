@@ -13,7 +13,7 @@ export function OfferCards({ data }: { data: OfferCardsContent }) {
             <div key={i} className="col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
               <div className="mvp-services-offer-box">
                 <div className="mvp-services-offer-image text-center">
-                  <img className="lazy" data-src={item.image.src} alt={item.image.alt} />
+                  <img className="lazy" src={item.image.src} data-src={item.image.src} decoding="async" alt={item.image.alt} />
                 </div>
                 {' '}
                 <div className="mvp-services-offer-content-box mhbox rounded10 text-center box-shadow bg-white">

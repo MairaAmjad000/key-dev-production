@@ -4,7 +4,7 @@ Next.js (App Router) frontend where **all content comes from the admin panel**: 
 forms options, SEO, page sections and their order. The code only holds markup and styles.
 
 ```
-content/                      Bundled copy of the admin-panel data (used when CMS_API_URL is empty or unreachable)
+content/                      Bundled copy of the admin-panel data (used as markup template, for pages the API does not serve yet, and when CMS_API_URL is empty)
   settings/                   site.json (language, theme colour, SEO, 404 text), forms.json (dropdown options)
   navigation/                 header.json, mobile-menu.json
   globals/                    blocks on every page: footer, quote popup, cookie alert, call-back sidebar, ...
@@ -64,6 +64,11 @@ replaces. Pages other than home still render from `content/` (the API has no end
 responsive sizes) as the SVG in that slot (industries, values, process, offering tabs, menu icons, ...). Add a rule there
 if you introduce a new icon slot. Note: an `<img>` cannot take the hover colour change that the inline SVGs get; use
 artwork that already looks right in its normal state.
+
+**Refreshing and reliability.** Responses are cached for `CMS_REVALIDATE_SECONDS` (default 60 s, only a safety net). To refresh immediately after publishing,
+have the admin panel call `POST /api/revalidate` with the header `x-revalidate-secret: <CMS_REVALIDATE_SECRET>` (the header is
+the only accepted way; query-string secrets are rejected). The call purges the cache and then re-requests every page so visitors get a fresh, already cached page. Each API request times out after 15 s and is retried twice with a
+short backoff; if it still fails the page request throws (and `next build` fails), so make sure the API is up when building.
 
 ### Legacy path-per-file format
 
@@ -380,3 +385,16 @@ Page sections and the footer are wrapped in `<main>` again (as in the source HTM
 #   k e y - d e v - p r o d u c t i o n 
  
  
+## Security, SEO and scripts
+
+- **HTML from the API is sanitized** (`src/lib/utils/html.ts`, DOMPurify) before any component renders it: scripts,
+  event handlers, iframes, forms and `javascript:` URLs are removed. SEO fields and JSON-LD are re-serialised separately.
+- **Headers** (`next.config.ts`): a Content-Security-Policy (first-party scripts only, plus the Clutch widget and Google
+  Maps embeds), HSTS, `X-Frame-Options` and friends. If you add a third-party script, frame or API host, add it to the
+  `csp` list there or the browser will block it.
+- **Scripts are first-party.** jQuery, Bootstrap, Slick and SweetAlert2 live in `public/scripts/vendor/` (no CDN).
+  Page-specific scripts (portfolio, blog, contact, about, process, client review, estimate, before/after slider) are
+  only loaded on pages whose markup needs them; see `src/components/scripts/script-list.ts`. Bump `SCRIPT_VERSION`
+  whenever a file in `public/scripts` changes.
+- **SEO.** Set `SITE_URL` (see `.env.example`) to enable `/sitemap.xml`, the sitemap line in `/robots.txt`, canonical
+  links and absolute share URLs. Each page renders its `schema_data` as JSON-LD and falls back to the site-wide share image.

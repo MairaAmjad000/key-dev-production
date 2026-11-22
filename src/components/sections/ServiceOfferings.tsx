@@ -71,7 +71,7 @@ export function ServiceOfferings({ data }: { data: ServiceOfferingsContent }) {
                     <div className="what-we-offer-main-listing-img">
                       <img
                         className="lazy rounded10"
-                        data-src={item.image.src}
+                        src={item.image.src} data-src={item.image.src} decoding="async"
                         alt={item.image.alt}
                         width={item.image.width}
                         height={item.image.height}
