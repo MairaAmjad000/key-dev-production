@@ -8,8 +8,7 @@
  * and styles/base/cms-icons.css for the pictures and icons that are sized by CSS).
  *
  * The order of the sections is the one of content/pages/who-we-are/page.json (the dummy page), not the API's.
- * A section the API leaves out or switches off, or one without items, is not rendered. The API's `callout` block
- * has no place in the Who we are design and is ignored.
+ * A section the API leaves out or switches off, or one without items, is not rendered.
  */
 import type { PageData, SectionBlock, SectionDataMap, SectionType } from '@/types';
 import type { ApiAbout, ApiAboutSections, ApiHomeSections } from './api-types';
@@ -141,6 +140,7 @@ const historyTimeline: Mapper<'historyTimeline'> = ({ history: api }, local) => 
 const shared = (api: ApiAboutSections): ApiHomeSections =>
   sharedHomeBlocks({ logos: api.featured_projects, testimonials: api.testimonials, portfolio: api.portfolio, technologies: api.technologies });
 
+const callout: Mapper<'callout'> = (api, local) => SHARED_MAPPERS.callout({ callout: api.callout }, local);
 const brandLogos: Mapper<'brandLogos'> = (api, local) => SHARED_MAPPERS.brandLogos(shared(api), local);
 const testimonials: Mapper<'testimonials'> = (api, local) => SHARED_MAPPERS.testimonials(shared(api), local);
 const portfolio: Mapper<'portfolio'> = (api, local) => SHARED_MAPPERS.portfolio(shared(api), local);
@@ -148,7 +148,7 @@ const technologies: Mapper<'technologies'> = (api, local) => SHARED_MAPPERS.tech
 
 const MAPPERS: { [K in SectionType]?: Mapper<K> } = {
   categoryHero, brandLogos, introContent, statsCounters, leadership, missionVision, coreValues, historyTimeline,
-  testimonials, portfolio, technologies,
+  callout, testimonials, portfolio, technologies,
 };
 
 export function adaptAbout(api: ApiAbout, local: PageData): PageData {

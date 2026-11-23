@@ -5,7 +5,7 @@
  * files); content/pages/how-we-work is a template for what the API has no field for (CSS classes, the breadcrumb, the
  * navigator icons, which side each step sits on) and for the width / height of images. The order of the sections is the
  * one of that dummy page (page.json), not the API's. A section the API leaves out or switches off, or one without
- * items, is not rendered. The API's `callout` block has no place in the How we work design and is ignored.
+ * items, is not rendered.
  */
 import type { PageData, SectionBlock, SectionDataMap, SectionType } from '@/types';
 import type { ApiHomeSections, ApiProcess, ApiProcessSections } from './api-types';
@@ -83,6 +83,7 @@ const processSteps: Mapper<'processSteps'> = ({ process_steps: api }, local) => 
 const shared = (api: ApiProcessSections): ApiHomeSections =>
   sharedHomeBlocks({ logos: api.banner, testimonials: api.testimonials, portfolio: api.portfolio, technologies: api.technologies, blogs: api.blogs });
 
+const callout: Mapper<'callout'> = (api, local) => SHARED_MAPPERS.callout({ callout: api.callout }, local);
 const brandLogos: Mapper<'brandLogos'> = (api, local) => SHARED_MAPPERS.brandLogos(shared(api), local);
 const testimonials: Mapper<'testimonials'> = (api, local) => SHARED_MAPPERS.testimonials(shared(api), local);
 const portfolio: Mapper<'portfolio'> = (api, local) => SHARED_MAPPERS.portfolio(shared(api), local);
@@ -90,7 +91,7 @@ const technologies: Mapper<'technologies'> = (api, local) => SHARED_MAPPERS.tech
 const blog: Mapper<'blog'> = (api, local) => SHARED_MAPPERS.blog(shared(api), local);
 
 const MAPPERS: { [K in SectionType]?: Mapper<K> } = {
-  categoryHero, brandLogos, introContent, processSteps, testimonials, portfolio, technologies, blog,
+  categoryHero, brandLogos, introContent, processSteps, callout, testimonials, portfolio, technologies, blog,
 };
 
 export function adaptProcess(api: ApiProcess, local: PageData): PageData {

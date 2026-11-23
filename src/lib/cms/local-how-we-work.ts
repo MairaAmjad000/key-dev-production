@@ -3,6 +3,7 @@
 */
 import type { SectionDataMap } from '@/types';
 import howWeWorkPage from '../../../content/pages/how-we-work/page.json';
+import howWeWork_callout from '../../../content/pages/how-we-work/sections/callout.json';
 import howWeWork_blog from '../../../content/pages/how-we-work/sections/blog.json';
 import howWeWork_brandLogos from '../../../content/pages/how-we-work/sections/brand-logos.json';
 import howWeWork_categoryHero from '../../../content/pages/how-we-work/sections/category-hero.json';
@@ -13,5 +14,5 @@ import howWeWork_technologies from '../../../content/pages/how-we-work/sections/
 import howWeWork_testimonials from '../../../content/pages/how-we-work/sections/testimonials.json';
 
 export const howWeWorkPageSources: Array<{ manifest: { slug: string; seo?: { title?: string; description?: string }; sections: string[] }; data: Partial<SectionDataMap> }> = [
-  { manifest: howWeWorkPage, data: { blog: howWeWork_blog, brandLogos: howWeWork_brandLogos, categoryHero: howWeWork_categoryHero, introContent: howWeWork_introContent, portfolio: howWeWork_portfolio, processSteps: howWeWork_processSteps, technologies: howWeWork_technologies, testimonials: howWeWork_testimonials } as Partial<SectionDataMap> },
+  { manifest: howWeWorkPage, data: { callout: howWeWork_callout, blog: howWeWork_blog, brandLogos: howWeWork_brandLogos, categoryHero: howWeWork_categoryHero, introContent: howWeWork_introContent, portfolio: howWeWork_portfolio, processSteps: howWeWork_processSteps, technologies: howWeWork_technologies, testimonials: howWeWork_testimonials } as Partial<SectionDataMap> },
 ];

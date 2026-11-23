@@ -167,8 +167,8 @@ export interface ApiAboutSections {
     image?: Maybe<string>; image_alt?: Maybe<string>;
     items?: Maybe<Array<{ year?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>>;
   }>;
-  /** Not part of the Who we are design (the dummy page has no such bar), so it is never rendered. */
-  callout?: Maybe<unknown>;
+  /** The callout bar (typed words + button) before the testimonials. */
+  callout?: ApiHomeSections['callout'];
   /** About blocks name the small label `subtitle` where the home page calls it `small_title`. */
   testimonials?: Maybe<NonNullable<ApiHomeSections['testimonials']> & { subtitle?: Maybe<string> }>;
   portfolio?: Maybe<NonNullable<ApiHomeSections['portfolio']> & { subtitle?: Maybe<string> }>;
@@ -190,8 +190,8 @@ export interface ApiProcessSections {
   banner?: Maybe<ApiToggle & { items?: Maybe<Array<{ image?: Maybe<string> }>> }>;
   how_it_works?: Maybe<ApiHead & { button_text?: Maybe<string>; button_url?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string> }>;
   process_steps?: Maybe<ApiHead & { items?: Maybe<Array<{ number?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>> }>;
-  /** Not part of the How we work design (the dummy page has no such bar), so it is never rendered. */
-  callout?: Maybe<unknown>;
+  /** The callout bar (typed words + button) before the testimonials. */
+  callout?: ApiHomeSections['callout'];
   testimonials?: Maybe<NonNullable<ApiHomeSections['testimonials']>>;
   portfolio?: Maybe<NonNullable<ApiHomeSections['portfolio']>>;
   technologies?: Maybe<NonNullable<ApiHomeSections['technologies']>>;

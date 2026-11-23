@@ -109,9 +109,11 @@ function toMenuItems(items: Maybe<ApiMenuItem[]>): MenuItem[] {
 const COMPANY_PAGES = [
   { url: '/who-we-are', title: 'Who We are', aliases: /^\/?(about|about-us|aboutus|who-we-are|who-we-r)\/?$/i, titles: /^(who we are|about( us)?)$/i },
   { url: '/how-we-work', title: 'How we Work', aliases: /^\/?(process|our-process|how-we-work|how-it-works|how-we-do-it)\/?$/i, titles: /^(how we work|(our )?process)$/i },
+  { url: '/client-review', title: 'Client Review', aliases: /^\/?(client-reviews?|clients?-reviews?|reviews?|testimonials?)\/?$/i, titles: /^(client reviews?|reviews|testimonials)$/i },
+  { url: '/technologies', title: 'Technologies', aliases: /^\/?(technology|technologies)\/?$/i, titles: /^(technologies|technology)$/i },
 ];
 
-/** Point the About / Process entries of a menu at the real pages (/who-we-are, /how-we-work). */
+/** Point the About / Process / Client Review / Technologies entries of a menu at the real pages. */
 function fixCompanyLinks(items: MenuItem[]): MenuItem[] {
   return items.map((item) => {
     const page = COMPANY_PAGES.find((p) => p.aliases.test(item.url.trim()) || p.titles.test(item.title.trim()));
@@ -119,7 +121,7 @@ function fixCompanyLinks(items: MenuItem[]): MenuItem[] {
   });
 }
 
-/** Make sure the "Company" dropdown lists Who We are and How we Work, adding the ones the admin menu lacks. */
+/** Make sure the "Company" dropdown lists Who We are, How we Work, Client Review and Technologies, adding the ones the admin menu lacks. */
 function ensureCompanyPages(items: MenuItem[]): MenuItem[] {
   const hasPage = (list: MenuItem[], url: string): boolean => list.some((i) => i.url === url || hasPage(i.children, url));
   const company = items.find((i) => /^company$/i.test(i.title.trim()) && !i.isFluid);
@@ -128,7 +130,7 @@ function ensureCompanyPages(items: MenuItem[]): MenuItem[] {
   if (missing.length === 0) return items;
   const maxId = Math.max(0, ...items.flatMap((i) => [i.id, ...i.children.map((c) => c.id)]));
   const added: MenuItem[] = missing.map((p, i) => ({ id: maxId + i + 1, title: p.title, url: p.url, icon: null, isFluid: false, target: '_self', children: [] }));
-  // About first, Process second, ahead of the other Company links.
+  // About, Process, Client Review, Technologies first, ahead of the other Company links.
   return items.map((i) => (i === company ? { ...i, children: [...added, ...i.children] } : i));
 }
 
