@@ -166,3 +166,29 @@ img.lazy:not([src]) {
    aspect-ratio: 1 / 1;
    object-fit: cover
 }
+
+/*
+ * How we work: the dummy pictures set the boxes below (the width / height of their markup); an uploaded picture of any
+ * shape gets the same box and is cropped to fill it (never stretched).
+ */
+
+/* "How it works" intro picture: 470 x 500 */
+img.process-intro-image {
+   display: block;
+   width: 470px;
+   max-width: 100%;
+   height: auto;
+   aspect-ratio: 470 / 500;
+   object-fit: cover;
+   margin: 0 auto
+}
+
+/* Process step pictures: 570 x 470 */
+.our-process-image-box img {
+   display: block;
+   width: 570px;
+   max-width: 100%;
+   height: auto;
+   aspect-ratio: 570 / 470;
+   object-fit: cover
+}

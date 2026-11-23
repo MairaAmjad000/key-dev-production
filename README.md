@@ -45,7 +45,7 @@ With no environment variables the site renders the files in `content/`.
 ## Connecting the admin panel (KeyDevs API)
 
 With `CMS_API_URL=https://kd.keydevs.net/api` the site reads `GET /layout`, `/form-options`, `/global-sections`, `/home` and
-`/pages/about` (the Who we are page; responses are `{ success, data }`). `src/lib/cms/adapters/` converts them into the shapes the components already use, so the
+`/pages/about` (Who we are) and `/pages/process` (How we work); responses are `{ success, data }`. `src/lib/cms/adapters/` converts them into the shapes the components already use, so the
 markup and styles do not change.
 
 **No fallback content.** Every text, link, image and icon the API has a field for is taken from the API only; when the admin
@@ -56,7 +56,7 @@ cannot be reached, the request throws, so Next.js keeps serving the last good pa
 `content/` is used only as a *template*: CSS classes, fixed markup and labels the API has no field for (e.g. the
 "Explore More" / "Read More" buttons, form labels, the footer experience character, the header rating badge, the address
 and phone glyphs), and the `width`/`height` of images, so an uploaded picture gets exactly the size of the placeholder it
-replaces. Pages other than home and Who we are still render from `content/` (they are not connected yet), and with an empty
+replaces. Pages other than home, Who we are and How we work still render from `content/` (they are not connected yet), and with an empty
 `CMS_API_URL` the whole site renders from `content/` (demo mode).
 
 **Uploaded icons.** Where the design used inline SVG, the admin sends an image URL. `<Icon name={url}>` renders it as
@@ -230,7 +230,22 @@ Bundled dummy content (`CMS_API_URL` empty) and template: `content/pages/who-we-
 
 ## How we work page
 
-`content/pages/how-we-work` (URL `/how-we-work`, registered in `src/lib/cms/local-how-we-work.ts`): `categoryHero`,
+**Connected to the admin panel.** In the admin it is the *Process* page: `GET /pages/process`, adapted by
+`src/lib/cms/adapters/process.ts` (called from `getPage('how-we-work')`). The URL stays `/how-we-work` and the section order is
+the dummy page's (below), not the API's.
+
+| API block | Section | Notes |
+|---|---|---|
+| `hero` | `categoryHero` | two buttons keep the dummy classes; a button without text is not shown |
+| `banner` | `brandLogos` | logo strip |
+| `how_it_works` | `introContent` | heading is `title`; the design has no line for `small_title`, so it is not shown |
+| `process_steps` | `processSteps` | rows alternate text / picture; anchor ids are `step-1..n`; the navigator label is the step title; the API has no navigator icon, so step N uses the icon of dummy step N; the section `description` has no line in the design |
+| `testimonials`, `portfolio`, `technologies`, `blogs` | same names | same mappers as the home page |
+| `callout` | not rendered | the dummy page has no such bar |
+
+Uploaded pictures are fitted to the dummy boxes in `styles/base/api-image-fit.css` (intro 470 x 500, step pictures 570 x 470).
+
+Bundled dummy content (`CMS_API_URL` empty) and template: `content/pages/how-we-work` (URL `/how-we-work`, registered in `src/lib/cms/local-how-we-work.ts`): `categoryHero`,
 `brandLogos`, `introContent`, `processSteps` (sticky step navigator + seven numbered rows), `contactCta`,
 `testimonials`, `portfolio`, `technologies`, `blog`, `scheduleCall`, `engagement`. The navigator's highlighting and
 progress bar are in `public/scripts/process-page.js`. Step pictures go in `public/images/how-we-work/process/`

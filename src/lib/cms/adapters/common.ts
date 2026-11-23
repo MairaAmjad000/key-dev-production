@@ -1,5 +1,5 @@
 import type { SeoMeta } from '@/types';
-import type { ApiSeo, Maybe } from './api-types';
+import type { ApiHomeSections, ApiSeo, Maybe } from './api-types';
 
 /** First non-empty string, or undefined. */
 export function pick(...values: Array<Maybe<string>>): string | undefined {
@@ -49,4 +49,38 @@ export function toSeoMeta(seo: Maybe<ApiSeo>): SeoMeta {
 /** Escape text that is interpolated into an HTML string. */
 export function escapeHtml(value: string): string {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/** API string or '' (never a bundled value). */
+export const str = (...values: Array<Maybe<string>>) => pick(...values) ?? '';
+
+/** Escape plain admin text that is rendered as HTML (`<` and `&` only: the text lands between tags). */
+export const escape = (value: Maybe<string>) => (value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/** Plain admin text → HTML for the places the markup renders HTML: escaped, single line breaks kept. */
+export const html = (value: string) => escape(value).replace(/\r?\n/g, '<br/>');
+
+/** Blank lines separate paragraphs. */
+export const paragraphsOf = (value: Maybe<string>) => (value ?? '').split(/\n\s*\n/).map((part) => part.trim()).filter(Boolean);
+
+/**
+ * The blocks the home page and the inner pages (Who we are, How we work) have in common, in the shape the home mappers
+ * read. Inner-page blocks call the small label `subtitle` where the home page calls it `small_title`.
+ */
+export function sharedHomeBlocks(api: {
+  logos?: ApiHomeSections['banner'];
+  testimonials?: Maybe<NonNullable<ApiHomeSections['testimonials']> & { subtitle?: Maybe<string> }>;
+  portfolio?: Maybe<NonNullable<ApiHomeSections['portfolio']> & { subtitle?: Maybe<string> }>;
+  technologies?: Maybe<NonNullable<ApiHomeSections['technologies']> & { subtitle?: Maybe<string> }>;
+  blogs?: Maybe<NonNullable<ApiHomeSections['blogs']> & { subtitle?: Maybe<string> }>;
+}): ApiHomeSections {
+  const label = <T extends { small_title?: Maybe<string>; subtitle?: Maybe<string> }>(block: T | null | undefined) =>
+    block ? { ...block, small_title: pick(block.subtitle, block.small_title) } : block;
+  return {
+    banner: api.logos,
+    testimonials: label(api.testimonials),
+    portfolio: label(api.portfolio),
+    technologies: label(api.technologies),
+    blogs: label(api.blogs),
+  };
 }

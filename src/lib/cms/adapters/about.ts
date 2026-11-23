@@ -14,19 +14,11 @@
 import type { PageData, SectionBlock, SectionDataMap, SectionType } from '@/types';
 import type { ApiAbout, ApiAboutSections, ApiHomeSections } from './api-types';
 import { SHARED_MAPPERS } from './home';
-import { isOn, pick, toSeoMeta } from './common';
+import { escape, html, isOn, paragraphsOf, pick, sharedHomeBlocks, str, toSeoMeta } from './common';
 
 type Mapper<K extends SectionType> = (api: ApiAboutSections, local: SectionDataMap[K]) => SectionDataMap[K] | null;
 
-/** API string or '' (never a bundled value). */
-const str = (...values: Array<string | null | undefined>) => pick(...values) ?? '';
 const digits = (value: string | null | undefined) => (value ?? '').replace(/[^\d.]/g, '');
-const escape = (value: string | null | undefined) => (value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-/** Plain admin text → HTML for the places the markup renders HTML: escaped, single line breaks kept. */
-const html = (value: string) => escape(value).replace(/\r?\n/g, '<br/>');
-/** Blank lines separate paragraphs. */
-const paragraphsOf = (value: string | null | undefined) =>
-  (value ?? '').split(/\n\s*\n/).map((part) => part.trim()).filter(Boolean);
 
 const categoryHero: Mapper<'categoryHero'> = ({ hero: api }, local) => {
   if (!api || !isOn(api)) return null;
@@ -145,20 +137,9 @@ const historyTimeline: Mapper<'historyTimeline'> = ({ history: api }, local) => 
   };
 };
 
-/**
- * Testimonials, portfolio, technologies and the featured-projects logo strip are the home page's blocks, so they
- * reuse the home mappers; the About blocks only name the small label `subtitle` instead of `small_title`.
- */
-function shared(api: ApiAboutSections): ApiHomeSections {
-  const label = <T extends { small_title?: string | null; subtitle?: string | null }>(block: T | null | undefined) =>
-    block ? { ...block, small_title: pick(block.subtitle, block.small_title) } : block;
-  return {
-    banner: api.featured_projects,
-    testimonials: label(api.testimonials),
-    portfolio: label(api.portfolio),
-    technologies: label(api.technologies),
-  };
-}
+/** Testimonials, portfolio, technologies and the featured-projects logo strip are the home page's blocks, so they reuse the home mappers. */
+const shared = (api: ApiAboutSections): ApiHomeSections =>
+  sharedHomeBlocks({ logos: api.featured_projects, testimonials: api.testimonials, portfolio: api.portfolio, technologies: api.technologies });
 
 const brandLogos: Mapper<'brandLogos'> = (api, local) => SHARED_MAPPERS.brandLogos(shared(api), local);
 const testimonials: Mapper<'testimonials'> = (api, local) => SHARED_MAPPERS.testimonials(shared(api), local);

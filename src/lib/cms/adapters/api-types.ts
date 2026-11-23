@@ -180,3 +180,26 @@ export interface ApiAbout {
   seo?: Maybe<ApiSeo>;
   sections?: Maybe<ApiAboutSections>;
 }
+
+/** GET /pages/process: the admin panel's "Process" page, rendered by the How we work page (/how-we-work). */
+export interface ApiProcessSections {
+  hero?: Maybe<ApiToggle & {
+    title?: Maybe<string>; description?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>;
+    button_1_text?: Maybe<string>; button_1_url?: Maybe<string>; button_2_text?: Maybe<string>; button_2_url?: Maybe<string>;
+  }>;
+  banner?: Maybe<ApiToggle & { items?: Maybe<Array<{ image?: Maybe<string> }>> }>;
+  how_it_works?: Maybe<ApiHead & { button_text?: Maybe<string>; button_url?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string> }>;
+  process_steps?: Maybe<ApiHead & { items?: Maybe<Array<{ number?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>> }>;
+  /** Not part of the How we work design (the dummy page has no such bar), so it is never rendered. */
+  callout?: Maybe<unknown>;
+  testimonials?: Maybe<NonNullable<ApiHomeSections['testimonials']>>;
+  portfolio?: Maybe<NonNullable<ApiHomeSections['portfolio']>>;
+  technologies?: Maybe<NonNullable<ApiHomeSections['technologies']>>;
+  blogs?: Maybe<NonNullable<ApiHomeSections['blogs']>>;
+}
+
+export interface ApiProcess {
+  page?: Maybe<string>;
+  seo?: Maybe<ApiSeo>;
+  sections?: Maybe<ApiProcessSections>;
+}
