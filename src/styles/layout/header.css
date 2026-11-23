@@ -98,11 +98,12 @@ nav.navbar {
 
 .navbar-header img {
    width: 230px;
-   /* Keep the box of the original logo (867x317) so a logo of any shape coming from the CMS
-      fits inside it instead of stretching the header. */
-   aspect-ratio: 867 / 317;
+   /* The bundled logo's artwork is 148 x 75 px in the middle of this 230 x 75 box. Every logo coming from the admin
+      panel gets that same box, so its height always matches and it is centred where the old one was: a wide logo fills
+      the width, a square one keeps the full height (`contain` never crops or stretches it). */
+   aspect-ratio: 230 / 75;
    object-fit: contain;
-   object-position: left center
+   object-position: center
 }
 
 .main-navbar .navbar-nav>li {

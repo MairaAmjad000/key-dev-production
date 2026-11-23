@@ -16,14 +16,31 @@ async function readSvg(src: string): Promise<string | null> {
       if (!file.startsWith(PUBLIC_DIR + path.sep)) return null; // no path traversal
       return await readFile(file, 'utf8');
     }
-    // Only fetch from the admin panel's own host, so an icon value can never make the server call another site.
+    // Only fetch from the admin panel's own host (plus hosts listed in CMS_ICON_HOSTS, e.g. a storage / CDN domain
+    // the admin panel uploads to), so an icon value can never make the server call an arbitrary site.
     const url = new URL(src.startsWith('//') ? `https:${src}` : src);
-    if (!cmsConfig.apiUrl || url.origin !== new URL(cmsConfig.apiUrl).origin) return null;
+    const allowed = [cmsConfig.apiUrl, ...(process.env.CMS_ICON_HOSTS ?? '').split(',')]
+      .map((value) => value.trim())
+      .filter(Boolean)
+      .map((value) => {
+        try {
+          return new URL(value.includes('://') ? value : `https://${value}`).origin;
+        } catch {
+          return '';
+        }
+      });
+    if (!allowed.includes(url.origin)) {
+      console.warn(`[svg] ${url.origin} is not an allowed icon host, so ${src} stays a plain <img> (no hover colours). Add it to CMS_ICON_HOSTS.`);
+      return null;
+    }
     const response = await fetch(url, {
       next: { revalidate: cmsConfig.revalidateSeconds, tags: [CMS_TAG] },
-      signal: AbortSignal.timeout(3000),
+      signal: AbortSignal.timeout(5000),
     });
-    if (!response.ok) return null;
+    if (!response.ok) {
+      console.warn(`[svg] ${src} answered ${response.status}, so it stays a plain <img> (no hover colours).`);
+      return null;
+    }
     const text = await response.text();
     return text.length > MAX_SVG_BYTES ? null : text;
   } catch {

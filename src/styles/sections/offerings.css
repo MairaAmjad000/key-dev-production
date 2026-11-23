@@ -60,6 +60,17 @@
    fill: #008080
 }
 
+/* Outline icons (an uploaded SVG drawn with strokes, e.g. an envelope): colour the lines, and never fill an open shape. */
+#servicesTab li a svg[fill="none"] *,
+#servicesTab li a svg [fill="none"] {
+   fill: none !important
+}
+
+#servicesTab li a.active svg [stroke]:not([stroke="none"]),
+#servicesTab li a:hover svg [stroke]:not([stroke="none"]) {
+   stroke: #008080
+}
+
 #servicesTab li a svg circle,
 #servicesTab li a svg ellipse,
 #servicesTab li a svg path,

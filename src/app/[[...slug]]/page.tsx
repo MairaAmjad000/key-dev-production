@@ -45,7 +45,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ...page.seo,
     ogImage: page.seo.ogImage ?? site.seo.ogImage,
     twitterImage: page.seo.twitterImage ?? page.seo.ogImage ?? site.seo.twitterImage ?? site.seo.ogImage,
-    canonicalUrl: page.seo.canonicalUrl ?? (siteUrl ? `${siteUrl}${slug === 'home' ? '' : `/${slug}`}` : undefined),
+    // The API's canonical_url / og_url point at the admin host (e.g. kd.keydevs.net/home), not at this site: when
+    // SITE_URL is set, the page's own public address wins so search engines index the right domain.
+    canonicalUrl: siteUrl ? `${siteUrl}${slug === 'home' ? '' : `/${slug}`}` : page.seo.canonicalUrl,
+    ogUrl: siteUrl ? `${siteUrl}${slug === 'home' ? '' : `/${slug}`}` : page.seo.ogUrl,
   };
   return toMetadata(seo, site.seo.siteName);
 }
