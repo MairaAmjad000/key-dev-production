@@ -3,12 +3,13 @@
  * picture had and fits the upload inside it, so cards, sliders and tabs keep exactly the same sizes.
  */
 
-/* Home: blog cards, 370 x 193 */
+/* Home: blog cards. The bundled pictures are 480 x 480 squares shown 370 px wide, so the picture box is 370 x 370
+   (the 193 in the old width/height attributes was never the real displayed height). */
 .blog-slider .blog-post_feature-link img {
    display: block;
    width: 100%;
    height: auto;
-   aspect-ratio: 370 / 193;
+   aspect-ratio: 1 / 1;
    object-fit: cover
 }
 
@@ -44,11 +45,11 @@
    object-fit: cover
 }
 
-/* Home: a blog post without a picture keeps the 370 x 193 box of the others */
+/* Home: a blog post without a picture keeps the 370 x 370 box of the others */
 .blog-slider .blog-post_noimage {
    display: block;
    width: 100%;
-   aspect-ratio: 370 / 193;
+   aspect-ratio: 1 / 1;
    background: #e9ecef
 }
 

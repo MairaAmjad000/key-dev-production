@@ -294,7 +294,7 @@ const blog: Mapper<'blog'> = ({ blogs: api }, local) => {
         blogPostFeatureLink: {
           href,
           title: str(item.title),
-          image: { src: str(item.image), alt: str(item.image_alt, item.title), width: template?.blogPostFeatureLink.image.width ?? '370', height: template?.blogPostFeatureLink.image.height ?? '193' },
+          image: { src: str(item.image), alt: str(item.image_alt, item.title), width: '370', height: '370' },
         },
         link: { href, text: str(item.title) },
         text: excerpt(plain(item.short_description)),
