@@ -192,3 +192,45 @@ img.process-intro-image {
    aspect-ratio: 570 / 470;
    object-fit: cover
 }
+
+/*
+ * Technologies: the bundled logos are SVGs shown as squares. On desktop a logo fills its grid cell (251 px at 1440 wide,
+ * 214 at 1024); below 992 px it is a 130 px square, and 90 px on phones (see base/responsive.css). An uploaded logo of
+ * any shape gets the same square at each size and is fitted inside it (`contain`, never cropped or stretched).
+ */
+.technology-box li img.technology-logo {
+   display: block;
+   width: 100%;
+   max-width: 100%;
+   height: auto;
+   aspect-ratio: 1 / 1;
+   object-fit: contain
+}
+
+@media (max-width:991px) {
+  .technology-box li img.technology-logo {
+     width: 130px;
+     height: 130px;
+     aspect-ratio: auto
+  }
+}
+
+@media (max-width:575px) {
+  .technology-box li img.technology-logo {
+     width: 90px;
+     height: 90px
+  }
+}
+
+/*
+ * "Featured in" logo strip: the bundled logos are 159 px wide (width attribute) with the 127 : 135 shape of the pictures,
+ * and shrink with their cell (129 px at 768 wide, 87 px on phones). An uploaded logo of any shape gets the same box and is
+ * fitted inside it, so a tall or wide logo can no longer stretch the row.
+ */
+.client-logo li img.featured-in-logo {
+   width: 159px;
+   max-width: 100%;
+   height: auto;
+   aspect-ratio: 127 / 135;
+   object-fit: contain
+}

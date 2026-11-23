@@ -105,9 +105,39 @@ function toMenuItems(items: Maybe<ApiMenuItem[]>): MenuItem[] {
   }));
 }
 
+/** Pages this site serves under a fixed URL, whatever address the admin menu uses for them. */
+const COMPANY_PAGES = [
+  { url: '/who-we-are', title: 'Who We are', aliases: /^\/?(about|about-us|aboutus|who-we-are|who-we-r)\/?$/i, titles: /^(who we are|about( us)?)$/i },
+  { url: '/how-we-work', title: 'How we Work', aliases: /^\/?(process|our-process|how-we-work|how-it-works|how-we-do-it)\/?$/i, titles: /^(how we work|(our )?process)$/i },
+];
+
+/** Point the About / Process entries of a menu at the real pages (/who-we-are, /how-we-work). */
+function fixCompanyLinks(items: MenuItem[]): MenuItem[] {
+  return items.map((item) => {
+    const page = COMPANY_PAGES.find((p) => p.aliases.test(item.url.trim()) || p.titles.test(item.title.trim()));
+    return { ...item, url: page ? page.url : item.url, children: fixCompanyLinks(item.children) };
+  });
+}
+
+/** Make sure the "Company" dropdown lists Who We are and How we Work, adding the ones the admin menu lacks. */
+function ensureCompanyPages(items: MenuItem[]): MenuItem[] {
+  const hasPage = (list: MenuItem[], url: string): boolean => list.some((i) => i.url === url || hasPage(i.children, url));
+  const company = items.find((i) => /^company$/i.test(i.title.trim()) && !i.isFluid);
+  if (!company) return items;
+  const missing = COMPANY_PAGES.filter((p) => !hasPage(items, p.url));
+  if (missing.length === 0) return items;
+  const maxId = Math.max(0, ...items.flatMap((i) => [i.id, ...i.children.map((c) => c.id)]));
+  const added: MenuItem[] = missing.map((p, i) => ({ id: maxId + i + 1, title: p.title, url: p.url, icon: null, isFluid: false, target: '_self', children: [] }));
+  // About first, Process second, ahead of the other Company links.
+  return items.map((i) => (i === company ? { ...i, children: [...added, ...i.children] } : i));
+}
+
 /** Menus from GET /layout. Always returned, so the bundled (dummy) menus are never rendered. */
 export function adaptMenus(api: Maybe<ApiLayout['menus']>): SiteMenus {
-  return { header: toMenuItems(api?.header), footer: toMenuItems(api?.footer) };
+  return {
+    header: ensureCompanyPages(fixCompanyLinks(toMenuItems(api?.header))),
+    footer: fixCompanyLinks(toMenuItems(api?.footer)),
+  };
 }
 
 export function adaptFooter(api: Maybe<Settings>, local: FooterContent, footerMenu: MenuItem[] = []): FooterContent {

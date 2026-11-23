@@ -84,3 +84,19 @@ export function sharedHomeBlocks(api: {
     blogs: label(api.blogs),
   };
 }
+
+/**
+ * Link typed in the admin panel → the address this site serves. The admin names its pages "about", "process" and
+ * "technology"; here they live at /who-we-are, /how-we-work and /technologies. Any other link is returned as typed.
+ */
+export function internalHref(href: Maybe<string>): string | undefined {
+  const value = pick(href);
+  if (!value) return undefined;
+  const aliases: Array<[RegExp, string]> = [
+    [/^\/?(about|about-us|aboutus)\/?$/i, '/who-we-are'],
+    [/^\/?(process|our-process|how-it-works)\/?$/i, '/how-we-work'],
+    [/^\/?(technology|technologies)\/?$/i, '/technologies'],
+  ];
+  return aliases.find(([pattern]) => pattern.test(value.trim()))?.[1] ?? value;
+}
+

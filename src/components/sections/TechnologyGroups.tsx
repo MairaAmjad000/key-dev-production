@@ -49,7 +49,7 @@ export function TechnologyGroups({ data }: { data: TechnologyGroupsContent }) {
                           <Fragment key={i}>
                             {i > 0 && ' '}
                             <li className="col-lg-3 col-md-4 col-sm-6 col-12">
-                              <img src={logo.src} alt={logo.alt} loading="lazy" />
+                              <img className={group.imageClass} src={logo.src} alt={logo.alt} loading="lazy" />
                             </li>
                           </Fragment>
                         ))}

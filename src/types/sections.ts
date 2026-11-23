@@ -899,6 +899,8 @@ export interface FeaturedInContent {
   callout?: CalloutBarContent;
   /** Grid variant only: white spacer above the section (room for the callout bar). */
   spacer?: boolean;
+  /** Strip variant: extra class for the logos (admin-panel pictures: fixes the logo box, see styles/base/api-image-fit.css). */
+  imageClass?: string;
   logos: Array<{ image: CmsImage }>;
 }
 
@@ -1286,6 +1288,8 @@ export interface TechnologyGroupsContent {
     heading: string;
     text: string;
     logos: Array<{ src: string; alt: string }>;
+    /** Extra class for the logos (admin-panel pictures: fixes the square logo box, see styles/base/api-image-fit.css). */
+    imageClass?: string;
   }>;
 }
 

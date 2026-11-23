@@ -46,7 +46,7 @@ export function FeaturedIn({ data }: { data: FeaturedInContent }) {
           {data.logos.map((logo, i) => (
             <li key={i}>
               <img
-                className="lazy"
+                className={data.imageClass ? `lazy ${data.imageClass}` : 'lazy'}
                 src={logo.image.src} data-src={logo.image.src} decoding="async"
                 alt={logo.image.alt}
                 width={logo.image.width}

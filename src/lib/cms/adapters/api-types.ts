@@ -203,3 +203,50 @@ export interface ApiProcess {
   seo?: Maybe<ApiSeo>;
   sections?: Maybe<ApiProcessSections>;
 }
+
+/** GET /pages/client-review: the admin panel's "Client review" page, rendered by the Client Review page (/client-review). */
+export interface ApiClientReviewSections {
+  hero?: Maybe<ApiToggle & {
+    title?: Maybe<string>; description?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>;
+    button_1_text?: Maybe<string>; button_1_url?: Maybe<string>; button_2_text?: Maybe<string>; button_2_url?: Maybe<string>;
+  }>;
+  banner?: Maybe<ApiToggle & { items?: Maybe<Array<{ image?: Maybe<string> }>> }>;
+  /** Texts above the Clutch.co widget (the widget itself has no API field). */
+  clutch?: Maybe<ApiHead>;
+  testimonials?: Maybe<ApiHead & {
+    testimonials?: Maybe<Array<{
+      id: number; name?: Maybe<string>; designation?: Maybe<string>; company?: Maybe<string>; image?: Maybe<string>;
+      review?: Maybe<string>; rating?: Maybe<number>; status?: Maybe<boolean>;
+    }>>;
+  }>;
+  technologies?: Maybe<NonNullable<ApiHomeSections['technologies']>>;
+  blogs?: Maybe<NonNullable<ApiHomeSections['blogs']>>;
+}
+
+export interface ApiClientReview {
+  page?: Maybe<string>;
+  seo?: Maybe<ApiSeo>;
+  sections?: Maybe<ApiClientReviewSections>;
+}
+
+/** GET /pages/technology: the admin panel's "Technology" page, rendered by the Technologies page (/technologies). */
+export interface ApiTechnologySections {
+  hero?: Maybe<ApiToggle & {
+    title?: Maybe<string>; description?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>;
+    button_text?: Maybe<string>; button_link?: Maybe<string>;
+  }>;
+  /** One logo group per technology (title + pictures); the block's own texts head the tabbed technologies block at the end. */
+  technologies?: Maybe<NonNullable<ApiHomeSections['technologies']>>;
+  /** The callout bar (typed words + button) between the logo groups and the testimonials. */
+  callout?: ApiHomeSections['callout'];
+  testimonials?: Maybe<NonNullable<ApiHomeSections['testimonials']>>;
+  featured_in?: Maybe<ApiHead & { items?: Maybe<Array<{ image?: Maybe<string>; alt?: Maybe<string> }>> }>;
+  blogs?: Maybe<NonNullable<ApiHomeSections['blogs']>>;
+}
+
+export interface ApiTechnology {
+  page?: Maybe<string>;
+  seo?: Maybe<ApiSeo>;
+  sections?: Maybe<ApiTechnologySections>;
+}
+

@@ -251,7 +251,23 @@ Bundled dummy content (`CMS_API_URL` empty) and template: `content/pages/how-we-
 progress bar are in `public/scripts/process-page.js`. Step pictures go in `public/images/how-we-work/process/`
 (list in the README.txt there).
 
+
 ## Client review page
+
+**Connected to the admin panel.** `GET /pages/client-review`, adapted by `src/lib/cms/adapters/client-review.ts` (called from
+`getPage('client-review')`). The URL stays `/client-review` and the section order is the dummy page's
+(`content/pages/client-review/page.json`), not the API's.
+
+| API block | Section | Notes |
+|---|---|---|
+| `hero` | `categoryHero` | two buttons keep the dummy classes; a button without text is not shown; banner stays 1920 x 800 |
+| `banner` | `brandLogos` | logo strip |
+| `clutch` | `clutchReviews` | only the texts come from the API; the Clutch.co widget settings (company id, widget type) are fixed |
+| `testimonials` | `clientReviews` | the API has no country, so the line after the name is `designation, company`; "Rated By Client" is the bundled label; `rating` gives the stars (0-5); the round photo is the fixed 120 x 120 `.tideway-image` box (cropped, never stretched) |
+| `technologies`, `blogs` | `technologies`, `blog` | same mappers as the home page (`SHARED_MAPPERS` in `adapters/home.ts`): 78 x 78 logos, 370 x 370 blog pictures |
+
+An empty field renders empty and a switched-off or empty section is not rendered (no dummy fallback). The Connect / Schedule /
+Engagement / Locations blocks come from `/global-sections` (shown on `client_review`).
 
 `content/pages/client-review` (URL `/client-review`, registered in `src/lib/cms/local-client-review.ts`): `categoryHero`,
 `brandLogos`, `clutchReviews` (Clutch.co widget), `clientReviews` (testimonial cards), `technologies`, `blog`,
@@ -259,6 +275,25 @@ progress bar are in `public/scripts/process-page.js`. Step pictures go in `publi
 Reviewer photos go in `public/images/client-review/reviews/` (list in the README.txt there).
 
 ## Technologies page
+
+**Connected to the admin panel.** In the admin it is the *Technology* page: `GET /pages/technology`, adapted by
+`src/lib/cms/adapters/technology.ts` (called from `getPage('technologies')`). The URL stays `/technologies` and the section
+order is the dummy page's (`content/pages/technologies/page.json`), not the API's.
+
+| API block | Section | Notes |
+|---|---|---|
+| `hero` | `categoryHero` | one button keeps the dummy classes; a link typed as `/process`, `/about` or `/technology` is turned into `/how-we-work`, `/who-we-are`, `/technologies` (`internalHref` in `adapters/common.ts`); banner stays 1920 x 800 |
+| `technologies` | `technologyGroups` | technology N fills group N: its title is the tab and the heading, its pictures are the logos; the API has no intro line per technology and no tab icon, so tab N takes the icon of dummy group N; the block's own title / description have no place in the design |
+| `callout` | `callout` | typed words + button, between the logo groups and the testimonials (bar in the portfolio page's `py-md-5 bg-white p-relative` wrapper); same mapper as the home page |
+| `testimonials`, `blogs` | `testimonials`, `blog` | same mappers as the home page (`SHARED_MAPPERS` in `adapters/home.ts`) |
+| `featured_in` | `featuredIn` | logos keep the 159 x 90 attributes of the dummy ones |
+| `technologies` (again) | `technologies` | the closing tabbed "Technologies we Use" block: one tab per technology, headed by the block's small title / title; 78 x 78 logos |
+
+The API's single `technologies` block feeds two sections: the logo groups and the closing tabbed block. An empty field renders empty and a switched-off or empty section is not
+rendered (no dummy fallback). Uploaded logos are fitted to the dummy boxes in `styles/base/api-image-fit.css`: groups use the
+same square as the bundled logos (fills the cell on desktop, 130 px below 992 px, 90 px on phones), and the "Featured in"
+strip logos use the 159 px wide, 127 : 135 box (`technology-logo` / `featured-in-logo` classes). The Connect / Schedule /
+Engagement / Locations blocks come from `/global-sections` (shown on `technology`).
 
 `content/pages/technologies` (URL `/technologies`, registered in `src/lib/cms/local-technologies.ts`): `categoryHero`,
 `technologyGroups` (sticky tab bar + six logo groups), `contactCta`, `testimonials`, `featuredIn`, `blog`,
