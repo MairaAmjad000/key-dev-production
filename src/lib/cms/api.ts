@@ -2,10 +2,10 @@
  * Content access layer: the only place the app reads content from.
  *
  * With CMS_API_URL set, ALL content comes from the admin panel: the site-wide content from GET /layout,
- * /form-options and /global-sections and the home page from GET /home (see adapters/). There is no fallback
+ * /form-options and /global-sections, the home page from GET /home and the Who we are page from GET /pages/about (see adapters/). There is no fallback
  * content: if the API cannot be reached the request throws and Next.js keeps serving the last good page.
  * The bundled content/ folder is only used as markup / size template for the adapters, as the data of pages the
- * API does not serve yet (every page except home), and as the whole data source when CMS_API_URL is empty (demo mode).
+ * API does not serve yet (every page except home and Who we are), and as the whole data source when CMS_API_URL is empty (demo mode).
  */
 import type { PageData, SiteData, SiteSettings } from '@/types';
 import { cmsConfig } from '@/config/cms';
@@ -13,9 +13,10 @@ import { sanitizeDeep } from '@/lib/utils/html';
 import { requireFromCms } from './client';
 import { localPages, localSite } from './local';
 import { adaptGlobalSections } from './adapters/global-sections';
+import { adaptAbout } from './adapters/about';
 import { adaptHome } from './adapters/home';
 import { adaptLayout, adaptSettings } from './adapters/layout';
-import type { ApiFormOptions, ApiGlobalSections, ApiHome, ApiLayout } from './adapters/api-types';
+import type { ApiAbout, ApiFormOptions, ApiGlobalSections, ApiHome, ApiLayout } from './adapters/api-types';
 
 export async function getSiteSettings(): Promise<SiteSettings> {
   if (!cmsConfig.apiUrl) return localSite.settings;
@@ -45,6 +46,14 @@ export async function getPage(slug: string): Promise<PageData | null> {
     const home = await requireFromCms<ApiHome>('home');
     if (home) {
       const adapted = adaptHome(home, local);
+      return { ...adapted, sections: await sanitizeDeep(adapted.sections) };
+    }
+  }
+  // Who we are (/who-we-are) is the admin panel's "About" page: GET /pages/about.
+  if (slug === 'who-we-are' && local && cmsConfig.apiUrl) {
+    const about = await requireFromCms<ApiAbout>('pages/about');
+    if (about) {
+      const adapted = adaptAbout(about, local);
       return { ...adapted, sections: await sanitizeDeep(adapted.sections) };
     }
   }

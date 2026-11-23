@@ -20,9 +20,11 @@ export function IntroContent({ data }: { data: IntroContentContent }) {
         </Fragment>
       ))}
       {' '}
-      <a className={data.link.className ?? 'btn btn-custome waves-effect waves-light'} {...link(data.link.href)}>
-        {data.link.text}
-      </a>
+      {data.link.text && (
+        <a className={data.link.className ?? 'btn btn-custome waves-effect waves-light'} {...link(data.link.href)}>
+          {data.link.text}
+        </a>
+      )}
     </>
   );
   const picture = (

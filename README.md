@@ -44,8 +44,8 @@ With no environment variables the site renders the files in `content/`.
 
 ## Connecting the admin panel (KeyDevs API)
 
-With `CMS_API_URL=https://kd.keydevs.net/api` the site reads `GET /layout`, `/form-options`, `/global-sections` and `/home`
-(responses are `{ success, data }`). `src/lib/cms/adapters/` converts them into the shapes the components already use, so the
+With `CMS_API_URL=https://kd.keydevs.net/api` the site reads `GET /layout`, `/form-options`, `/global-sections`, `/home` and
+`/pages/about` (the Who we are page; responses are `{ success, data }`). `src/lib/cms/adapters/` converts them into the shapes the components already use, so the
 markup and styles do not change.
 
 **No fallback content.** Every text, link, image and icon the API has a field for is taken from the API only; when the admin
@@ -56,7 +56,7 @@ cannot be reached, the request throws, so Next.js keeps serving the last good pa
 `content/` is used only as a *template*: CSS classes, fixed markup and labels the API has no field for (e.g. the
 "Explore More" / "Read More" buttons, form labels, the footer experience character, the header rating badge, the address
 and phone glyphs), and the `width`/`height` of images, so an uploaded picture gets exactly the size of the placeholder it
-replaces. Pages other than home still render from `content/` (the API has no endpoint for them yet), and with an empty
+replaces. Pages other than home and Who we are still render from `content/` (they are not connected yet), and with an empty
 `CMS_API_URL` the whole site renders from `content/` (demo mode).
 
 **Uploaded icons.** Where the design used inline SVG, the admin sends an image URL. `<Icon name={url}>` renders it as
@@ -201,7 +201,28 @@ Scripts: `public/scripts/contact-page.js`. Office photos go in `public/images/co
 
 ## Who we are page
 
-`content/pages/who-we-are` (URL `/who-we-are`, registered in `src/lib/cms/local-who-we-are.ts`): `categoryHero`
+**Connected to the admin panel.** In the admin it is the *About* page: `GET /pages/about`, adapted by
+`src/lib/cms/adapters/about.ts` (called from `getPage('who-we-are')`). The page keeps the URL `/who-we-are` and the section
+order of the dummy page below (not the API's order); the markup, classes and image / icon boxes are unchanged.
+
+| API block | Section | Notes |
+|---|---|---|
+| `hero` | `categoryHero` | `subtitle` is the small teal label (`<span>`) above the `title`; breadcrumb is fixed markup |
+| `featured_projects` | `brandLogos` | logo strip |
+| `about` | `introContent` | `description` paragraphs split on blank lines; the button is hidden when its text is empty |
+| `statistics` | `statsCounters` | `120+` counts to 120 with a plus sign, `98%` with a percent sign; any other text after the number is dropped |
+| `leadership` | `leadership` | title line is `name, designation`; sides alternate like the dummy; the API has no social links |
+| `mission_vision`, `values` | `missionVision`, `coreValues` | |
+| `history` | `historyTimeline` | the corner glyph of the year cards is fixed markup (the API has no icon per year) |
+| `testimonials`, `portfolio`, `technologies` | same names | same mappers as the home page (`SHARED_MAPPERS` in `adapters/home.ts`); the About blocks call the small label `subtitle` |
+| `callout` | not rendered | the dummy page has no such bar |
+
+An empty field renders empty and a switched-off or empty section is not rendered (no dummy fallback). Uploaded pictures are
+fitted to the dummy boxes in `styles/base/api-image-fit.css` (intro 470 wide, leadership 1 : 1, history 382 round); uploaded
+non-SVG icons for mission / values / history are sized in `styles/base/cms-icons.css`; stat icons are 55px wide (`about-page.css`).
+The admin menu links "Who We are" to `/about-us`, which this site does not serve: change that link to `/who-we-are`.
+
+Bundled dummy content (`CMS_API_URL` empty) and template: `content/pages/who-we-are` (URL `/who-we-are`, registered in `src/lib/cms/local-who-we-are.ts`): `categoryHero`
 (`headingHtml` allows a <span>), `brandLogos`, `introContent` (team, with section / content class options),
 `statsCounters`, `leadership`, `missionVision`, `coreValues`, `historyTimeline`, `contactCta`, `testimonials`,
 `portfolio`, `technologies`, `scheduleCall`, `engagement`. The history slider is initialised in

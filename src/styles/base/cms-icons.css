@@ -101,3 +101,19 @@ img.cms-icon {
    #servicesTab li img.cms-icon { width: 25px; margin: 0 }
    .detail-feature-tab #servicesTab li img.cms-icon { width: 40px; display: none }
 }
+
+/* Who we are: mission & vision (50px), values (48px) and history year card (110px) icons */
+.mission-n-vision-icon img.cms-icon {
+   width: 50px;
+   height: 50px
+}
+
+.our-core-value-icon img.cms-icon {
+   width: 48px;
+   height: 48px
+}
+
+.our-history-detail-icon img.cms-icon {
+   width: 110px;
+   height: 110px
+}

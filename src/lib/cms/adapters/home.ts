@@ -237,10 +237,11 @@ const portfolio: Mapper<'portfolio'> = ({ portfolio: api }, local) => {
     text2: str(api.description),
     items: list.map((item) => ({
       heading: str(item.title),
-      text: str(item.tagline, item.short_description),
+      text: str(item.tagline, plain(item.short_description)),
       image: { src: str(item.image), alt: str(item.image_alt, item.title), width: size?.width, height: size?.height },
       heading2: str(item.title),
-      text2: str(item.short_description, item.tagline),
+      // short_description is rich text in the admin panel ("<p>..</p>"); the card shows plain text.
+      text2: str(plain(item.short_description), item.tagline),
       link: { href: path('/portfolio', item.slug), text: label },
     })),
   };
@@ -304,6 +305,9 @@ const blog: Mapper<'blog'> = ({ blogs: api }, local) => {
     }),
   };
 };
+
+/** Mappers other API pages reuse (the Who we are page shows the same testimonials, portfolio and technologies blocks). */
+export const SHARED_MAPPERS = { brandLogos, testimonials, portfolio, technologies };
 
 /** Home section type → mapper. `whatsAppAnchor` has no API section and always stays. */
 const MAPPERS: { [K in SectionType]?: Mapper<K> } = {

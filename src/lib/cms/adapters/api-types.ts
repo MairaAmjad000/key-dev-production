@@ -147,3 +147,36 @@ export interface ApiHome {
   seo?: Maybe<ApiSeo>;
   sections?: Maybe<ApiHomeSections>;
 }
+
+/** Section toggles every admin block carries. */
+interface ApiToggle { enabled?: Maybe<boolean>; status?: Maybe<boolean> }
+
+/** GET /pages/about: the admin panel's "About" page, rendered by the Who we are page (/who-we-are). */
+export interface ApiAboutSections {
+  hero?: Maybe<ApiToggle & { title?: Maybe<string>; subtitle?: Maybe<string>; description?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string> }>;
+  featured_projects?: Maybe<ApiToggle & { items?: Maybe<Array<{ image?: Maybe<string> }>> }>;
+  about?: Maybe<ApiToggle & {
+    title?: Maybe<string>; description?: Maybe<string>; button_text?: Maybe<string>; button_url?: Maybe<string>;
+    image?: Maybe<string>; image_alt?: Maybe<string>;
+  }>;
+  statistics?: Maybe<ApiToggle & { items?: Maybe<Array<{ number?: Maybe<string>; title?: Maybe<string>; icon?: Maybe<string> }>> }>;
+  leadership?: Maybe<ApiHead & { items?: Maybe<Array<{ image?: Maybe<string>; name?: Maybe<string>; designation?: Maybe<string>; description?: Maybe<string> }>> }>;
+  mission_vision?: Maybe<ApiHead & { items?: Maybe<Array<{ icon?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>> }>;
+  values?: Maybe<ApiHead & { items?: Maybe<Array<{ icon?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>> }>;
+  history?: Maybe<ApiHead & {
+    image?: Maybe<string>; image_alt?: Maybe<string>;
+    items?: Maybe<Array<{ year?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>>;
+  }>;
+  /** Not part of the Who we are design (the dummy page has no such bar), so it is never rendered. */
+  callout?: Maybe<unknown>;
+  /** About blocks name the small label `subtitle` where the home page calls it `small_title`. */
+  testimonials?: Maybe<NonNullable<ApiHomeSections['testimonials']> & { subtitle?: Maybe<string> }>;
+  portfolio?: Maybe<NonNullable<ApiHomeSections['portfolio']> & { subtitle?: Maybe<string> }>;
+  technologies?: Maybe<NonNullable<ApiHomeSections['technologies']> & { subtitle?: Maybe<string> }>;
+}
+
+export interface ApiAbout {
+  page?: Maybe<string>;
+  seo?: Maybe<ApiSeo>;
+  sections?: Maybe<ApiAboutSections>;
+}
