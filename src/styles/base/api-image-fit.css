@@ -126,3 +126,9 @@ img.lazy:not([src]) {
    aspect-ratio: 360 / 255;
    object-fit: cover
 }
+/* Fewer than three posts: keep each card the width of a 3-column card and centre the group, instead of leaving an
+   empty slot on the right. */
+.blog-slider.slick-initialized .slick-track {
+   margin-left: auto;
+   margin-right: auto
+}

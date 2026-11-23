@@ -269,9 +269,19 @@ const technologies: Mapper<'technologies'> = ({ technologies: api }, local) => {
   };
 };
 
+/** Same look as the reference cards: a short excerpt cut at a word boundary and closed with an ellipsis. */
+function excerpt(text: string, max = 140): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), 60)).replace(/[\s.,;:!?-]+$/, '')}\u2026`;
+}
+
+/** The home page shows a fixed row of three cards (the design has no room for more). */
+const HOME_BLOG_CARDS = 3;
+
 const blog: Mapper<'blog'> = ({ blogs: api }, local) => {
   if (!api || !isOn(api)) return null;
-  const list = (api.blogs ?? []).filter((item) => item.status !== false);
+  const list = (api.blogs ?? []).filter((item) => item.status !== false).slice(0, HOME_BLOG_CARDS);
   if (list.length === 0) return null;
   const template = local.items[0];
   return {
@@ -287,7 +297,7 @@ const blog: Mapper<'blog'> = ({ blogs: api }, local) => {
           image: { src: str(item.image), alt: str(item.image_alt, item.title), width: template?.blogPostFeatureLink.image.width ?? '370', height: template?.blogPostFeatureLink.image.height ?? '193' },
         },
         link: { href, text: str(item.title) },
-        text: plain(item.short_description),
+        text: excerpt(plain(item.short_description)),
         datePost: template?.datePost ?? '',
         link2: { href, title: template?.link2.title ?? '' },
       };
