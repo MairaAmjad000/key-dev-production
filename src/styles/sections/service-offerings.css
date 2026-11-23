@@ -8,6 +8,8 @@
 .what-we-offer-main-slider:after { right:0;top:25px }
 .what-we-offer-main-item { display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row;justify-content:space-between;position:relative;z-index:1 }
 .what-we-offer-main-item-box { padding:0 5px;width:12.5%;text-align:center }
+.what-we-offer-main-item.technology-nav { justify-content:center }
+/* Technologies page: the API can send any number of groups. Fewer than 8 sit together in the middle (8 x 12.5% still fills the bar). */
 .what-we-offer-main-item-icon { width:70px;height:70px;background-color:#e6e7e8;border-radius:100%;display:flex;align-items:center;margin:0 auto 20px;cursor:pointer;-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;transition:all .3s ease-in-out }
 .what-we-offer-main-item-icon svg { margin:0 auto;width:33px }
 .what-we-offer-main-item-box .what-we-offer-main-item-icon path { -webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;transition:all .3s ease-in-out;fill:#202122 }

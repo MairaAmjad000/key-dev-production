@@ -13,7 +13,7 @@ export function TechnologyGroups({ data }: { data: TechnologyGroupsContent }) {
       <div className="what-we-offer-main-tabs">
         <div className="what-we-offer-main-slider-section bg-white d-none d-lg-block top-sticy">
           <div className="container">
-            <div className="what-we-offer-main-slider what-we-offer-main-item">
+            <div className="what-we-offer-main-slider what-we-offer-main-item technology-nav">
               {data.groups.map((group, i) => (
                 <div key={group.id} className={i === 0 ? 'what-we-offer-main-item-box active' : 'what-we-offer-main-item-box'}>
                   <a href={`#${group.id}`}>
