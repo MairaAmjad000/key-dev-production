@@ -592,3 +592,12 @@
   object-fit: cover;
   margin: 0 auto;
 }
+
+/* Logo strip above the project list (the portfolio page shows the admin panel's logos).
+   The filter bar is absolutely positioned 60px ABOVE the top of the list so that it overlaps the hero. When the logo
+   card sits right in front of the list, that is where the card is, so the bar covered it. Moving the list down by 80px
+   puts the bar 20px below the card (whatever height the card has: 5 logos on one row, or wrapped on small screens)
+   and every project row moves with it. Without a logo strip nothing changes. */
+div:has(> .brand-logo) + .portfolio-preview-wrap {
+  margin-top: 80px;
+}

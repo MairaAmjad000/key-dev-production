@@ -14,7 +14,13 @@ export const MAX_SVG_BYTES = 150_000;
 export const isSvgUrl = (value: string) => /\.svg(\?.*)?$/i.test(value.trim());
 
 // Inline `style="fill:..."` would beat the stylesheet and block the hover colours, so those declarations are dropped.
-// Presentation attributes (fill="#000") are kept: the stylesheet overrides them, they only act as the default look.
+// They are not lost though: fill / stroke are moved to presentation attributes (fill="none", stroke="#000"), which the
+// stylesheet overrides but which keep the icon's own look as the default (a stroke-only icon stays a stroke-only icon).
+// `inlinePaint` remembers which elements had an inline value, because that beats a class rule from the SVG's <style>.
+const PAINT_PROPS = ['fill', 'stroke'] as const;
+const inlinePaint = new WeakSet<Element>();
+// Properties read from the SVG's own <style> classes: the two colours plus what keeps an outline looking the same.
+const CLASS_PROPS = ['fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'fill-rule', 'clip-rule'];
 let hooked = false;
 function ensureHook(DOMPurify: DOMPurifyLike) {
   if (hooked) return;
@@ -22,14 +28,63 @@ function ensureHook(DOMPurify: DOMPurifyLike) {
   DOMPurify.addHook('afterSanitizeAttributes', (node) => {
     const style = node.getAttribute?.('style');
     if (style === null || style === undefined) return;
-    const kept = style
-      .split(';')
-      .filter((rule) => rule.trim() && !/^\s*(fill|stroke)(-opacity)?\s*:/i.test(rule))
-      .join(';');
-    if (kept) node.setAttribute('style', kept);
+    const kept: string[] = [];
+    for (const rule of style.split(';')) {
+      const [prop, ...rest] = rule.split(':');
+      const name = prop?.trim().toLowerCase();
+      if (!name || !rest.length) continue;
+      const value = rest.join(':').replace(/!important/i, '').trim();
+      if ((PAINT_PROPS as readonly string[]).includes(name)) {
+        if (value && !/url\(/i.test(value)) {
+          node.setAttribute(name, value);
+          inlinePaint.add(node);
+        }
+      } else if (!/^(fill|stroke)-opacity$/.test(name)) {
+        kept.push(rule.trim());
+      }
+    }
+    if (kept.length) node.setAttribute('style', kept.join(';'));
     else node.removeAttribute('style');
   });
 }
+
+/**
+ * Editors such as Illustrator write colours as classes in a <style> block (`.st0{fill:none;stroke:#000}`). <style> is
+ * stripped for safety, which would turn every such icon into a black blob, so the simple `.class { fill / stroke }`
+ * rules are read from the raw text here and applied as presentation attributes after sanitizing.
+ */
+function readClassPaints(raw: string): Map<string, Record<string, string>> {
+  const map = new Map<string, Record<string, string>>();
+  for (const block of raw.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)) {
+    const css = block[1].replace(/\/\*[\s\S]*?\*\/|<!\[CDATA\[|\]\]>/g, '');
+    for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      const paints: Record<string, string> = {};
+      for (const decl of rule[2].split(';')) {
+        const [prop, ...rest] = decl.split(':');
+        const name = prop?.trim().toLowerCase();
+        const value = rest.join(':').replace(/!important/i, '').trim();
+        if (name && CLASS_PROPS.includes(name) && value && !/url\(/i.test(value)) paints[name] = value;
+      }
+      if (!Object.keys(paints).length) continue;
+      for (const selector of rule[1].split(',')) {
+        const match = selector.trim().match(/^(?:[a-z]+)?\.([\w-]+)$/i);
+        if (match) map.set(match[1], { ...map.get(match[1]), ...paints });
+      }
+    }
+  }
+  return map;
+}
+
+/** Value of fill / stroke for an element, inherited from the nearest ancestor that sets it. */
+function paintOf(el: Element, name: 'fill' | 'stroke'): string | undefined {
+  for (let node: Element | null = el; node; node = node.parentElement) {
+    const value = node.getAttribute(name)?.trim();
+    if (value) return value.toLowerCase();
+  }
+  return undefined;
+}
+
+const SHAPES = new Set(['path', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'rect']);
 
 const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -52,6 +107,25 @@ export async function sanitizeSvg(raw: string, uid: string): Promise<string | nu
   }) as HTMLElement;
   const svg = body?.querySelector?.('svg');
   if (!svg) return null;
+
+  // Colours the SVG kept in its <style> block (see readClassPaints), unless an inline style on the element wins.
+  const classPaints = readClassPaints(raw);
+  if (classPaints.size) {
+    for (const el of Array.from(svg.querySelectorAll('[class]'))) {
+      if (inlinePaint.has(el)) continue;
+      for (const name of (el.getAttribute('class') ?? '').split(/\s+/)) {
+        for (const [prop, value] of Object.entries(classPaints.get(name) ?? {})) el.setAttribute(prop, value);
+      }
+    }
+  }
+
+  // Stroke-only shapes (outline icons) get `cms-stroke`: the stylesheet colours them through `stroke` on hover and
+  // keeps them unfilled, instead of the `fill` rules turning the outline into a solid blob.
+  for (const el of Array.from(svg.querySelectorAll('*'))) {
+    if (!SHAPES.has(el.tagName.toLowerCase())) continue;
+    const stroke = paintOf(el, 'stroke');
+    if (stroke && stroke !== 'none' && paintOf(el, 'fill') === 'none') el.classList.add('cms-stroke');
+  }
 
   const width = parseFloat(svg.getAttribute('width') ?? '');
   const height = parseFloat(svg.getAttribute('height') ?? '');

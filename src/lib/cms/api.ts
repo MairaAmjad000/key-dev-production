@@ -19,6 +19,7 @@ import { adaptProcess } from './adapters/process';
 import { adaptClientReview } from './adapters/client-review';
 import { adaptTechnology } from './adapters/technology';
 import { adaptPortfolio } from './adapters/portfolio';
+import { fillServiceIcons } from './service-icons';
 import { adaptBlog } from './adapters/blog';
 import { adaptBlogPost } from './adapters/blog-post';
 import { adaptContact } from './adapters/contact';
@@ -47,9 +48,10 @@ export async function getSiteData(): Promise<SiteData> {
 }
 
 /** An inner page rendered from `GET {CMS_API_URL}/<path>`: the adapter fills the bundled page's sections, which are then sanitized. */
-async function innerPage<T>(path: string, adapt: (api: T, local: PageData) => PageData, local: PageData): Promise<PageData | null> {
+async function innerPage<T>(path: string, adapt: (api: T, local: PageData) => PageData, local: PageData, prepare?: (api: T) => Promise<void>): Promise<PageData | null> {
   const api = await requireFromCms<T>(path);
   if (!api) return null;
+  await prepare?.(api);
   const adapted = adapt(api, local);
   return { ...adapted, sections: await sanitizeDeep(adapted.sections) };
 }
@@ -77,7 +79,7 @@ export async function getPage(slug: string): Promise<PageData | null> {
     if (slug === 'how-we-work') return (await innerPage<ApiProcess>('pages/process', adaptProcess, local)) ?? local;
     if (slug === 'client-review') return (await innerPage<ApiClientReview>('pages/client-review', adaptClientReview, local)) ?? local;
     if (slug === 'technologies') return (await innerPage<ApiTechnology>('pages/technology', adaptTechnology, local)) ?? local;
-    if (slug === 'portfolio') return (await innerPage<ApiPortfolio>('pages/portfolio', adaptPortfolio, local)) ?? local;
+    if (slug === 'portfolio') return (await innerPage<ApiPortfolio>('pages/portfolio', adaptPortfolio, local, fillServiceIcons)) ?? local;
     if (slug === 'contact') return (await innerPage<ApiContact>('pages/contact', adaptContact, local)) ?? local;
     if (slug === 'blog') {
       // The Blog endpoint only sends the texts above the testimonials; the reviews are the Client Review page's.

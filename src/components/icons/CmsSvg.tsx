@@ -10,13 +10,20 @@ const PUBLIC_DIR = path.join(process.cwd(), 'public');
 const SVG_ATTEMPTS = 3;
 const SVG_TIMEOUT_MS = 8000;
 
-/** SVG text for an icon address: a file of /public, or a file served by the admin panel (same origin only). */
-async function readSvg(src: string): Promise<string | null> {
+type Read = { text: string | null; transient: boolean };
+const fail = (transient = false): Read => ({ text: null, transient });
+
+/**
+ * SVG text for an icon address: a file of /public, or a file served by the admin panel (same origin only).
+ * `transient` is true when the file could not be read for a passing reason (timeout, network error, 5xx, 429): the
+ * icon may well be fine a minute later, unlike a rejected host, a 404 or a file that is not an SVG.
+ */
+async function readSvg(src: string): Promise<Read> {
   try {
     if (src.startsWith('/') && !src.startsWith('//')) {
       const file = path.normalize(path.join(PUBLIC_DIR, src.split('?')[0]));
-      if (!file.startsWith(PUBLIC_DIR + path.sep)) return null; // no path traversal
-      return await readFile(file, 'utf8');
+      if (!file.startsWith(PUBLIC_DIR + path.sep)) return fail(); // no path traversal
+      return { text: await readFile(file, 'utf8'), transient: false };
     }
     // Only fetch from the admin panel's own host (plus hosts listed in CMS_ICON_HOSTS, e.g. a storage / CDN domain
     // the admin panel uploads to), so an icon value can never make the server call an arbitrary site.
@@ -33,11 +40,12 @@ async function readSvg(src: string): Promise<string | null> {
       });
     if (!allowed.includes(url.origin)) {
       console.warn(`[svg] ${url.origin} is not an allowed icon host, so ${src} stays a plain <img> (no hover colours). Add it to CMS_ICON_HOSTS.`);
-      return null;
+      return fail();
     }
     // Right after the admin panel publishes, its server is busy and a new upload may not be readable yet, so a timeout,
     // a 5xx or a 404 is retried a few times before the icon is given up (a given-up icon shows as a plain <img>, which
     // has no fill / hover styling, and stays that way until the page is rebuilt).
+    let transient = false;
     for (let attempt = 1; attempt <= SVG_ATTEMPTS; attempt++) {
       if (attempt > 1) await new Promise((resolve) => setTimeout(resolve, 600 * attempt));
       try {
@@ -47,26 +55,29 @@ async function readSvg(src: string): Promise<string | null> {
         });
         if (response.ok) {
           const text = await response.text();
-          return text.length > MAX_SVG_BYTES ? null : text;
+          return { text: text.length > MAX_SVG_BYTES ? null : text, transient: false };
         }
-        const retry = response.status >= 500 || response.status === 404 || response.status === 429;
-        console.warn(`[svg] ${src} answered ${response.status} (attempt ${attempt}/${SVG_ATTEMPTS})${retry && attempt < SVG_ATTEMPTS ? ', retrying' : ''}`);
-        if (!retry) return null;
+        // 404 is retried (a fresh upload may not be readable yet) but, if it stays 404, the file really is missing.
+        const passing = response.status >= 500 || response.status === 429;
+        transient = passing;
+        console.warn(`[svg] ${src} answered ${response.status} (attempt ${attempt}/${SVG_ATTEMPTS})${(passing || response.status === 404) && attempt < SVG_ATTEMPTS ? ', retrying' : ''}`);
+        if (!passing && response.status !== 404) return fail();
       } catch (error) {
+        transient = true;
         console.warn(`[svg] could not read ${src} (attempt ${attempt}/${SVG_ATTEMPTS})`, error);
       }
     }
-    console.error(`[svg] giving up on ${src}: it will render as a plain <img> (no fill / hover styling) until the page is rebuilt.`);
-    return null;
+    console.error(`[svg] giving up on ${src} (${transient ? 'temporary failure' : 'not found'}).`);
+    return fail(transient);
   } catch {
-    return null;
+    return fail();
   }
 }
 
 const load = cache(async (src: string) => {
   try {
-    const raw = await readSvg(src);
-    return raw ? await sanitizeSvg(raw, `i${createHash('md5').update(src).digest('hex').slice(0, 6)}`) : null;
+    const { text } = await readSvg(src);
+    return text ? await sanitizeSvg(text, `i${createHash('md5').update(src).digest('hex').slice(0, 6)}`) : null;
   } catch (error) {
     // Never let one icon break the page: the caller falls back to a plain <img>.
     console.error(`[svg] could not inline ${src}`, error);
@@ -82,6 +93,7 @@ const load = cache(async (src: string) => {
  */
 export async function CmsSvg({ src }: { src: string }) {
   const markup = await load(src);
+  // Whatever went wrong, the page is still built with the admin panel's latest content: a plain <img> never delays it.
   if (!markup) return <img className="cms-icon" src={src} alt="" />;
   return <span className="cms-svg" style={{ display: 'contents' }} dangerouslySetInnerHTML={{ __html: markup }} />;
 }
