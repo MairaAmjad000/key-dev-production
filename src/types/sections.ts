@@ -1076,6 +1076,8 @@ export interface PortfolioShowcaseItem {
     layout: 'single' | 'default' | 'opt2' | 'landscape';
     /** [main, one, two, three] (single uses only the first). */
     images: string[];
+    /** Alt text of the single picture (the device stacks are decorative and keep an empty alt). */
+    alt?: string;
   };
 }
 

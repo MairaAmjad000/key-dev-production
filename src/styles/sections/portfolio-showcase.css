@@ -574,3 +574,21 @@
     height: 100px;
   }
 }
+
+/* A project without a logo (the admin panel has none): the name and the line under it start at the left edge. */
+.portfolio-preview-main-logo.no-logo .portfolio-preview-main-logo-text {
+  padding-left: 0;
+}
+
+/* Single project picture: the same 430 x 560 box the bundled device pictures have. An uploaded picture of any shape
+   fills that box (cropped, never stretched) and shrinks proportionally on narrow screens. Only the single layout has
+   an <img> directly inside .portfolio-preview-thumb (the device stacks wrap theirs in a div). */
+.portfolio-preview-thumb > img {
+  display: block;
+  width: 100%;
+  max-width: 430px;
+  height: auto;
+  aspect-ratio: 430 / 560;
+  object-fit: cover;
+  margin: 0 auto;
+}

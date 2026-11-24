@@ -5,9 +5,9 @@ import { Icon } from '@/components/icons';
 const SEP_CLASS = { default: 'portfolio-preview-thumb-sep', opt2: 'portfolio-preview-thumb-sep-opt2', landscape: 'portfolio-preview-thumb-sep' };
 
 function Thumb({ item }: { item: PortfolioShowcaseItem }) {
-  const { layout, images } = item.thumb;
+  const { layout, images, alt } = item.thumb;
   if (layout === 'single') {
-    return <img src={images[0]} alt="" loading="lazy" />;
+    return images[0] ? <img src={images[0]} alt={alt ?? ''} loading="lazy" /> : null;
   }
   const portrait = layout === 'landscape' ? undefined : 'portrait';
   const mainClass = `portfolio-preview-thumb-main${layout === 'opt2' ? ' portfolio-preview-thumb-main-opt2' : ''}${layout === 'landscape' ? ' landscapescreen' : ''}`;
@@ -37,8 +37,8 @@ function Row({ item }: { item: PortfolioShowcaseItem }) {
           <div className="row align-items-center">
             <div className={`col-lg-6 col-md-12 col-sm-12 col-12${item.reverse ? ' order-lg-1' : ''}`}>
               <div className="portfolio-preview-content-box">
-                <div className="portfolio-preview-main-logo">
-                  <img src={logo.src} alt={logo.alt} width={logo.width} height={logo.height} className={logo.className} loading="lazy" />
+                <div className={`portfolio-preview-main-logo${logo.src ? '' : ' no-logo'}`}>
+                  {logo.src && <img src={logo.src} alt={logo.alt} width={logo.width} height={logo.height} className={logo.className} loading="lazy" />}
                   {item.logoText && (
                     <div className="portfolio-preview-main-logo-text">
                       <span className={`appname${item.logoText.nameClass ? ` ${item.logoText.nameClass}` : ''}`}>{item.logoText.name}</span>
@@ -48,11 +48,13 @@ function Row({ item }: { item: PortfolioShowcaseItem }) {
                   )}
                 </div>
                 {item.title && <h3>{item.title}</h3>}
-                <ul className="contentboxlist">
-                  {item.tags.map((tag) => (
-                    <li key={tag}>{tag}</li>
-                  ))}
-                </ul>
+                {item.tags.length > 0 && (
+                  <ul className="contentboxlist">
+                    {item.tags.map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
+                )}
                 {item.paragraphs.map((html, i) => (
                   <p key={i} dangerouslySetInnerHTML={{ __html: html }} />
                 ))}

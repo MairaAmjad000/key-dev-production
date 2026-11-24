@@ -250,3 +250,34 @@ export interface ApiTechnology {
   sections?: Maybe<ApiTechnologySections>;
 }
 
+
+/** GET /pages/portfolio: the admin panel's "Portfolio" page, rendered by the Portfolio page (/portfolio). */
+export interface ApiPortfolioSections {
+  hero?: Maybe<ApiToggle & {
+    title?: Maybe<string>; description?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>;
+    button_1_text?: Maybe<string>; button_1_url?: Maybe<string>; button_2_text?: Maybe<string>; button_2_url?: Maybe<string>;
+  }>;
+  /** Logo strip. The bundled portfolio page has no slot for it, so it is not rendered. */
+  banner?: Maybe<ApiToggle & { items?: Maybe<Array<{ image?: Maybe<string> }>> }>;
+  /** The projects, one row each. `service` is the category the project is filed under (it drives the filter bar). */
+  portfolio?: Maybe<ApiToggle & {
+    portfolios?: Maybe<Array<{
+      id: number; title?: Maybe<string>; slug?: Maybe<string>; tagline?: Maybe<string>; short_description?: Maybe<string>;
+      description?: Maybe<string>; project_url?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>; status?: Maybe<boolean>;
+      service?: Maybe<{ id: number; title?: Maybe<string>; slug?: Maybe<string> }>;
+    }>>;
+  }>;
+  /** The callout bar (typed words + button) before the testimonials. */
+  callout?: ApiHomeSections['callout'];
+  testimonials?: Maybe<NonNullable<ApiHomeSections['testimonials']>>;
+  /** Heading + a row of pictures: the "featured in" strip. */
+  our_work?: Maybe<ApiHead & { items?: Maybe<Array<{ image?: Maybe<string>; alt?: Maybe<string> }>> }>;
+  technologies?: Maybe<NonNullable<ApiHomeSections['technologies']>>;
+  blogs?: Maybe<NonNullable<ApiHomeSections['blogs']>>;
+}
+
+export interface ApiPortfolio {
+  page?: Maybe<string>;
+  seo?: Maybe<ApiSeo>;
+  sections?: Maybe<ApiPortfolioSections>;
+}
