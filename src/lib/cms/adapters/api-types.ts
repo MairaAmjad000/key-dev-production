@@ -137,7 +137,7 @@ export interface ApiHomeSections {
   blogs?: Maybe<ApiHead & {
     blogs?: Maybe<Array<{
       id: number; title?: Maybe<string>; slug?: Maybe<string>; short_description?: Maybe<string>; image?: Maybe<string>;
-      image_alt?: Maybe<string>; published_at?: Maybe<string>; status?: Maybe<boolean>;
+      image_alt?: Maybe<string>; published_at?: Maybe<string>; updated_at?: Maybe<string>; status?: Maybe<boolean>;
     }>>;
   }>;
 }
@@ -164,7 +164,7 @@ export interface ApiAboutSections {
   mission_vision?: Maybe<ApiHead & { items?: Maybe<Array<{ icon?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>> }>;
   values?: Maybe<ApiHead & { items?: Maybe<Array<{ icon?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>> }>;
   history?: Maybe<ApiHead & {
-    image?: Maybe<string>; image_alt?: Maybe<string>;
+    icon?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>;
     items?: Maybe<Array<{ year?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>>;
   }>;
   /** The callout bar (typed words + button) before the testimonials. */
@@ -189,7 +189,7 @@ export interface ApiProcessSections {
   }>;
   banner?: Maybe<ApiToggle & { items?: Maybe<Array<{ image?: Maybe<string> }>> }>;
   how_it_works?: Maybe<ApiHead & { button_text?: Maybe<string>; button_url?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string> }>;
-  process_steps?: Maybe<ApiHead & { items?: Maybe<Array<{ number?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>> }>;
+  process_steps?: Maybe<ApiHead & { items?: Maybe<Array<{ number?: Maybe<string>; icon?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>> }>;
   /** The callout bar (typed words + button) before the testimonials. */
   callout?: ApiHomeSections['callout'];
   testimonials?: Maybe<NonNullable<ApiHomeSections['testimonials']>>;
@@ -257,14 +257,14 @@ export interface ApiPortfolioSections {
     title?: Maybe<string>; description?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>;
     button_1_text?: Maybe<string>; button_1_url?: Maybe<string>; button_2_text?: Maybe<string>; button_2_url?: Maybe<string>;
   }>;
-  /** Logo strip. The bundled portfolio page has no slot for it, so it is not rendered. */
+  /** Logo strip under the hero (rendered as `brandLogos`). */
   banner?: Maybe<ApiToggle & { items?: Maybe<Array<{ image?: Maybe<string> }>> }>;
   /** The projects, one row each. `service` is the category the project is filed under (it drives the filter bar). */
   portfolio?: Maybe<ApiToggle & {
     portfolios?: Maybe<Array<{
       id: number; title?: Maybe<string>; slug?: Maybe<string>; tagline?: Maybe<string>; short_description?: Maybe<string>;
       description?: Maybe<string>; project_url?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>; status?: Maybe<boolean>;
-      service?: Maybe<{ id: number; title?: Maybe<string>; slug?: Maybe<string> }>;
+      service?: Maybe<{ id: number; title?: Maybe<string>; slug?: Maybe<string>; icon?: Maybe<string> }>;
     }>>;
   }>;
   /** The callout bar (typed words + button) before the testimonials. */

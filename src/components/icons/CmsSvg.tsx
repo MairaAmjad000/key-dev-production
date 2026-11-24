@@ -7,6 +7,8 @@ import { CMS_TAG } from '@/lib/cms/client';
 import { MAX_SVG_BYTES, sanitizeSvg } from '@/lib/utils/svg';
 
 const PUBLIC_DIR = path.join(process.cwd(), 'public');
+const SVG_ATTEMPTS = 3;
+const SVG_TIMEOUT_MS = 8000;
 
 /** SVG text for an icon address: a file of /public, or a file served by the admin panel (same origin only). */
 async function readSvg(src: string): Promise<string | null> {
@@ -33,16 +35,29 @@ async function readSvg(src: string): Promise<string | null> {
       console.warn(`[svg] ${url.origin} is not an allowed icon host, so ${src} stays a plain <img> (no hover colours). Add it to CMS_ICON_HOSTS.`);
       return null;
     }
-    const response = await fetch(url, {
-      next: { revalidate: cmsConfig.revalidateSeconds, tags: [CMS_TAG] },
-      signal: AbortSignal.timeout(5000),
-    });
-    if (!response.ok) {
-      console.warn(`[svg] ${src} answered ${response.status}, so it stays a plain <img> (no hover colours).`);
-      return null;
+    // Right after the admin panel publishes, its server is busy and a new upload may not be readable yet, so a timeout,
+    // a 5xx or a 404 is retried a few times before the icon is given up (a given-up icon shows as a plain <img>, which
+    // has no fill / hover styling, and stays that way until the page is rebuilt).
+    for (let attempt = 1; attempt <= SVG_ATTEMPTS; attempt++) {
+      if (attempt > 1) await new Promise((resolve) => setTimeout(resolve, 600 * attempt));
+      try {
+        const response = await fetch(url, {
+          next: { revalidate: cmsConfig.revalidateSeconds, tags: [CMS_TAG] },
+          signal: AbortSignal.timeout(SVG_TIMEOUT_MS),
+        });
+        if (response.ok) {
+          const text = await response.text();
+          return text.length > MAX_SVG_BYTES ? null : text;
+        }
+        const retry = response.status >= 500 || response.status === 404 || response.status === 429;
+        console.warn(`[svg] ${src} answered ${response.status} (attempt ${attempt}/${SVG_ATTEMPTS})${retry && attempt < SVG_ATTEMPTS ? ', retrying' : ''}`);
+        if (!retry) return null;
+      } catch (error) {
+        console.warn(`[svg] could not read ${src} (attempt ${attempt}/${SVG_ATTEMPTS})`, error);
+      }
     }
-    const text = await response.text();
-    return text.length > MAX_SVG_BYTES ? null : text;
+    console.error(`[svg] giving up on ${src}: it will render as a plain <img> (no fill / hover styling) until the page is rebuilt.`);
+    return null;
   } catch {
     return null;
   }

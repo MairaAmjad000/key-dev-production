@@ -11,7 +11,7 @@
  */
 import type { PageData, SectionBlock, SectionDataMap, SectionType } from '@/types';
 import type { ApiHome, ApiHomeSections } from './api-types';
-import { isOn, path, pick, toSeoMeta } from './common';
+import { formatDate, isOn, path, pick, toSeoMeta } from './common';
 
 type Mapper<K extends SectionType> = (api: ApiHomeSections, local: SectionDataMap[K]) => SectionDataMap[K] | null;
 
@@ -79,45 +79,45 @@ const about: Mapper<'about'> = ({ about: api, statistics }, local) => {
 };
 
 /**
- * Offerings: the five tab panels are fixed markup, so API item N fills panel N (extra items are not shown, panels
- * without an item are not rendered). Sub-service icon links inside a panel have no API field and are left out.
+ * Offerings: one tab and one panel per API item, however many the admin adds (the tab bar wraps when there are more
+ * than the design's five). The tab and panel ids are generated (`offering-1`, `offering-1-tab`, ...). Every picture
+ * takes the box of the first bundled one (458 x 399). Sub-service icon links inside a panel have no API field, so a
+ * panel has none.
  */
 const offerings: Mapper<'offerings'> = ({ offerings: api }, local) => {
   if (!api || !isOn(api)) return null;
-  const items = (api.items ?? []).slice(0, local.items.length);
+  const items = api.items ?? [];
   if (items.length === 0) return null;
-
-  const data: SectionDataMap['offerings'] = {
+  const tab = local.items[0]?.link;
+  const size = local.image;
+  return {
     ...local,
     text: str(api.small_title),
     heading: str(api.title),
     text2: str(api.description),
-    items: local.items.slice(0, items.length).map((tab, i) => ({
-      link: { ...tab.link, icon: str(items[i].icon), text: str(items[i].tab_title, items[i].title) },
+    items: items.map((item, i) => ({
+      link: {
+        ...tab,
+        className: i === 0 ? 'active' : undefined,
+        id: `offering-${i + 1}-tab`,
+        href: `#offering-${i + 1}`,
+        ariaControls: `offering-${i + 1}`,
+        icon: str(item.icon),
+        // The tab text is rendered as HTML (the bundled tabs wrap a word in a <span>), so the admin text is escaped.
+        text: escape(str(item.tab_title, item.title)),
+      },
+    })),
+    panels: items.map((item) => ({
+      image: { src: str(item.image), alt: str(item.title), width: size?.width, height: size?.height },
+      link: { href: str(item.button_link), text: str(item.title) },
+      subtitle: str(item.subtitle),
+      texts: (item.description ?? '').split(/\n{2,}/).map((text) => ({ text: text.trim() })).filter((part) => part.text),
+      subLinks: [],
+      button: { href: str(item.button_link), text: str(item.button_text) },
     })),
     items2: [], items3: [], items4: [],
     or: '',
   };
-  // Every tab image uses the box of the first (458 x 399) so all five panels keep the same size.
-  const first = (data as unknown as { image?: { width?: string; height?: string } }).image;
-  const panels = [
-    { image: 'image', link: 'link', sub: 'text3', texts: 'texts', button: 'link2' },
-    { image: 'image2', link: 'link3', sub: 'text4', texts: 'texts2', button: 'link5' },
-    { image: 'image3', link: 'link6', sub: 'text5', texts: 'texts3', button: 'link8' },
-    { image: 'image4', link: 'link9', sub: 'text6', texts: 'texts4', button: 'link10' },
-    { image: 'image5', link: 'link11', sub: 'text7', texts: 'texts5', button: 'link12' },
-  ] as const;
-  const out = data as unknown as Record<string, { src?: string; alt?: string; href?: string; text?: string; width?: string; height?: string } | string | Array<{ text: string }>>;
-  panels.forEach((panel, i) => {
-    const item = items[i] ?? {};
-    const image = out[panel.image] as { src: string; alt: string; width?: string; height?: string } | undefined;
-    if (image) out[panel.image] = { ...image, width: first?.width, height: first?.height, src: str(item.image), alt: str(item.title) };
-    out[panel.link] = { href: str(item.button_link), text: str(item.title) };
-    out[panel.sub] = str(item.subtitle);
-    out[panel.texts] = pick(item.description) ? (item.description as string).split(/\n{2,}/).map((text) => ({ text: text.trim() })).filter((part) => part.text) : [];
-    out[panel.button] = { href: str(item.button_link), text: str(item.button_text) };
-  });
-  return data;
 };
 
 const industries: Mapper<'industries'> = ({ industries: api }, local) => {
@@ -277,12 +277,9 @@ export function excerpt(text: string, max = 140): string {
   return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), 60)).replace(/[\s.,;:!?-]+$/, '')}\u2026`;
 }
 
-/** The home page shows a fixed row of three cards (the design has no room for more). */
-const HOME_BLOG_CARDS = 3;
-
 const blog: Mapper<'blog'> = ({ blogs: api }, local) => {
   if (!api || !isOn(api)) return null;
-  const list = (api.blogs ?? []).filter((item) => item.status !== false).slice(0, HOME_BLOG_CARDS);
+  const list = (api.blogs ?? []).filter((item) => item.status !== false);
   if (list.length === 0) return null;
   const template = local.items[0];
   return {
@@ -299,7 +296,8 @@ const blog: Mapper<'blog'> = ({ blogs: api }, local) => {
         },
         link: { href, text: str(item.title) },
         text: excerpt(plain(item.short_description)),
-        datePost: template?.datePost ?? '',
+        // The date the post was published (or last edited, if it was never published), as on the Blog page.
+        datePost: formatDate(item.published_at, item.updated_at),
         link2: { href, title: template?.link2.title ?? '' },
       };
     }),

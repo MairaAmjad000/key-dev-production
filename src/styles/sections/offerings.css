@@ -551,3 +551,9 @@
      padding: 0 0 0 25px
   }
 }
+
+/* Home offerings with more tabs than the design's five: wrap onto further lines instead of overflowing the pill. */
+#servicesTab.offerings-many {
+   flex-wrap: wrap;
+   border-radius: 40px
+}

@@ -17,7 +17,7 @@
 import type { BlogListContent, PageData, SectionBlock, SectionDataMap, SectionType } from '@/types';
 import type { ApiBlog, ApiBlogSections, ApiClientReviewSections, ApiHomeSections } from './api-types';
 import { SHARED_MAPPERS, excerpt, plain } from './home';
-import { html, isOn, path, pick, str, toSeoMeta } from './common';
+import { formatDate, html, isOn, path, pick, str, toSeoMeta } from './common';
 
 /** The reviews the testimonials block shows (the Blog endpoint only sends the texts above them). */
 type Reviews = NonNullable<ApiClientReviewSections['testimonials']>;
@@ -38,13 +38,7 @@ const categoryHero: Mapper<'categoryHero'> = ({ hero: api }, local) => {
   };
 };
 
-/** "June 19, 2023": the format of the bundled rows. An unpublished article shows the day it was last edited. */
-export function formatDate(...values: Array<string | null | undefined>): string {
-  const value = pick(...values);
-  const date = value ? new Date(value) : null;
-  if (!date || Number.isNaN(date.getTime())) return '';
-  return date.toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric', timeZone: 'UTC' });
-}
+export { formatDate };
 
 export const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 

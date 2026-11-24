@@ -49,9 +49,11 @@ const introContent: Mapper<'introContent'> = ({ how_it_works: api }, local) => {
 };
 
 /**
- * Process steps: numbered rows that alternate text / picture, with a sticky navigator of icons above them. The API has
- * no navigator icon, so step N takes the (decorative) icon of dummy step N; the navigator label is the step title and
- * the anchor ids are generated (`step-1`, `step-2`, ...). The section's `description` has no line in the design.
+ * Process steps: numbered rows that alternate text / picture, with a sticky navigator of icons above them. The
+ * navigator icon is the step's uploaded `icon` (an SVG is inlined so it takes the hover colours; any other image stays
+ * an <img>, see styles/base/cms-icons.css); a step without an icon shows an empty circle. The navigator label is the
+ * step title and the anchor ids are generated (`step-1`, `step-2`, ...). The section's `description` has no line in
+ * the design.
  */
 const processSteps: Mapper<'processSteps'> = ({ process_steps: api }, local) => {
   if (!api || !isOn(api)) return null;
@@ -68,7 +70,7 @@ const processSteps: Mapper<'processSteps'> = ({ process_steps: api }, local) => 
         id: `step-${i + 1}`,
         number: str(step.number),
         title,
-        icon: slot.icon,
+        icon: str(step.icon),
         navLabel: title,
         text: str(step.description),
         // Placement alternates like the dummy rows (text left / picture right, then the other way round).

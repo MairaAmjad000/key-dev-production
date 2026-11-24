@@ -120,12 +120,12 @@ const coreValues: Mapper<'coreValues'> = ({ values: api }, local) => {
   };
 };
 
-/** History: the year cards and the year strip are built from the same list. The corner glyph is fixed markup (one icon for every year). */
+/** History: the year cards and the year strip are built from the same list. The corner icon is the block's uploaded `icon` (one icon for every year card). */
 const historyTimeline: Mapper<'historyTimeline'> = ({ history: api }, local) => {
   if (!api || !isOn(api)) return null;
   const items = (api.items ?? []).filter((item) => pick(item.year) || pick(item.title));
   if (items.length === 0) return null;
-  const glyph = local.items[0]?.icon ?? '';
+  const glyph = str(api.icon);
   return {
     ...local,
     text: str(api.small_title),

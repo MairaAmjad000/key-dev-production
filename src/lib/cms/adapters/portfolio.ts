@@ -9,14 +9,13 @@
  * | API block      | Section             |
  * |----------------|---------------------|
  * | `hero`         | `categoryHero`      |
+ * | `banner`       | `brandLogos`        |
  * | `portfolio`    | `portfolioShowcase` |
  * | `callout`      | `callout`           |
  * | `testimonials` | `testimonials`      |
  * | `our_work`     | `featuredIn`        |
  * | `technologies` | `technologies`      |
  * | `blogs`        | `blog`              |
- *
- * The API's `banner` (a logo strip) has no counterpart on the dummy page, so it is not rendered.
  *
  * Projects (`portfolioShowcase`): one row per project, built on the layout of the dummy page's single-picture row.
  *
@@ -83,10 +82,10 @@ function paragraphsOf(value: Maybe<string>): string[] {
 }
 
 /** The category (service) of a project: a CSS class for the filter and the label of its tab. */
-function serviceOf(service: { id: number; title?: Maybe<string>; slug?: Maybe<string> } | null | undefined): { key: string; title: string } | null {
+function serviceOf(service: { id: number; title?: Maybe<string>; slug?: Maybe<string>; icon?: Maybe<string> } | null | undefined): { key: string; title: string; icon?: string } | null {
   const title = pick(service?.title);
   const name = cssName(service?.slug) || cssName(title) || cssName(String(service?.id ?? ''));
-  return title && name ? { key: `svc-${name}`, title } : null;
+  return title && name ? { key: `svc-${name}`, title, icon: pick(service?.icon) } : null;
 }
 
 const portfolioShowcase: Mapper<'portfolioShowcase'> = ({ portfolio: api }, local) => {
@@ -97,18 +96,26 @@ const portfolioShowcase: Mapper<'portfolioShowcase'> = ({ portfolio: api }, loca
   // The button keeps the label and classes of the dummy "View Website" button.
   const button = local.items.flatMap((item) => item.links ?? []).find((link) => link.text && link.className);
 
-  // Filter bar: "All" (a fixed label of the template) + one tab per service in order of appearance. The API has no tab
-  // icon, so tab N takes the (decorative) icon of dummy tab N.
+  // Filter bar: "All" (a fixed label of the template) + one tab per service in order of appearance. A tab's icon is the
+  // service's uploaded `icon` (an SVG is inlined so it takes the hover colours). A service the admin left without an
+  // icon takes the (decorative) icon of dummy tab N, so its tab is not left bare.
   const all = local.filters[0] ?? { label: 'All', filter: '*', icon: '' };
   const icons = local.filters.slice(1);
-  const services = new Map<string, string>();
+  const services = new Map<string, { title: string; icon?: string }>();
   for (const item of list) {
     const service = serviceOf(item.service);
-    if (service && !services.has(service.key)) services.set(service.key, service.title);
+    if (!service) continue;
+    const known = services.get(service.key);
+    if (!known) services.set(service.key, { title: service.title, icon: service.icon });
+    else if (!known.icon && service.icon) known.icon = service.icon;
   }
   const filters = [
     all,
-    ...[...services].map(([key, title], i) => ({ label: title, filter: `.${key}`, icon: (icons[i % Math.max(icons.length, 1)] ?? all).icon })),
+    ...[...services].map(([key, service], i) => ({
+      label: service.title,
+      filter: `.${key}`,
+      icon: service.icon ?? (icons[i % Math.max(icons.length, 1)] ?? all).icon,
+    })),
   ];
 
   return {
@@ -158,19 +165,20 @@ const featuredIn: Mapper<'featuredIn'> = ({ our_work: api }, local) => {
   };
 };
 
-/** Callout, testimonials, the tabbed technologies block and blog are the home page's blocks, so they reuse the home mappers. */
+/** The logo strip, callout, testimonials, the tabbed technologies block and blog are the home page's blocks, so they reuse the home mappers. */
 const shared = (api: ApiPortfolioSections): ApiHomeSections => ({
-  ...sharedHomeBlocks({ testimonials: api.testimonials, technologies: api.technologies, blogs: api.blogs }),
+  ...sharedHomeBlocks({ logos: api.banner, testimonials: api.testimonials, technologies: api.technologies, blogs: api.blogs }),
   callout: api.callout,
 });
 
+const brandLogos: Mapper<'brandLogos'> = (api, local) => SHARED_MAPPERS.brandLogos(shared(api), local);
 const callout: Mapper<'callout'> = (api, local) => SHARED_MAPPERS.callout(shared(api), local);
 const testimonials: Mapper<'testimonials'> = (api, local) => SHARED_MAPPERS.testimonials(shared(api), local);
 const technologies: Mapper<'technologies'> = (api, local) => SHARED_MAPPERS.technologies(shared(api), local);
 const blog: Mapper<'blog'> = (api, local) => SHARED_MAPPERS.blog(shared(api), local);
 
 const MAPPERS: { [K in SectionType]?: Mapper<K> } = {
-  categoryHero, portfolioShowcase, callout, testimonials, featuredIn, technologies, blog,
+  categoryHero, brandLogos, portfolioShowcase, callout, testimonials, featuredIn, technologies, blog,
 };
 
 export function adaptPortfolio(api: ApiPortfolio, local: PageData): PageData {

@@ -60,10 +60,23 @@ export interface AboutContent {
 }
 
 
+/** One tab panel of the offerings block (the tab itself is `OfferingsContent.items[i]`, which also gives the panel's ids). */
+export interface OfferingPanel {
+  image: { src: string; alt: string; width?: string; height?: string };
+  link: { href: string; text: string };
+  subtitle: string;
+  texts: Array<{ text: string }>;
+  /** Round icon links under the text (only some panels of the bundled design have them). */
+  subLinks: Array<{ href: string; icon: string; ariaLabel?: string; title?: string }>;
+  button: { href: string; text: string };
+}
+
 export interface OfferingsContent {
   text: string;
   heading: string;
   text2: string;
+  /** Any number of panels, one per tab. Absent in the bundled content, whose five panels are the flat fields below. */
+  panels?: OfferingPanel[];
   items: Array<{
     link: {
       className?: string;

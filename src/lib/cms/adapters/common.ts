@@ -100,3 +100,10 @@ export function internalHref(href: Maybe<string>): string | undefined {
   return aliases.find(([pattern]) => pattern.test(value.trim()))?.[1] ?? value;
 }
 
+/** "June 19, 2023": the format of the bundled rows. An unpublished article shows the day it was last edited. */
+export function formatDate(...values: Array<string | null | undefined>): string {
+  const value = pick(...values);
+  const date = value ? new Date(value) : null;
+  if (!date || Number.isNaN(date.getTime())) return '';
+  return date.toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric', timeZone: 'UTC' });
+}

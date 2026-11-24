@@ -4,6 +4,9 @@ import { after, NextResponse, type NextRequest } from 'next/server';
 import { cmsConfig } from '@/config/cms';
 import { CMS_TAG, getPageSlugs } from '@/lib/cms';
 
+/** How many pages are re-requested at the same time after a publish. */
+const WARM_CONCURRENCY = 4;
+
 /** Constant-time string comparison (lengths are compared first, which only leaks the length). */
 function safeEqual(a: string, b: string): boolean {
   const x = Buffer.from(a);
@@ -29,7 +32,11 @@ export async function POST(request: NextRequest) {
   const origin = request.nextUrl.origin;
   after(async () => {
     const slugs = await getPageSlugs();
-    await Promise.allSettled(slugs.map((slug) => fetch(`${origin}${slug === 'home' ? '/' : `/${slug}`}`, { cache: 'no-store' })));
+    // A few pages at a time: rebuilding every page at once makes each of them fetch its icons from the admin panel
+    // together, and the ones that time out would be cached with plain <img> icons (no fill / hover styling).
+    for (let i = 0; i < slugs.length; i += WARM_CONCURRENCY) {
+      await Promise.allSettled(slugs.slice(i, i + WARM_CONCURRENCY).map((slug) => fetch(`${origin}${slug === 'home' ? '/' : `/${slug}`}`, { cache: 'no-store' })));
+    }
   });
   return NextResponse.json({ ok: true, revalidatedAt: new Date().toISOString() });
 }

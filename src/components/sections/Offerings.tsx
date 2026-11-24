@@ -1,9 +1,29 @@
 import { Fragment } from 'react';
-import type { OfferingsContent } from '@/types';
+import type { OfferingPanel, OfferingsContent } from '@/types';
 import { Icon } from '@/components/icons';
 import { link } from '@/lib/utils/markup';
 
+/** The bundled content keeps its five panels in flat fields (image..image5, link..link12); this lists them as panels. */
+function bundledPanels(d: OfferingsContent): OfferingPanel[] {
+  const subLinks = (list: Array<{ link: { href: string; icon: string; ariaLabel?: string; title?: string } }>) =>
+    list.map(({ link: l }) => ({ href: l.href, icon: l.icon, ariaLabel: l.ariaLabel, title: l.title }));
+  return [
+    { image: d.image, link: d.link, subtitle: d.text3, texts: d.texts, subLinks: subLinks(d.items2), button: d.link2 },
+    { image: d.image2, link: d.link3, subtitle: d.text4, texts: d.texts2, subLinks: subLinks(d.items3), button: d.link5 },
+    { image: d.image3, link: d.link6, subtitle: d.text5, texts: d.texts3, subLinks: [], button: d.link8 },
+    { image: d.image4, link: d.link9, subtitle: d.text6, texts: d.texts4, subLinks: subLinks(d.items4), button: d.link10 },
+    { image: d.image5, link: d.link11, subtitle: d.text7, texts: d.texts5, subLinks: [], button: d.link12 },
+  ];
+}
+
+/** More tabs than the bundled design's five wrap onto a second line instead of running out of the pill (see offerings.css). */
+const BUNDLED_TABS = 5;
+
 export function Offerings({ data }: { data: OfferingsContent }) {
+  const panels = data.panels ?? bundledPanels(data);
+  // A panel needs its tab (which carries the ids the tab script links by) and a tab needs its panel.
+  const count = Math.min(panels.length, data.items.length);
+
   return (
     <section className="padding-60 bg-light">
       <div className="container">
@@ -22,8 +42,8 @@ export function Offerings({ data }: { data: OfferingsContent }) {
         </div>
         {' '}
         <div className="services-tabs">
-          <ul className="nav navbar-nav" id="servicesTab" role="tablist">
-            {data.items.map((item, i) => (
+          <ul className={`nav navbar-nav${count > BUNDLED_TABS ? ' offerings-many' : ''}`} id="servicesTab" role="tablist">
+            {data.items.slice(0, count).map((item, i) => (
               <Fragment key={i}>
                 {i > 0 && ' '}
                 <li>
@@ -48,274 +68,86 @@ export function Offerings({ data }: { data: OfferingsContent }) {
           </ul>
           {' '}
           <div className="tab-content" id="servicesTabContent">
-            <>{data.items.length > 0 && <div className="tab-pane fade show active" id="app" role="tabpanel" aria-labelledby="app-tab">
-              <div className="row align-items-center justify-content-center justify-content-lg-between">
-                <div className="col-12 col-lg-5 order-lg-1 text-center">
-                  <img
-                    loading="lazy"
-                    src={data.image.src}
-                    alt={data.image.alt}
-                    width={data.image.width}
-                    height={data.image.height}
-                  />
-                </div>
-                {' '}
-                <div className="col-12 col-lg-7">
-                  <div className="servicesTabContent_text">
-                    <h3>
-                      <a {...link(data.link.href)}>
-                        {data.link.text}
-                      </a>
-                    </h3>
-                    {' '}
-                    <span>
-                      {data.text3}
-                    </span>
-                    {' '}
-                    {data.texts.map((item, i) => (
-                      <Fragment key={i}>
-                        {i > 0 && ' '}
-                        <p>
-                          {item.text}
-                        </p>
-                      </Fragment>
-                    ))}
-                    {' '}
-                    <ul>
-                      {data.items2.map((item, i) => (
-                        <Fragment key={i}>
-                          {i > 0 && ' '}
-                          <li>
-                            <a
-                              className="waves-effect waves-light"
-                              aria-label={item.link.ariaLabel}
-                              title={item.link.title}
-                              {...link(item.link.href)}
-                            >
-                              {' '}
-                              <Icon name={item.link.icon} />
-                              {' '}
-                            </a>
-                          </li>
-                        </Fragment>
-                      ))}
+            {panels.slice(0, count).map((panel, i) => {
+              const tab = data.items[i].link;
+              return (
+                <Fragment key={tab.id}>
+                  {i > 0 && ' '}
+                  <div className={`tab-pane fade${i === 0 ? ' show active' : ''}`} id={tab.ariaControls} role="tabpanel" aria-labelledby={tab.id}>
+                    <div className="row align-items-center justify-content-center justify-content-lg-between">
+                      <div className="col-12 col-lg-5 order-lg-1 text-center">
+                        {panel.image.src && (i === 0 ? (
+                          <img
+                            loading="lazy"
+                            src={panel.image.src}
+                            alt={panel.image.alt}
+                            width={panel.image.width}
+                            height={panel.image.height}
+                          />
+                        ) : (
+                          <img className="lazy" src={panel.image.src} data-src={panel.image.src} decoding="async" alt={panel.image.alt} />
+                        ))}
+                      </div>
                       {' '}
-                      <li>
-                        <a
-                          className="btn-custome btn waves-effect waves-light"
-                          title=""
-                          {...link(data.link2.href)}
-                        >
-                          {data.link2.text}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>}</>
-            {' '}
-            <>{data.items.length > 1 && <div className="tab-pane fade" id="web" role="tabpanel" aria-labelledby="web-tab">
-              <div className="row align-items-center justify-content-center justify-content-lg-between">
-                <div className="col-12 col-lg-5 order-lg-1 text-center">
-                  <img className="lazy" src={data.image2.src} data-src={data.image2.src} decoding="async" alt={data.image2.alt} />
-                </div>
-                {' '}
-                <div className="col-12 col-lg-7">
-                  <div className="servicesTabContent_text">
-                    <h3>
-                      <a {...link(data.link3.href)}>
-                        {data.link3.text}
-                      </a>
-                    </h3>
-                    {' '}
-                    <span>
-                      {data.text4}
-                    </span>
-                    {' '}
-                    {data.texts2.map((item, i) => (
-                      <Fragment key={i}>
-                        {i > 0 && ' '}
-                        <p>
-                          {item.text}
-                        </p>
-                      </Fragment>
-                    ))}
-                    {' '}
-                    <ul>
-                      {data.items3.map((item, i) => (
-                        <Fragment key={i}>
-                          {i > 0 && ' '}
-                          <li>
-                            <a className="waves-effect waves-light" {...link(item.link.href)}>
-                              {' '}
-                              <Icon name={item.link.icon} />
-                              {' '}
+                      <div className="col-12 col-lg-7">
+                        <div className="servicesTabContent_text">
+                          <h3>
+                            <a {...link(panel.link.href)}>
+                              {panel.link.text}
                             </a>
-                          </li>
-                        </Fragment>
-                      ))}
-                      {' '}
-                      <li>
-                        <a
-                          className="btn-custome btn waves-effect waves-light"
-                          title=""
-                          {...link(data.link5.href)}
-                        >
-                          {data.link5.text}
-                        </a>
-                      </li>
-                    </ul>
+                          </h3>
+                          {' '}
+                          <span>
+                            {panel.subtitle}
+                          </span>
+                          {' '}
+                          {panel.texts.map((item, j) => (
+                            <Fragment key={j}>
+                              {j > 0 && ' '}
+                              <p>
+                                {item.text}
+                              </p>
+                            </Fragment>
+                          ))}
+                          {' '}
+                          <ul>
+                            {panel.subLinks.map((item, j) => (
+                              <Fragment key={j}>
+                                {j > 0 && ' '}
+                                <li>
+                                  <a
+                                    className="waves-effect waves-light"
+                                    aria-label={item.ariaLabel}
+                                    title={item.title}
+                                    {...link(item.href)}
+                                  >
+                                    {' '}
+                                    <Icon name={item.icon} />
+                                    {' '}
+                                  </a>
+                                </li>
+                              </Fragment>
+                            ))}
+                            {panel.subLinks.length > 0 && ' '}
+                            {panel.button.text && (
+                              <li>
+                                <a
+                                  className="btn-custome btn waves-effect waves-light"
+                                  title=""
+                                  {...link(panel.button.href)}
+                                >
+                                  {panel.button.text}
+                                </a>
+                              </li>
+                            )}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>}</>
-            {' '}
-            <>{data.items.length > 2 && <div className="tab-pane fade" id="ar-vr" role="tabpanel" aria-labelledby="ar-vr-tab">
-              <div className="row align-items-center justify-content-center justify-content-lg-between">
-                <div className="col-12 col-lg-5 order-lg-1 text-center">
-                  <img className="lazy" src={data.image3.src} data-src={data.image3.src} decoding="async" alt={data.image3.alt} />
-                </div>
-                {' '}
-                <div className="col-12 col-lg-7">
-                  <div className="servicesTabContent_text">
-                    <h3>
-                      <a {...link(data.link6.href)}>
-                        {data.link6.text}
-                      </a>
-                    </h3>
-                    {' '}
-                    <span>
-                      {data.text5}
-                    </span>
-                    {' '}
-                    {data.texts3.map((item, i) => (
-                      <Fragment key={i}>
-                        {i > 0 && ' '}
-                        <p>
-                          {item.text}
-                        </p>
-                      </Fragment>
-                    ))}
-                    {' '}
-                    <ul>
-                      <li>
-                        <a
-                          className="btn-custome btn waves-effect waves-light"
-                          title=""
-                          {...link(data.link8.href)}
-                        >
-                          {data.link8.text}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>}</>
-            {' '}
-            <>{data.items.length > 3 && <div className="tab-pane fade" id="game" role="tabpanel" aria-labelledby="game-tab">
-              <div className="row align-items-center justify-content-center justify-content-lg-between">
-                <div className="col-12 col-lg-5 order-lg-1 text-center">
-                  <img className="lazy" src={data.image4.src} data-src={data.image4.src} decoding="async" alt={data.image4.alt} />
-                </div>
-                {' '}
-                <div className="col-12 col-lg-7">
-                  <div className="servicesTabContent_text">
-                    <h3>
-                      <a {...link(data.link9.href)}>
-                        {data.link9.text}
-                      </a>
-                    </h3>
-                    {' '}
-                    <span>
-                      {data.text6}
-                    </span>
-                    {' '}
-                    {data.texts4.map((item, i) => (
-                      <Fragment key={i}>
-                        {i > 0 && ' '}
-                        <p>
-                          {item.text}
-                        </p>
-                      </Fragment>
-                    ))}
-                    {' '}
-                    <ul>
-                      {data.items4.map((item, i) => (
-                        <Fragment key={i}>
-                          {i > 0 && ' '}
-                          <li>
-                            <a
-                              className="waves-effect waves-light"
-                              title={item.link.title}
-                              {...link(item.link.href)}
-                            >
-                              {' '}
-                              <Icon name={item.link.icon} />
-                              {' '}
-                            </a>
-                          </li>
-                        </Fragment>
-                      ))}
-                      {' '}
-                      <li>
-                        <a
-                          className="btn-custome btn waves-effect waves-light"
-                          title=""
-                          {...link(data.link10.href)}
-                        >
-                          {data.link10.text}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>}</>
-            {' '}
-            <>{data.items.length > 4 && <div className="tab-pane fade" id="ui-ux" role="tabpanel" aria-labelledby="ui-ux-tab">
-              <div className="row align-items-center justify-content-center justify-content-lg-between">
-                <div className="col-12 col-lg-5 order-lg-1 text-center">
-                  <img className="lazy" src={data.image5.src} data-src={data.image5.src} decoding="async" alt={data.image5.alt} />
-                </div>
-                {' '}
-                <div className="col-12 col-lg-7">
-                  <div className="servicesTabContent_text">
-                    <h3>
-                      <a {...link(data.link11.href)}>
-                        {data.link11.text}
-                      </a>
-                    </h3>
-                    {' '}
-                    <span>
-                      {data.text7}
-                    </span>
-                    {' '}
-                    {data.texts5.map((item, i) => (
-                      <Fragment key={i}>
-                        {i > 0 && ' '}
-                        <p>
-                          {item.text}
-                        </p>
-                      </Fragment>
-                    ))}
-                    {' '}
-                    <ul>
-                      <li>
-                        <a
-                          className="btn-custome btn waves-effect waves-light"
-                          title=""
-                          {...link(data.link12.href)}
-                        >
-                          {data.link12.text}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>}</>
+                </Fragment>
+              );
+            })}
           </div>
         </div>
       </div>
