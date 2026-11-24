@@ -21,9 +21,13 @@ export function ContactInfo({ data }: { data: ContactInfoContent }) {
                   <div className="tool">{item.tool}</div>
                   {' '}
                   <div className="name">
-                    <a title={item.link.title} {...link(item.link.href)}>
-                      {item.link.text}
-                    </a>
+                    {item.link.href ? (
+                      <a title={item.link.title} {...link(item.link.href)}>
+                        {item.link.text}
+                      </a>
+                    ) : (
+                      <span title={item.link.title}>{item.link.text}</span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -39,7 +43,8 @@ export function ContactInfo({ data }: { data: ContactInfoContent }) {
               <Fragment key={i}>
                 {i > 0 && ' '}
                 <li>
-                  <a href={s.href} target="_blank" rel="noreferrer" className={s.iconClass}>
+                  <a href={s.href} target="_blank" rel="noreferrer" className={s.iconSrc ? 'contact-social-img' : s.iconClass} aria-label={s.label}>
+                    {s.iconSrc && <img className="cms-icon" src={s.iconSrc} alt="" loading="lazy" />}
                     <span>{s.label}</span>
                   </a>
                 </li>

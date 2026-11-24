@@ -80,6 +80,10 @@
   font-size: 14px;
   color: #6a6d6f;
 }
+.blog-post-body img {
+  max-width: 100%;
+  height: auto;
+}
 .blog-post-figure {
   margin: 25px 0;
 }

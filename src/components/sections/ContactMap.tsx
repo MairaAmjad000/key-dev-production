@@ -3,8 +3,11 @@ import type { ContactMapContent } from '@/types';
 
 /** Office tabs (photo + city) beside a Google Maps embed; tab switching is in public/scripts/contact-page.js. */
 export function ContactMap({ data }: { data: ContactMapContent }) {
+  // Office photos are the tab list. Without any (one map, no photos) the map simply fills the whole band.
+  const hasTabs = data.tabs.some((tab) => tab.image.src);
   return (
-    <section className="contact-map-main clearfix d-flex">
+    <section className={`contact-map-main clearfix d-flex${hasTabs ? '' : ' contact-map-single'}`}>
+      {hasTabs && (
       <ul className="map-tabs-nav">
         {data.tabs.map((tab, i) => (
           <Fragment key={tab.id}>
@@ -19,6 +22,7 @@ export function ContactMap({ data }: { data: ContactMapContent }) {
           </Fragment>
         ))}
       </ul>
+      )}
       {' '}
       <div className="map-tabs-iframe">
         {data.tabs.map((tab, i) => (

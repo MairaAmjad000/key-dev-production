@@ -296,3 +296,19 @@
 .st0 {
   fill: #FFFFFF;
 }
+
+/* Uploaded social icons (pictures) sit in the same 62 x 62 round-less box as the Font Awesome glyphs, 30 px big. */
+.contact-follow-us-section .header_social li a.contact-social-img img.cms-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+.contact-follow-us-section .header_social li a.contact-social-img:hover {
+  background-color: #008080;
+}
+
+/* One map and no office photos: the map fills the band (the photo column would otherwise set its height). */
+.contact-map-single .map-tabs-iframe {
+  width: 100%;
+  height: 480px;
+}

@@ -19,7 +19,7 @@ const digits = (value: string | null | undefined) => (value ?? '').replace(/[^\d
 /** API string or '' (never a bundled value). */
 const str = (...values: Array<string | null | undefined>) => pick(...values) ?? '';
 /** Admin panel descriptions can contain HTML (e.g. "<p>text</p>"); cards show plain text. */
-const plain = (value: string | null | undefined) =>
+export const plain = (value: string | null | undefined) =>
   (value ?? '')
     .replace(/<[^>]*>/g, ' ')
     .replace(/&nbsp;/g, ' ')
@@ -271,7 +271,7 @@ const technologies: Mapper<'technologies'> = ({ technologies: api }, local) => {
 };
 
 /** Same look as the reference cards: a short excerpt cut at a word boundary and closed with an ellipsis. */
-function excerpt(text: string, max = 140): string {
+export function excerpt(text: string, max = 140): string {
   if (text.length <= max) return text;
   const cut = text.slice(0, max);
   return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), 60)).replace(/[\s.,;:!?-]+$/, '')}\u2026`;

@@ -23,13 +23,24 @@ export function BlogPost({ data }: { data: BlogPostContent }) {
                 <div className="blog-list-author-date d-flex align-items-center">
                   <div className="blog-list-author-image-wrap d-flex align-items-center">
                     <div className="blog-list-author-image box-shadow">
-                      <img src={data.author.image.src} alt={data.author.image.alt} loading="lazy" />
+                      {data.author.image.src ? (
+                        <img src={data.author.image.src} alt={data.author.image.alt} loading="lazy" />
+                      ) : (
+                        <span className="blog-list-author-initial" aria-hidden="true">{data.author.name.trim().charAt(0).toUpperCase()}</span>
+                      )}
                     </div>
                     {' '}
-                    <a {...link(data.author.href)}>
-                      <span className="blog-post-by">{labels.by} </span>
-                      {data.author.name}
-                    </a>
+                    {data.author.href ? (
+                      <a {...link(data.author.href)}>
+                        <span className="blog-post-by">{labels.by} </span>
+                        {data.author.name}
+                      </a>
+                    ) : (
+                      <span className="blog-list-author-name">
+                        <span className="blog-post-by">{labels.by} </span>
+                        {data.author.name}
+                      </span>
+                    )}
                   </div>
                   {' '}
                   <span className="divider">|</span>

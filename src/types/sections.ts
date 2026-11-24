@@ -1150,8 +1150,8 @@ export interface ContactFormContent {
 }
 
 export interface ContactInfoContent {
-  items: Array<{ icon: string; tool: string; link: { href: string; text: string; title?: string } }>;
-  follow: { heading: string; items: Array<{ href: string; /** Font Awesome classes */ iconClass: string; label: string }> };
+  items: Array<{ icon: string; tool: string; /** Omitted href = plain text (an address) */ link: { href: string; text: string; title?: string } }>;
+  follow: { heading: string; items: Array<{ href: string; /** Font Awesome classes */ iconClass: string; label: string; /** An uploaded picture shown instead of the Font Awesome icon */ iconSrc?: string }> };
 }
 
 export interface ContactMapContent {

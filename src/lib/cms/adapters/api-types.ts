@@ -281,3 +281,52 @@ export interface ApiPortfolio {
   seo?: Maybe<ApiSeo>;
   sections?: Maybe<ApiPortfolioSections>;
 }
+
+/** GET /pages/blog: the admin panel's "Blog" page, rendered by the Blog page (/blog). */
+export interface ApiBlogPost {
+  id: number; title?: Maybe<string>; slug?: Maybe<string>; author?: Maybe<string>; author_image?: Maybe<string>;
+  image?: Maybe<string>; image_alt?: Maybe<string>; short_description?: Maybe<string>; published_at?: Maybe<string>;
+  updated_at?: Maybe<string>; status?: Maybe<boolean>; category?: Maybe<{ id: number; title?: Maybe<string>; slug?: Maybe<string> }>;
+  /** Full article, rich text. */
+  description?: Maybe<string>;
+  seo?: Maybe<ApiSeo>;
+}
+
+export interface ApiBlogSections {
+  hero?: Maybe<ApiToggle & { title?: Maybe<string>; description?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string> }>;
+  /** The articles (the list under the hero). */
+  blogs?: Maybe<ApiHead & { blogs?: Maybe<ApiBlogPost[]> }>;
+  /** The categories box of the sidebar. */
+  blog_categories?: Maybe<ApiHead & { blog_categories?: Maybe<Array<{ id: number; title?: Maybe<string>; slug?: Maybe<string> }>> }>;
+  /** The social links of the sidebar. */
+  latest_tweets?: Maybe<ApiToggle & { title?: Maybe<string>; twitter_url?: Maybe<string>; facebook_url?: Maybe<string> }>;
+  /** Only the texts above the testimonials; the reviews themselves come from GET /pages/client-review. */
+  client_reviews?: Maybe<ApiHead>;
+}
+
+export interface ApiBlog {
+  page?: Maybe<string>;
+  seo?: Maybe<ApiSeo>;
+  sections?: Maybe<ApiBlogSections>;
+}
+
+/** GET /pages/contact: the admin panel's "Contact" page, rendered by the Contact page (/contact). */
+export interface ApiContactSections {
+  hero?: Maybe<ApiToggle & { title?: Maybe<string>; sub_title?: Maybe<string>; description?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string> }>;
+  /** The "schedule a meeting" card beside the form. */
+  schedule?: Maybe<ApiToggle & {
+    title?: Maybe<string>; sub_title?: Maybe<string>; description?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>;
+    button_text?: Maybe<string>; button_url?: Maybe<string>;
+  }>;
+  /** The three boxes (email, phone, address ...): an uploaded icon, a title and a value. */
+  contact_information?: Maybe<ApiToggle & { items?: Maybe<Array<{ icon?: Maybe<string>; title?: Maybe<string>; value?: Maybe<string> }>> }>;
+  /** The "follow us" bar: an uploaded icon per network and its link. */
+  social_links?: Maybe<ApiToggle & { title?: Maybe<string>; items?: Maybe<Array<{ icon?: Maybe<string>; link?: Maybe<string> }>> }>;
+  map?: Maybe<ApiToggle & { map_url?: Maybe<string> }>;
+}
+
+export interface ApiContact {
+  page?: Maybe<string>;
+  seo?: Maybe<ApiSeo>;
+  sections?: Maybe<ApiContactSections>;
+}

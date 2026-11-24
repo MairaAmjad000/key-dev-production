@@ -28,10 +28,14 @@ export function BlogList({ data }: { data: BlogListContent }) {
                     <div className="blog-list-author-date d-flex align-items-center">
                       <div className="blog-list-author-image-wrap d-flex align-items-center">
                         <div className="blog-list-author-image box-shadow">
-                          <img src={item.author.image.src} alt={item.author.image.alt} loading="lazy" />
+                          {item.author.image.src ? (
+                            <img src={item.author.image.src} alt={item.author.image.alt} loading="lazy" />
+                          ) : (
+                            <span className="blog-list-author-initial" aria-hidden="true">{item.author.name.trim().charAt(0).toUpperCase()}</span>
+                          )}
                         </div>
                         {' '}
-                        <a {...link(item.author.href)}>{item.author.name}</a>
+                        {item.author.href ? <a {...link(item.author.href)}>{item.author.name}</a> : <span className="blog-list-author-name">{item.author.name}</span>}
                       </div>
                       {' '}
                       <span className="divider">|</span>
