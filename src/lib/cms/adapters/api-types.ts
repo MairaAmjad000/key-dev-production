@@ -336,7 +336,10 @@ interface ApiCategoryHead { eyebrow?: Maybe<string>; title?: Maybe<string>; desc
 
 /** GET /service-categories: every category with its services (also used for the page list and the service icons). */
 export interface ApiServiceCategoryList {
-  categories?: Maybe<Array<{ id: number; name?: Maybe<string>; slug?: Maybe<string>; icon?: Maybe<string>; services?: Maybe<Array<{ id: number; slug?: Maybe<string>; icon?: Maybe<string> }>> }>>;
+  categories?: Maybe<Array<{
+    id: number; name?: Maybe<string>; slug?: Maybe<string>; icon?: Maybe<string>;
+    services?: Maybe<Array<{ id: number; title?: Maybe<string>; slug?: Maybe<string>; icon?: Maybe<string>; status?: Maybe<boolean>; sort_order?: Maybe<number> }>>;
+  }>>;
 }
 
 export interface ApiServiceCategorySections {

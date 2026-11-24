@@ -37,12 +37,14 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 /** Settings, navigation and global blocks shared by every page. */
 export async function getSiteData(): Promise<SiteData> {
   if (!cmsConfig.apiUrl) return localSite;
-  const [layout, formOptions, globals] = await Promise.all([
+  const [layout, formOptions, globals, serviceCategories] = await Promise.all([
     requireFromCms<ApiLayout>('layout'),
     requireFromCms<ApiFormOptions>('form-options'),
     requireFromCms<ApiGlobalSections>('global-sections'),
+    // Feeds the navbar's Services dropdown; if it cannot be loaded the menu from /layout is used as it is.
+    fetchFromCms<ApiServiceCategoryList>('service-categories'),
   ]);
-  const site = adaptLayout(layout, formOptions, localSite);
+  const site = adaptLayout(layout, formOptions, localSite, serviceCategories);
   // Everything below came from the admin panel: strip scripts / handlers from its HTML before any component renders it.
   const { settings, ...content } = { ...site, globalSections: adaptGlobalSections(globals, localSite.globalSections, layout?.settings?.contact) };
   // `settings` (SEO fields, JSON-LD) is plain data that never reaches dangerouslySetInnerHTML, so it is left as sent.

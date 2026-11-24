@@ -7,7 +7,7 @@
  * uploaded logo or picture takes exactly the box of the placeholder it replaces.
  */
 import type { FooterContent, FormOption, FormsContent, HeaderContent, MenuItem, SiteData, SiteMenus, SiteSettings } from '@/types';
-import type { ApiFormOptions, ApiLayout, ApiMenuItem, Maybe } from './api-types';
+import type { ApiFormOptions, ApiLayout, ApiMenuItem, ApiServiceCategoryList, Maybe } from './api-types';
 import { escapeHtml, pick, toSeoMeta } from './common';
 
 const str = (...values: Array<Maybe<string>>) => pick(...values) ?? '';
@@ -217,10 +217,40 @@ export function adaptForms(api: Maybe<ApiFormOptions>, local: FormsContent): For
   };
 }
 
+/**
+ * The header's "Services" mega menu is built from GET /service-categories (each category with its services) instead of
+ * the handful of entries the admin menu holds: first level = category, second level = its active services.
+ * Only the mega-menu entry titled "Services" (or linking to /services) is replaced; when the list is missing or empty
+ * the menu from GET /layout stays as it was.
+ */
+export function applyServiceCategories(menus: SiteMenus, list: Maybe<ApiServiceCategoryList>): SiteMenus {
+  const categories = (list?.categories ?? []).filter((category) => pick(category.slug) && pick(category.name));
+  if (categories.length === 0) return menus;
+  let nextId = -1; // negative ids can never clash with the admin menu's ids
+  const children: MenuItem[] = categories.map((category) => {
+    const href = `/service-category/${category.slug}`;
+    return {
+      id: nextId--,
+      title: str(category.name),
+      url: href,
+      icon: pick(category.icon) ?? null,
+      isFluid: false,
+      target: '_self',
+      children: (category.services ?? [])
+        .filter((service) => service.status !== false && pick(service.title))
+        .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
+        // There is no page per service on this site: a service opens its category page.
+        .map((service) => ({ id: nextId--, title: str(service.title), url: href, icon: pick(service.icon) ?? null, isFluid: false, target: '_self', children: [] })),
+    };
+  });
+  const isServices = (item: MenuItem) => item.isFluid && (/^services?$/i.test(item.title.trim()) || /^\/?services?\/?$/i.test(item.url.trim()));
+  return { ...menus, header: menus.header.map((item) => (isServices(item) ? { ...item, children } : item)) };
+}
+
 /** Everything that comes from GET /layout and GET /form-options; the rest of `local` (markup-only blocks) is kept. */
-export function adaptLayout(layout: Maybe<ApiLayout>, formOptions: Maybe<ApiFormOptions>, local: SiteData): SiteData {
+export function adaptLayout(layout: Maybe<ApiLayout>, formOptions: Maybe<ApiFormOptions>, local: SiteData, serviceCategories?: Maybe<ApiServiceCategoryList>): SiteData {
   const settings = layout?.settings;
-  const menus = adaptMenus(layout?.menus);
+  const menus = applyServiceCategories(adaptMenus(layout?.menus), serviceCategories);
   const cookie = settings?.cookie;
   const top = settings?.header_top_bar;
   return {
