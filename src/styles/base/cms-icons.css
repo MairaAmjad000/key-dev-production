@@ -124,3 +124,24 @@ img.cms-icon {
    height: 40px;
    position: relative
 }
+
+/* Service category page: offer grid (55px), features (50px), why choose us (44px) and benefits (40px) icons */
+.game-service-offer-icon img.cms-icon {
+   width: 55px;
+   height: 55px
+}
+
+.web-advantages-icon img.cms-icon {
+   width: 50px;
+   height: 50px
+}
+
+.web-why-choose-inner-icon img.cms-icon {
+   width: 44px;
+   height: 44px
+}
+
+.why-you-invest-icon img.cms-icon {
+   width: 40px;
+   height: 40px
+}

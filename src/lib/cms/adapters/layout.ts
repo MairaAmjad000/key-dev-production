@@ -93,11 +93,14 @@ const SOCIAL_ICONS: Record<string, { title: string; className: string }> = {
   youtube: { title: 'Youtube', className: 'fab fa-youtube' },
 };
 
+/** A category link of the admin menu (/service-categories/<slug>) → the address of this site's category page. */
+const serviceCategoryHref = (href: string | undefined) => href?.replace(/^\/?service-categories\/([^/?#]+)\/?$/i, '/service-category/$1');
+
 function toMenuItems(items: Maybe<ApiMenuItem[]>): MenuItem[] {
   return (items ?? []).map((item) => ({
     id: item.id,
     title: item.title,
-    url: pick(item.url) ?? 'javascript:;',
+    url: serviceCategoryHref(pick(item.url)) ?? 'javascript:;',
     icon: pick(item.icon) ?? null,
     isFluid: item.is_fluid === true,
     target: pick(item.target) ?? '_self',

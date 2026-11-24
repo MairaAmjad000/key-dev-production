@@ -234,3 +234,30 @@ img.process-intro-image {
    aspect-ratio: 127 / 135;
    object-fit: contain
 }
+
+/*
+ * Service category page. Each picture keeps the box of the bundled one; an upload of any shape is cropped to fill it.
+ * Introduction picture: 470 x 500.
+ */
+.category-intro-img {
+   width: 470px;
+   max-width: 100%;
+   height: auto;
+   aspect-ratio: 470 / 500;
+   object-fit: cover
+}
+
+/* Offerings rows: 511 x 478 */
+.what-we-offer-main-listing-img img {
+   width: 511px;
+   max-width: 100%;
+   height: auto;
+   aspect-ratio: 511 / 478;
+   object-fit: cover
+}
+
+/* Frameworks tab picture: the bundled 250 x 250 illustrations are shown 150 px wide, so the box is 150 x 150 */
+.web-app-sev-lang-collapse .tab_content img {
+   height: 150px;
+   object-fit: contain
+}

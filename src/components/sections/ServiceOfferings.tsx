@@ -13,7 +13,7 @@ export function ServiceOfferings({ data }: { data: ServiceOfferingsContent }) {
   return (
     <section className="padding-60 bg-light what-we-offer-main">
       <div className="container">
-        <SectionTitle text={data.text} heading={data.heading} />
+        <SectionTitle text={data.text} heading={data.heading} paragraphs={data.text2 ? [data.text2] : []} />
       </div>
       {' '}
       <div className="what-we-offer-main-tabs">

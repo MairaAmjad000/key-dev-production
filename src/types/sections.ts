@@ -742,6 +742,8 @@ export interface IntroContentContent {
 export interface ServiceOfferingsContent {
   text: string;
   heading: string;
+  /** Optional intro line under the heading (HTML allowed). */
+  text2?: string;
   items: Array<{
     /** Anchor id; the sticky tab bar scrolls to it. */
     id: string;

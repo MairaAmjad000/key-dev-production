@@ -96,8 +96,11 @@ export function internalHref(href: Maybe<string>): string | undefined {
     [/^\/?(about|about-us|aboutus)\/?$/i, '/who-we-are'],
     [/^\/?(process|our-process|how-it-works)\/?$/i, '/how-we-work'],
     [/^\/?(technology|technologies)\/?$/i, '/technologies'],
+    // The admin panel calls a category page /service-categories/<slug>; this site serves it at /service-category/<slug>.
+    [/^\/?service-categories\/([^/?#]+)\/?$/i, '/service-category/$1'],
   ];
-  return aliases.find(([pattern]) => pattern.test(value.trim()))?.[1] ?? value;
+  const hit = aliases.find(([pattern]) => pattern.test(value.trim()));
+  return hit ? value.trim().replace(hit[0], hit[1]) : value;
 }
 
 /** "June 19, 2023": the format of the bundled rows. An unpublished article shows the day it was last edited. */

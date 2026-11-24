@@ -305,7 +305,7 @@ const blog: Mapper<'blog'> = ({ blogs: api }, local) => {
 };
 
 /** Mappers other API pages reuse (the inner pages show the same callout, testimonials, portfolio, technologies and blog blocks). */
-export const SHARED_MAPPERS = { brandLogos, callout, testimonials, portfolio, technologies, blog };
+export const SHARED_MAPPERS = { brandLogos, callout, process, testimonials, portfolio, technologies, blog };
 
 /** Home section type → mapper. `whatsAppAnchor` has no API section and always stays. */
 const MAPPERS: { [K in SectionType]?: Mapper<K> } = {

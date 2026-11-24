@@ -330,3 +330,58 @@ export interface ApiContact {
   seo?: Maybe<ApiSeo>;
   sections?: Maybe<ApiContactSections>;
 }
+
+/** Block heads of GET /service-categories/<slug>: the small label is called `eyebrow` there. */
+interface ApiCategoryHead { eyebrow?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string>; enabled?: Maybe<boolean>; status?: Maybe<boolean> }
+
+/** GET /service-categories: every category with its services (also used for the page list and the service icons). */
+export interface ApiServiceCategoryList {
+  categories?: Maybe<Array<{ id: number; name?: Maybe<string>; slug?: Maybe<string>; icon?: Maybe<string>; services?: Maybe<Array<{ id: number; slug?: Maybe<string>; icon?: Maybe<string> }>> }>>;
+}
+
+export interface ApiServiceCategorySections {
+  hero?: Maybe<ApiToggle & {
+    eyebrow?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string>;
+    button_text_1?: Maybe<string>; button_url_1?: Maybe<string>; button_text_2?: Maybe<string>; button_url_2?: Maybe<string>;
+  }>;
+  /** The client logo strip under the hero. */
+  banners?: Maybe<ApiToggle & { items?: Maybe<Array<{ image?: Maybe<string>; alt?: Maybe<string> }>> }>;
+  introduction?: Maybe<ApiCategoryHead & { button_text?: Maybe<string>; button_url?: Maybe<string>; image?: Maybe<string>; image_alt?: Maybe<string> }>;
+  services?: Maybe<ApiCategoryHead & {
+    items?: Maybe<Array<{ icon?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string>; button_text?: Maybe<string>; button_url?: Maybe<string> }>>;
+  }>;
+  offerings?: Maybe<ApiCategoryHead & {
+    items?: Maybe<Array<{
+      image?: Maybe<string>; image_alt?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string>; points?: Maybe<string[]>;
+      button_text?: Maybe<string>; button_url?: Maybe<string>;
+    }>>;
+  }>;
+  features?: Maybe<ApiCategoryHead & {
+    items?: Maybe<Array<{
+      icon?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string>; points?: Maybe<string[]>; button_text?: Maybe<string>; button_url?: Maybe<string>;
+    }>>;
+  }>;
+  benefits?: Maybe<ApiCategoryHead & {
+    subheading?: Maybe<string>; button_text?: Maybe<string>; button_url?: Maybe<string>;
+    items?: Maybe<Array<{ icon?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>>;
+  }>;
+  process?: Maybe<ApiCategoryHead & { items?: Maybe<Array<{ icon?: Maybe<string>; title?: Maybe<string>; points?: Maybe<string[]> }>> }>;
+  frameworks?: Maybe<ApiCategoryHead & {
+    items?: Maybe<Array<{ image?: Maybe<string>; image_alt?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string>; button_text?: Maybe<string>; button_url?: Maybe<string> }>>;
+  }>;
+  callout?: ApiHomeSections['callout'];
+  why_choose_us?: Maybe<ApiCategoryHead & { items?: Maybe<Array<{ icon?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string> }>> }>;
+  portfolio?: Maybe<ApiCategoryHead & { portfolios?: NonNullable<NonNullable<ApiHomeSections['portfolio']>['portfolios']> }>;
+  testimonials?: Maybe<ApiCategoryHead & { testimonials?: NonNullable<NonNullable<ApiHomeSections['testimonials']>['testimonials']> }>;
+  technologies?: Maybe<ApiCategoryHead & { technologies?: NonNullable<NonNullable<ApiHomeSections['technologies']>['technologies']> }>;
+  faq?: Maybe<ApiCategoryHead & { items?: Maybe<Array<{ question?: Maybe<string>; answer?: Maybe<string> }>> }>;
+}
+
+/** GET /service-categories/<slug>: one category page. */
+export interface ApiServiceCategory {
+  category?: Maybe<{ id?: number; name?: Maybe<string>; slug?: Maybe<string>; seo?: Maybe<ApiSeo>; sections?: Maybe<ApiServiceCategorySections> }>;
+  /** Latest articles; the `blog` section shows them under the head of the page's blog block. */
+  blogs?: NonNullable<NonNullable<ApiHomeSections['blogs']>['blogs']>;
+  /** Reviews of the category when the `testimonials` block does not carry its own. */
+  testimonials?: NonNullable<NonNullable<ApiHomeSections['testimonials']>['testimonials']>;
+}
