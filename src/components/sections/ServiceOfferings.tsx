@@ -19,7 +19,7 @@ export function ServiceOfferings({ data }: { data: ServiceOfferingsContent }) {
       <div className="what-we-offer-main-tabs">
         <div className="what-we-offer-main-slider-section bg-light d-none d-lg-block top-sticy">
           <div className="container">
-            <div className="what-we-offer-main-slider what-we-offer-main-item">
+            <div className={`what-we-offer-main-slider what-we-offer-main-item${data.items.length <= 5 ? ' few-items' : ''}`}>
               {data.items.map((item, i) => (
                 <div key={item.id} className={i === 0 ? 'what-we-offer-main-item-box active' : 'what-we-offer-main-item-box'}>
                   <a href={`#${item.id}`}>

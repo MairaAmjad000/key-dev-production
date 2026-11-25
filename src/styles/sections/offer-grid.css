@@ -67,3 +67,7 @@
 .game-service-offer-box:hover svg rect {
    fill: #fff
 }
+
+/* Cards sized by their content (service category pages): no fixed minimum height, and the cards of one row stay the same height. */
+.offer-grid-fit .row > [class*="col-"] { display: flex; flex-direction: column }
+.offer-grid-fit .game-service-offer-box.mhbox { min-height: 0; flex: 1 1 auto }

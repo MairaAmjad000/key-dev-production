@@ -47,7 +47,7 @@ function MenuFromCms({ items, data }: { items: MenuItem[]; data: HeaderContent }
                       <span className="mainmenuicon"><MenuIcon icon={group.icon} size={60} /></span>
                       {group.title}
                     </a>
-                    <ul className="sub-level2">
+                    {group.children.length > 0 && <ul className="sub-level2">
                       {group.children.map((child) => (
                         <li key={child.id}>
                           <a className="" {...link(child.url)} {...targetOf(child)}>
@@ -56,7 +56,7 @@ function MenuFromCms({ items, data }: { items: MenuItem[]; data: HeaderContent }
                           </a>
                         </li>
                       ))}
-                    </ul>
+                    </ul>}
                   </li>
                 ))}
               </ul>

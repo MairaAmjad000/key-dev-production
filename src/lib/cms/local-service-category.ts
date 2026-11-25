@@ -21,11 +21,10 @@ import advantageGrid from '../../../content/pages/service-category/game-developm
 import process from '../../../content/pages/service-category/game-development/sections/process.json';
 import faq from '../../../content/pages/service-category/game-development/sections/faq.json';
 import callout from '../../../content/pages/service-category/ui-ux-design/sections/callout.json';
-import whyInvest from '../../../content/pages/solutions/dating-app-development/sections/why-invest.json';
 
 /**
  * Order of the page. Section backgrounds alternate white / light down the page, so two neighbours never share one:
- * intro (white) > offerings (light) > services (white) > features (light) > process (white) > benefits (light) >
+ * intro (white) > offerings (light) > services (white) > features (light) > process (white) > benefits (light) > (slot N of SLOT_MAPPERS in adapters/service-category.ts matches slot N here) >
  * frameworks (white) > why choose us (light) > call-out bar > work (white) > reviews (light) > stack (white) > FAQ > blog (light).
  */
 export const SERVICE_CATEGORY_ORDER: SectionType[] = [
@@ -34,9 +33,9 @@ export const SERVICE_CATEGORY_ORDER: SectionType[] = [
   'introContent',
   'serviceOfferings',
   'offerGrid',
-  'advantageGrid',
+  'whyChoose', // features: "What Makes us the Best" layout
   'process',
-  'whyInvest',
+  'advantageGrid', // benefits: the "Advantages" grid layout
   'frameworkTabs',
   'whyChoose',
   'callout',
@@ -53,11 +52,9 @@ const templates: Partial<SectionDataMap> = {
   introContent,
   serviceOfferings,
   // The "What we deliver" cards sit between two light sections, so they are white.
-  offerGrid: { ...offerGrid, sectionClass: 'padding-60 bg-white game-service-offer-main' },
+  offerGrid: { ...offerGrid, sectionClass: 'padding-60 bg-white game-service-offer-main offer-grid-fit' },
   advantageGrid,
   process,
-  // Follows the white process section, so it is light.
-  whyInvest: { ...whyInvest, sectionClass: 'padding-6030 bg-light why-you-invest-main invest-erp-main' },
   frameworkTabs,
   whyChoose,
   callout,

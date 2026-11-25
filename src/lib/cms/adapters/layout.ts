@@ -218,29 +218,25 @@ export function adaptForms(api: Maybe<ApiFormOptions>, local: FormsContent): For
 }
 
 /**
- * The header's "Services" mega menu is built from GET /service-categories (each category with its services) instead of
- * the handful of entries the admin menu holds: first level = category, second level = its active services.
+ * The header's "Services" mega menu is built from GET /service-categories (the categories) instead of
+ * the handful of entries the admin menu holds: one entry per category (the services themselves are not listed).
  * Only the mega-menu entry titled "Services" (or linking to /services) is replaced; when the list is missing or empty
  * the menu from GET /layout stays as it was.
  */
 export function applyServiceCategories(menus: SiteMenus, list: Maybe<ApiServiceCategoryList>): SiteMenus {
   const categories = (list?.categories ?? []).filter((category) => pick(category.slug) && pick(category.name));
   if (categories.length === 0) return menus;
-  let nextId = -1; // negative ids can never clash with the admin menu's ids
-  const children: MenuItem[] = categories.map((category) => {
+  // Negative ids can never clash with the admin menu's ids.
+  const children: MenuItem[] = categories.map((category, i) => {
     const href = `/service-category/${category.slug}`;
     return {
-      id: nextId--,
+      id: -(i + 1),
       title: str(category.name),
       url: href,
       icon: pick(category.icon) ?? null,
       isFluid: false,
       target: '_self',
-      children: (category.services ?? [])
-        .filter((service) => service.status !== false && pick(service.title))
-        .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
-        // There is no page per service on this site: a service opens its category page.
-        .map((service) => ({ id: nextId--, title: str(service.title), url: href, icon: pick(service.icon) ?? null, isFluid: false, target: '_self', children: [] })),
+      children: [],
     };
   });
   const isServices = (item: MenuItem) => item.isFluid && (/^services?$/i.test(item.title.trim()) || /^\/?services?\/?$/i.test(item.url.trim()));

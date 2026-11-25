@@ -47,7 +47,7 @@ function MenuFromCms({ items, data }: { items: MenuItem[]; data: MobileMenuConte
             <ul className="cd-secondary-nav is-hidden">
               <li className="go-back"><a {...link('javascript:')}>{menuText}</a></li>
               {item.children.map((child) =>
-                item.isFluid ? (
+                item.isFluid && child.children.length > 0 ? (
                   <li key={child.id} className="has-children">
                     <a {...link('javascript:')}>{child.title}</a>
                     <ul className="is-hidden">

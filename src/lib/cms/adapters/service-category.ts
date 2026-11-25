@@ -139,9 +139,9 @@ const offerGrid: Mapper<'offerGrid'> = ({ sections: { services: api } }, local) 
 };
 
 /** The card has no slot for the bullet points, so they follow the text as short sentences. */
-const advantageGrid: Mapper<'advantageGrid'> = ({ sections: { features: api } }, local) => {
+const advantageGridFrom = (key: 'features' | 'benefits'): Mapper<'advantageGrid'> => ({ sections: { [key]: api } }, local) => {
   if (!api || !isOn(api)) return null;
-  const items = (api.items ?? []).filter((item) => pick(item.title)).map((item) => {
+  const items = ((api.items ?? []) as Array<{ icon?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string>; points?: Maybe<string[]> }>).filter((item) => pick(item.title)).map((item) => {
     const points = (item.points ?? []).map((point) => point.trim().replace(/[.\s]+$/, '')).filter(Boolean).map((point) => `${point}.`);
     return { icon: str(item.icon), title: str(item.title), text: escape([str(item.description), ...points].filter(Boolean).join(' ')) };
   });
@@ -159,21 +159,6 @@ const process: Mapper<'process'> = ({ sections: { process: api } }, local) => {
   return SHARED_MAPPERS.process({ process: { small_title: pick(api.eyebrow), title: api.title, description: api.description, items } }, local);
 };
 
-const whyInvest: Mapper<'whyInvest'> = ({ sections: { benefits: api } }, local) => {
-  if (!api || !isOn(api)) return null;
-  const items = (api.items ?? []).filter((item) => pick(item.title)).map((item) => ({ icon: str(item.icon), title: str(item.title), text: str(item.description) }));
-  if (items.length === 0) return null;
-  return {
-    ...local,
-    text: str(api.eyebrow),
-    heading: str(api.title),
-    text2: str(api.description),
-    items,
-    // The last cell: the sub heading with the button.
-    ctaBox: pick(api.button_text) ? { title: str(api.subheading), link: toLink(api.button_text, api.button_url) } : undefined,
-  };
-};
-
 /** The tab pictures keep the width of the bundled ones (150 px, see styles/base/api-image-fit.css). */
 const frameworkTabs: Mapper<'frameworkTabs'> = ({ sections: { frameworks: api } }, local) => {
   if (!api || !isOn(api)) return null;
@@ -187,12 +172,19 @@ const frameworkTabs: Mapper<'frameworkTabs'> = ({ sections: { frameworks: api } 
   return { ...local, text: str(api.eyebrow), heading: str(api.title), text2: str(api.description), items };
 };
 
-const whyChoose: Mapper<'whyChoose'> = ({ sections: { why_choose_us: api } }, local) => {
+/** The "What Makes us the Best" layout. It serves `features` (points are added to the text) and `why_choose_us`. */
+const whyChooseFrom = (key: 'features' | 'why_choose_us'): Mapper<'whyChoose'> => ({ sections }, local) => {
+  const api = sections[key];
   if (!api || !isOn(api)) return null;
-  const items = (api.items ?? []).filter((item) => pick(item.title)).map((item) => ({ icon: str(item.icon), title: str(item.title), text: str(item.description) }));
+  const items = ((api.items ?? []) as Array<{ icon?: Maybe<string>; title?: Maybe<string>; description?: Maybe<string>; points?: Maybe<string[]> }>).filter((item) => pick(item.title)).map((item) => {
+    const points = (item.points ?? []).map((point) => point.trim().replace(/[.\s]+$/, '')).filter(Boolean).map((point) => `${point}.`);
+    return { icon: str(item.icon), title: str(item.title), text: [str(item.description), ...points].filter(Boolean).join(' ') };
+  });
   if (items.length === 0) return null;
   return {
     ...local,
+    // `why_choose_us` sits right above the call-out bar, which is pulled up over the section above it: leave room for it.
+    ...(key === 'why_choose_us' ? { sectionClass: `${local.sectionClass ?? 'padding-60 bg-light web-why-choose-us-main'} why-choose-before-callout` } : {}),
     text: str(api.eyebrow),
     heading: str(api.title),
     paragraphs: paragraphsOf(api.description).map((text) => ({ html: html(text) })),
@@ -228,18 +220,20 @@ const testimonials: Mapper<'testimonials'> = (ctx, local) => SHARED_MAPPERS.test
 const technologies: Mapper<'technologies'> = (ctx, local) => SHARED_MAPPERS.technologies(shared(ctx), local);
 const blog: Mapper<'blog'> = (ctx, local) => SHARED_MAPPERS.blog(shared(ctx), local);
 
-const MAPPERS: { [K in SectionType]?: Mapper<K> } = {
-  categoryHero, brandLogos, introContent, serviceOfferings, offerGrid, advantageGrid, process, whyInvest,
-  frameworkTabs, whyChoose, callout, portfolio, testimonials, technologies, faq, blog,
-};
+/** One mapper per slot of SERVICE_CATEGORY_SLOTS (same order): the page may use one layout for two API blocks. */
+const SLOT_MAPPERS: Array<Mapper<SectionType>> = [
+  categoryHero, brandLogos, introContent, serviceOfferings, offerGrid,
+  whyChooseFrom('features'), process, advantageGridFrom('benefits'), frameworkTabs, whyChooseFrom('why_choose_us'),
+  callout, portfolio, testimonials, technologies, faq, blog,
+] as Array<Mapper<SectionType>>;
 
 /** `local` is the page template (local-service-category.ts); returns null when the API sent no category. */
 export function adaptServiceCategory(api: ApiServiceCategory, local: PageData, slug: string): PageData | null {
   const category = api.category;
   if (!category) return null;
   const ctx: Ctx = { sections: category.sections ?? {}, blogs: api.blogs, slug, name: str(category.name) };
-  const blocks = local.sections.flatMap((block): SectionBlock[] => {
-    const mapper = MAPPERS[block.type] as Mapper<SectionType> | undefined;
+  const blocks = local.sections.flatMap((block, i): SectionBlock[] => {
+    const mapper = SLOT_MAPPERS[i];
     // A section type without a mapper has no API data: it is left out rather than shown with dummy content.
     if (!mapper) return [];
     const data = mapper(ctx, block.data as never);
